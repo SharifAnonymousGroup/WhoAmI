@@ -1,0 +1,25 @@
+.container{
+    display: relative;
+    width: 500px;
+    margin: auto;
+}
+
+.chat_box{
+    width: 400px;
+    height: 450px;
+    display: relative;
+    margin: auto;
+    margin-top: 50px;
+    border-radius: 5px;
+    border: 2px solid black;
+    overflow: scroll;
+}
+
+.input_box{
+    width: 200px;
+    border: 2px solid black;
+    display: relative;
+    margin-left: 50px;
+    font-size: 14px;
+    border-radius: 5px;
+}
