@@ -1,0 +1,19 @@
+{
+  "name": "WhoAmI",
+  "version": "0.0.0",
+  "homepage": "https://github.com/SharifAnonymousGroup/WhoAmI",
+  "authors": [
+    "Iman Jami <iman.jami@gmail.com>",
+    "pooya <pooya.mosaddegh72@gmail.com>",
+    "milad ameri <milad.ameri73@gmail.com>",
+    "Mohammad Javad Rafiei <rafiei1373@gmail.com>",
+    "Kazem vs Amin Jun <hamidkazemi22@gmail.com>"
+  ],
+  "description": "only ui",
+  "license": "none",
+  "private": true,
+  "dependencies": {
+      "bootstrap-sass-official": "*",
+      "jquery": "*"
+  }
+}
