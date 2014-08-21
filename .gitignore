@@ -7,4 +7,4 @@
 *.pyc
 /db.sqlite3
 __pycache__/
-bower_components/**
+
