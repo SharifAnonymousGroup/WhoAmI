@@ -38,8 +38,10 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Chat',
     'django.contrib.admin',
+
+    'Chat',
+    'accounts',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -87,3 +89,6 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
+
+
+AUTH_USER_MODEL = 'accounts.Member'
