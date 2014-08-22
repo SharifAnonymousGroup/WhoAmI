@@ -15,7 +15,7 @@
     overflow: scroll;
 }
 
-.input_box{
+.chat_input{
     width: 200px;
     border: 2px solid black;
     display: relative;

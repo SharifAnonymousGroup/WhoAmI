@@ -8,4 +8,6 @@ urlpatterns = patterns('',
     # url(r'^$', 'WhoAmI.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
     url(r'^$', 'Chat.views.home', name='home'),
+    url(r'^send_message/$' , 'Chat.views.send_message'),
+
 )

@@ -2,16 +2,17 @@
 <html>
 <head>
     <title>chatting!</title>
-    <link href="{{ STATIC_URL }}Chat/css/chatting_styles.css" type="text/css" rel="stylesheet">
+
+    <link href="{{ STATIC_URL }}Chat/css/chatting_styles.css" type="text/css" rel="stylesheet"/>
 </head>
 <body>
     <div class="container">
         <h1 style="text-align: center; color: darkblue; padding-top: 10px">chatting</h1>
         <div class="chat_box"></div>
-        <input type="text" class="input_box"/>
+        <input type="text" class="chat_input"/>
     </div>
+    <script src="{{ STATIC_URL }}bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="{{ STATIC_URL }}Chat/java-script/chat.js"></script>
 
-    <script src="">
-    <script src="{{ STATIC_URL }}chat/java-script/chatjs.js"></script>
 </body>
 </html>
