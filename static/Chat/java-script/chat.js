@@ -7,7 +7,6 @@ $(document).ready(function () {
         if (event.keyCode == 13) {
             var message = $(this).val();
             if (message != ""){
-                console.log("zakhar");
 
                 send_message(message);
                 $(this).val("");
@@ -20,12 +19,13 @@ $(document).ready(function () {
 
 send_message = function (message) {
     $.ajax({
-        url: '/chat/send_message/',
+        url: '/chat/message_handler',
         method: 'GET',
         data: {
             message: message
-
+        },
+        success: function(response) {
+            console.log(message);
         }
     });
-
 }

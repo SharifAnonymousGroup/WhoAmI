@@ -1,5 +1,4 @@
-from httplib import HTTPResponse
-
+from django.http.response import HttpResponse
 from django.shortcuts import render
 
 
@@ -9,5 +8,7 @@ def home(request):
     return render(request, 'Chat/chat_test.html', {})
 
 
-def send_message(request):
-    return HTTPResponse('')
+def message_handler(request):
+    user = request.user;
+    message = request.GET.get('message');
+    return HttpResponse()
