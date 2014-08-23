@@ -9,6 +9,6 @@ def home(request):
 
 
 def message_handler(request):
-    user = request.user;
-    message = request.GET.get('message');
+
+    message = request.GET.get('message')
     return HttpResponse()

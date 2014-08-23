@@ -20,13 +20,14 @@ class Member(AbstractUser):
     credit = models.IntegerField()
     picture = models.ImageField(upload_to='Data/profile_pictures')
 
-class Game(Logged):
+class GameHistory(Logged):
     winner = models.ForeignKey('Member')
     players = ManyToManyField('Member', related_name='games', through='Result')
 
+
 class Result(models.Model):
     player = models.ForeignKey('Member', related_name='p')
-    game = models.ForeignKey('Game', related_name='g')
+    game = models.ForeignKey('GameHistory', related_name='g')
     rate = models.IntegerField()
     added_credit = models.IntegerField()
 
