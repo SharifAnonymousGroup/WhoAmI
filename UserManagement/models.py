@@ -17,11 +17,12 @@ class Logged(models.Model):
 
 
 class Member(AbstractUser):
-    age = models.IntegerField()
-    gender = models.CharField(max_length=1, choices=GENDER_CHOISES)
-    credit = models.IntegerField()
-    picture = models.ImageField(upload_to='Data/profile_pictures')
-
+    age = models.IntegerField(null=True)
+    gender = models.CharField(max_length=1, choices=GENDER_CHOISES, null=True)
+    credit = models.IntegerField(null=True)
+    picture = models.ImageField(upload_to='Data/profile_pictures', null=True)
+    def __unicode__(self):
+        return self.get_full_name()
 
 class GameHistory(Logged):
     winner = models.ForeignKey('Member')

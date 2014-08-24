@@ -5,7 +5,7 @@ from UserManagement.models import *
 
 
 class Player(models.Model):
-    member = models.ForeignKey('Member', related_name='player')
+    member = models.ForeignKey('UserManagement.Member', related_name='player')
     room = models.ForeignKey('Room', related_name='players')
     isAlive = models.IntegerField()
     score = models.IntegerField()
@@ -14,6 +14,6 @@ class Player(models.Model):
 class Room(models.Model):
     timeOfEachTurn = models.IntegerField()
     maxNumberOfPlayer = models.IntegerField()
-    creator = models.ForeignKey('Member')
-    url = models.CharField()
+    creator = models.ForeignKey('UserManagement.Member')
+    url = models.CharField(max_length=10)
     turn = models.IntegerField()

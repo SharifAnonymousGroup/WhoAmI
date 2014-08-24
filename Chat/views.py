@@ -5,10 +5,14 @@ from django.shortcuts import render
 # Create your views here.
 
 def home(request):
-    return render(request, 'Chat/chat_test.html', {})
+    return render(request, 'test/chat_test.html', {})
 
 
 def message_handler(request):
 
     message = request.GET.get('message')
     return HttpResponse()
+
+
+
+

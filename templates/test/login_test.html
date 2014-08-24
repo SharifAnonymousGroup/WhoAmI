@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="{{ STATIC_URL }}bower_components/semantic/build/packaged/css/semantic.min.css" rel="stylesheet" type="text/css">
+    <title>login!</title>
+</head>
+<body>
+<p>Validation messages use <a href="/collections/message.html">messages</a> which are formatted for use inside forms.
+</p>
+
+<div class="ui form segment">
+    <div class="field">
+        <label>Username</label>
+
+        <div class="ui left labeled icon input">
+            <input type="text" placeholder="Username">
+            <i class="user icon"></i>
+
+            <div class="ui corner label">
+                <i class="icon asterisk"></i>
+            </div>
+        </div>
+    </div>
+    <div class="field">
+        <label>Password</label>
+
+        <div class="ui left labeled icon input">
+            <input type="password">
+            <i class="lock icon"></i>
+
+            <div class="ui corner label">
+                <i class="icon asterisk"></i>
+            </div>
+        </div>
+    </div>
+    <div class="ui error message">
+        <div class="header">We noticed some issues</div>
+    </div>
+    <div class="ui blue submit button">Login</div>
+</div>
+
+<script src="{{ STATIC_URL }}bower_components/semantic/build/packaged/javascript/semantic.min.js"></script>
+</body>
+</html>
