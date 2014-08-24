@@ -18,3 +18,6 @@ def login_request(request):
         print "not correct"
         return render(request, 'test/login_test.html', {'error': True})
     return HttpResponse()
+
+def signup(request):
+    return render(request, 'test/signup_test.html')

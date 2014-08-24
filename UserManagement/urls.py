@@ -6,6 +6,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^login/$', 'UserManagement.views.login', name='login'),
-    url(r'^login_request/' , 'UserManagement.views.login_request', name = 'login_request')
+    url(r'^login_request/' , 'UserManagement.views.login_request', name = 'login_request'),
+    url(r'^signup', 'UserManagement.views.signup', name='signup'),
 
 )
