@@ -4,29 +4,54 @@
     <title></title>
     <link href="{{ STATIC_URL }}bower_components/semantic/build/packaged/css/semantic.min.css" rel="stylesheet"
           type="text/css"/>
+    <script src="{{ STATIC_URL }}bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="{{ STATIC_URL }}bower_components/semantic/build/packaged/javascript/semantic.min.js"></script>
 
 </head>
 <body>
-<p>This example also uses a different validation event. Each element will be validated on input blur instead of the
-    default form submit.</p>
 
-<div class="ui form segment">
-    <p>Let's go ahead and get you signed up.</p>
+
+<form class="ui form segment" action="/account/signup_request/" method="POST">
+    {% csrf_token %}
 
     <div class="two fields">
         <div class="field">
             <label>First Name</label>
-            <input placeholder="First Name" name="first-name" type="text">
+            <input placeholder="First Name" name="first_name" type="text">
         </div>
         <div class="field">
             <label>Last Name</label>
-            <input placeholder="Last Name" name="last-name" type="text">
+            <input placeholder="Last Name" name="last_name" type="text">
         </div>
     </div>
+    <div class="field">
+        <label>Age</label>
+        <input placeholder="Age" name="age" type="text" >
+    </div>
+    <div class="field">
+        <label>Email</label>
+        <input placeholder="Email" name="email" type="text">
+    </div>
+
     <div class="field">
         <label>Username</label>
         <input placeholder="Username" name="username" type="text">
     </div>
+    <div class="field">
+        <div class="ui selection dropdown">
+            <input type="hidden" name="gender">
+
+            <div class="default text">Gender</div>
+            <i class="dropdown icon"></i>
+
+            <div class="menu">
+                <div class="item" data-value="F">Male</div>
+                <div class="item" data-value="M">Female</div>
+                <div class="item" data-value="N">Not Known</div>
+            </div>
+        </div>
+    </div>
+
     <div class="field">
         <label>Password</label>
         <input type="password" name="password">
@@ -38,10 +63,8 @@
         </div>
     </div>
     <div class="ui blue submit button">Submit</div>
-</div>
+</form>
 
-<script src="{{ STATIC_URL }}bower_components/jquery/dist/jquery.min.js"></script>
-<script src="{{ STATIC_URL }}bower_components/semantic/build/packaged/javascript/semantic.min.js"></script>
 
 <script>
     $('.ui.form')
@@ -61,6 +84,15 @@
                         {
                             type: 'empty',
                             prompt: 'Please enter your last name'
+                        }
+                    ]
+                },
+                email: {
+                    identifier: 'email',
+                    rules: [
+                        {
+                            type: 'email',
+                            prompt: 'Please enter correct email address'
                         }
                     ]
                 },
@@ -96,6 +128,12 @@
                     ]
                 }
             })
+    ;
+    $('.ui.dropdown')
+            .dropdown()
+    ;
+    $('.ui.checkbox')
+            .checkbox()
     ;
 </script>
 

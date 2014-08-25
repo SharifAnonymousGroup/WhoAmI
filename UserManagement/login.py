@@ -3,6 +3,8 @@ from django.http.response import HttpResponse
 from django.shortcuts import render
 
 # Create your views here.
+from UserManagement.models import Member
+
 
 def login(request):
     return render(request, 'test/login_test.html', {})
@@ -19,5 +21,3 @@ def login_request(request):
         return render(request, 'test/login_test.html', {'error': True})
     return HttpResponse()
 
-def signup(request):
-    return render(request, 'test/signup_test.html')
