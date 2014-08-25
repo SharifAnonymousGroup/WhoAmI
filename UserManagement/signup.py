@@ -24,4 +24,4 @@ def signup_request(request):
         member = Member.objects.create_member(username=username, password=password, first_name=first_name,
                                               last_name=last_name, gender=gender, email=email, age=age)
         print "good"
-        return HttpResponse("YES THAT'S GOOD")
+        return HttpResponse()
