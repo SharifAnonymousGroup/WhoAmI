@@ -19,8 +19,7 @@ class Logged(models.Model):
 
 class MemberManager(UserManager):
     def create_member(self, age, gender, username, last_name, first_name, password, email):
-        if not username:
-            raise ValueError("You must have username")
+
         member = self.model(
             age=age, gender=gender, credit=0, username=username,
             last_name=last_name, first_name=first_name, email=email
@@ -30,14 +29,16 @@ class MemberManager(UserManager):
 
 
 class Member(AbstractUser):
-    age = models.IntegerField(null=True)
-    gender = models.CharField(max_length=1, choices=GENDER_CHOISES, null=True)
-    credit = models.IntegerField(null=True)
+    age = models.IntegerField()
+    gender = models.CharField(max_length=1, choices=GENDER_CHOISES)
+    credit = models.IntegerField()
     picture = models.ImageField(upload_to='Data/profile_pictures', null=True, blank=True)
     objects = MemberManager()
 
     def __unicode__(self):
         return self.get_full_name()
+
+
 
 
 class GameHistory(Logged):
