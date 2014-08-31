@@ -18,48 +18,52 @@
         <div class="field">
             <label>First Name</label>
 
-            <input placeholder="First Name" name="first_name" type="text">
+            {{ form.first_name }}
         </div>
         <div class="field">
             <label>Last Name</label>
-            <input placeholder="Last Name" name="last_name" type="text">
+            {{ form.last_name }}
         </div>
     </div>
     <div class="field">
         <label>Age</label>
-        <input placeholder="Age" name="age" type="text" >
+        {{ form.age }}
     </div>
     <div class="field">
         <label>Email</label>
-        <input placeholder="Email" name="email" type="text">
+        {{ form.email }}
     </div>
 
     <div class="field">
         <label>Username</label>
-        <input placeholder="Username" name="username" type="text">
+        {{ form.username }}
     </div>
     <div class="field">
         <div class="ui selection dropdown">
-            <input type="hidden" name="gender">
+            {{ form.gender }}
 
             <div class="default text">Gender</div>
             <i class="dropdown icon"></i>
 
             <div class="menu">
-                <div class="item" data-value="M">Male</div>
+
                 <div class="item" data-value="F">Female</div>
+                <div class="item" data-value="M">Male</div>
                 <div class="item" data-value="N">Not Known</div>
+
+
+
             </div>
         </div>
     </div>
 
     <div class="field">
         <label>Password</label>
-        <input type="password" name="password">
+        {{ form.password }}
     </div>
     <div class="inline field">
         <div class="ui checkbox">
-            <input type="checkbox" name="terms">
+            {{ form.term_accept }}
             <label>I agree to the Terms and Conditions</label>
         </div>
     </div>

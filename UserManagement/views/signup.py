@@ -1,27 +1,31 @@
 from django.http.response import HttpResponse
-
 from django.shortcuts import render
 
-from UserManagement.models import Member
+from UserManagement.forms import signup_form
+from UserManagement.forms.signup_form import *
 
 
 __author__ = 'garfild'
 
 
 def signup(request):
-    return render(request, 'test/signup_test.html')
+    form = SignupForm()
+    return render(request, 'test/signup_test.html', {'form': form})
 
 
 def signup_request(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        first_name = request.POST['first_name']
-        last_name = request.POST['last_name']
-        gender = request.POST['gender']
-        email = request.POST['email']
-        age = request.POST['age']
-        member = Member.objects.create_member(username=username, password=password, first_name=first_name,
-                                              last_name=last_name, gender=gender, email=email, age=age)
-        print "good"
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            username = cd['username']
+            password = cd['password']
+            first_name = cd['first_name']
+            last_name = cd['last_name']
+            gender = cd['gender']
+            email = cd['email']
+            age = cd['age']
+            Member.objects.create_member(username=username, password=password, first_name=first_name,
+                                         last_name=last_name, gender=gender, email=email, age=age)
+
         return HttpResponse()

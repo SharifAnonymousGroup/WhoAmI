@@ -1,6 +1,7 @@
-from argparse import _ChoicesPseudoAction
 from django import forms
-from UserManagement.models import GENDER_CHOISES, Member
+from django.forms.widgets import CheckboxInput
+
+from UserManagement.models import Member, GENDER_CHOISES
 
 
 class SignupForm(forms.Form):
@@ -9,6 +10,14 @@ class SignupForm(forms.Form):
     username = forms.CharField()
     email = forms.EmailField()
     age = forms.IntegerField(max_value=100)
-    gender = forms.CharField(max_length=1, choices=GENDER_CHOISES, widget=forms.ChoiceField)
-    password = forms.PasswordInput(widget=forms.PasswordInput)
-    confirm_password = forms.PasswordInput(widget=forms.PasswordInput)
+    gender = forms.ChoiceField(choices=GENDER_CHOISES)
+    password = forms.CharField(widget=forms.PasswordInput())
+    confirm_password = forms.CharField(widget=forms.PasswordInput())
+    term_accept = forms.BooleanField(widget=CheckboxInput())
+
+    class Meta:
+        model = Member
+        field = (
+            'first_name', 'last_name', 'username', 'email', 'age', 'gender', 'password', 'confirm_password',
+            'term_accept')
+
