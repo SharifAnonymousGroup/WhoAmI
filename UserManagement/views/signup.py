@@ -1,7 +1,6 @@
 from django.http.response import HttpResponse
 from django.shortcuts import render
 
-from UserManagement.forms import signup_form
 from UserManagement.forms.signup_form import *
 
 
@@ -14,8 +13,10 @@ def signup(request):
 
 
 def signup_request(request):
+    print 'salam'
     if request.method == 'POST':
         form = SignupForm(request.POST)
+        print form.errors
         if form.is_valid():
             cd = form.cleaned_data
             username = cd['username']
@@ -25,7 +26,9 @@ def signup_request(request):
             gender = cd['gender']
             email = cd['email']
             age = cd['age']
-            Member.objects.create_member(username=username, password=password, first_name=first_name,
-                                         last_name=last_name, gender=gender, email=email, age=age)
+            confirm_password = cd['confirm_password']
+            if password == confirm_password:
+                Member.objects.create_member(username=username, password=password, first_name=first_name,
+                                             last_name=last_name, gender=gender, email=email, age=age)
 
         return HttpResponse()

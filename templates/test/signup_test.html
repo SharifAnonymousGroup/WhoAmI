@@ -40,19 +40,15 @@
     </div>
     <div class="field">
         <div class="ui selection dropdown">
-            {{ form.gender }}
+            {{ gender.form }}
 
             <div class="default text">Gender</div>
             <i class="dropdown icon"></i>
 
             <div class="menu">
-
-                <div class="item" data-value="F">Female</div>
-                <div class="item" data-value="M">Male</div>
-                <div class="item" data-value="N">Not Known</div>
-
-
-
+                {% for x in form.gender %}
+                    <div class="item"> {{ x }} </div>
+                {% endfor %}
             </div>
         </div>
     </div>
@@ -60,6 +56,10 @@
     <div class="field">
         <label>Password</label>
         {{ form.password }}
+    </div>
+    <div class="field">
+        <label>Confirm Password</label>
+        {{ form.confirm_password }}
     </div>
     <div class="inline field">
         <div class="ui checkbox">
@@ -75,7 +75,7 @@
     $('.ui.form')
             .form({
                 firstName: {
-                    identifier: 'first-name',
+                    identifier: 'first_name',
                     rules: [
                         {
                             type: 'empty',
@@ -84,7 +84,7 @@
                     ]
                 },
                 lastName: {
-                    identifier: 'last-name',
+                    identifier: 'last_name',
                     rules: [
                         {
                             type: 'empty',
@@ -123,6 +123,20 @@
                         }
                     ]
                 },
+                confirm_password: {
+                    identifier: 'confirm_password',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Please enter your password again'
+                        },
+                        {
+                            type: 'match[password]',
+                            prompt: 'Your password does not match with above password'
+
+                        }
+                    ]
+                },
                 terms: {
                     identifier: 'terms',
                     rules: [
@@ -132,6 +146,9 @@
                         }
                     ]
                 }
+            },{
+                on: 'blur',
+                inline: 'true'
             })
     ;
     $('.ui.dropdown')
@@ -140,6 +157,7 @@
     $('.ui.checkbox')
             .checkbox()
     ;
+
 </script>
 
 

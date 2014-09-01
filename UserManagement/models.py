@@ -4,6 +4,7 @@ from django.db import models
 
 # Create your models here.
 from django.db.models.fields.related import *
+from django.utils.translation import override
 
 
 GENDER_CHOISES = (('F', 'Female'), ('M', 'Male'), ('N', 'Not known'))
@@ -19,11 +20,23 @@ class Logged(models.Model):
 
 class MemberManager(UserManager):
     def create_member(self, age, gender, username, last_name, first_name, password, email):
-
         member = self.model(
             age=age, gender=gender, credit=0, username=username,
             last_name=last_name, first_name=first_name, email=email
         )
+        member.set_password(password)
+        member.save()
+
+    def create_superuser(self, age, gender, username, last_name, first_name, password, email):
+
+        member = self.model(age=age,
+                            gender=gender,
+                            credit=0,
+                            username=username,
+                            last_name=last_name,
+                            first_name=first_name,
+                            email=email)
+        member.is_superuser = True
         member.set_password(password)
         member.save()
 
@@ -38,7 +51,8 @@ class Member(AbstractUser):
     def __unicode__(self):
         return self.get_full_name()
 
-
+    class Meta:
+        unique_together = ('email',)
 
 
 class GameHistory(Logged):
