@@ -30,5 +30,6 @@ def signup_request(request):
             if password == confirm_password:
                 Member.objects.create_member(username=username, password=password, first_name=first_name,
                                              last_name=last_name, gender=gender, email=email, age=age)
-
+        else:
+            form.errors
         return HttpResponse()
