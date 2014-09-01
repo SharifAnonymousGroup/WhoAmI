@@ -33,10 +33,12 @@ class MemberManager(UserManager):
                             username=username,
                             last_name=extra_fields['last_name'],
                             first_name=extra_fields['first_name'],
-                            email=email)
-        member.is_superuser = True
-        member.is_admin = True
+                            email=email,
+                            is_staff=True,
+                            is_superuser=True
+                            )
         member.set_password(password)
+
         member.save()
 
 
@@ -48,7 +50,7 @@ class Member(AbstractUser):
     objects = MemberManager()
 
     def __unicode__(self):
-        return self.get_full_name() + self.gender + self.password
+        return self.get_full_name() + " " + self.username
 
     class Meta:
         unique_together = ('email',)

@@ -18,6 +18,7 @@ def signup_request(request):
         form = SignupForm(request.POST)
         print form.errors
         if form.is_valid():
+            print "form is valid"
             cd = form.cleaned_data
             username = cd['username']
             password = cd['password']
@@ -28,8 +29,10 @@ def signup_request(request):
             age = cd['age']
             confirm_password = cd['confirm_password']
             if password == confirm_password:
+
                 Member.objects.create_member(username=username, password=password, first_name=first_name,
                                              last_name=last_name, gender=gender, email=email, age=age)
         else:
-            form.errors
+            print "the form is not valid"
+            print form.errors
         return HttpResponse()
