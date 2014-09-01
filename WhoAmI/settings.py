@@ -92,5 +92,6 @@ TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
 AUTH_USER_MODEL = 'UserManagement.Member'
 
 AUTHENTICATION_BACKENDS = (
-        'django.contrib.auth.backends.ModelBackend',
+    'django.contrib.auth.backends.RemoteUserBackend',
+    'django.contrib.auth.backends.ModelBackend',
 )
