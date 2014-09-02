@@ -1,7 +1,10 @@
-from django.core.mail import send_mail
-
+from django.core.mail.message import EmailMultiAlternatives
 from django.http.response import HttpResponse
+from django.template import Context
+
 from django.shortcuts import render
+
+from django.template.loader import get_template
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
 
 from UserManagement.forms.signup_form import *
@@ -36,16 +39,23 @@ def signup_request(request):
             age = cd['age']
             Member.objects.create_member(username=username, password=password, first_name=first_name,
                                          last_name=last_name, gender=gender, email=email, age=age)
-            signup_mail(first_name, email)
+            signup_mail(username, email)
         else:
             return render(request, 'test/signup_test.html', {'form': form})
 
     return HttpResponse()
 
 
-def signup_mail(name, email):
-    subject = "Welcome to Who Am I!"
-    message = "Hi " + name + "!\n" + "I glad to have good time with Who Am I."
-    send_mail(subject, message, MAIL,
-              [email], fail_silently=False)
-    pass
+def signup_mail(username, email):
+    plaintext = get_template('email_test/email.txt')
+
+    html = get_template('email_test/email.html')
+
+    d = Context({'username': username})
+
+    subject, from_email, to = 'hello', MAIL, email
+    text_content = plaintext.render(d)
+    html_content = html.render(d)
+    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
