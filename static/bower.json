@@ -13,8 +13,8 @@
   "license": "none",
   "private": true,
   "dependencies": {
-      "bootstrap-sass-official": "*",
+      "bootstrap": "*",
       "jquery": "*",
-	  "semantic-ui-sass": "*"
+	  "semantic": "*"
   }
 }

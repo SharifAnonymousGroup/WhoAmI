@@ -88,10 +88,14 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
 
-
 AUTH_USER_MODEL = 'UserManagement.Member'
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.RemoteUserBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'whoisme314@gmail.com'
+EMAIL_HOST_PASSWORD = 'usingnamespacestd'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
