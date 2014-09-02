@@ -11,11 +11,18 @@ def login(request):
 
 
 def login_request(request):
-    username = request.POST['username']
+    username_or_email = request.POST['username'] # it might be email so we check if the entry is email or username
+    username = ''
+    if '@' in username_or_email:
+        user = Member.objects.get(email=username_or_email)
+        if user is not None:
+            username = user.username
+    else:
+        username = username_or_email
     password = request.POST['password']
     user = auth.authenticate(username=username, password=password)
     if user is not None:
-        print "correct"
+        print "login was successful by " + user.username
     else:
         print "not correct"
         return render(request, 'test/login_test.html', {'error': True})
