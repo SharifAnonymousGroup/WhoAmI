@@ -16,6 +16,8 @@ class SignupForm(forms.Form):
     confirm_password = forms.CharField(widget=forms.PasswordInput())
     term_accept = forms.BooleanField(widget=CheckboxInput())
 
+
+
     def clean_username(self):
         username = self.cleaned_data["username"]
         if Member.objects.filter(username=username).exists():
