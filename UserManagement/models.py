@@ -4,6 +4,7 @@ from django.db import models
 
 # Create your models here.
 from django.db.models.fields.related import *
+from django.utils import timezone
 
 
 GENDER_CHOISES = (('F', 'Female'), ('M', 'Male'), ('N', 'Not known'))
@@ -38,7 +39,6 @@ class MemberManager(UserManager):
                             is_superuser=True
                             )
         member.set_password(password)
-
         member.save()
 
 
@@ -48,12 +48,20 @@ class Member(AbstractUser):
     credit = models.IntegerField()
     picture = models.ImageField(upload_to='Data/profile_pictures', null=True, blank=True)
     objects = MemberManager()
+    reset_password_code = models.CharField(max_length=40, null=True)
+    reset_password_expiredtime = models.TimeField(null=True)
 
     def __unicode__(self):
         return self.get_full_name() + " " + self.username
 
+    def reset_password_expired(self):
+        if self.reset_password_expiredtime < timezone.now().time():
+            return False
+        return True
+
     class Meta:
         unique_together = ('email',)
+
 
 
 class GameHistory(Logged):

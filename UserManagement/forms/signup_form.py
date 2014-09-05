@@ -11,19 +11,17 @@ class SignupForm(forms.Form):
     username = forms.CharField()
     email = forms.EmailField()
     age = forms.IntegerField(max_value=100)
-    gender = forms.ChoiceField(widget=forms.RadioSelect, choices=GENDER_CHOISES)
+    gender = forms.ChoiceField(choices=GENDER_CHOISES)
     password = forms.CharField(widget=forms.PasswordInput())
     confirm_password = forms.CharField(widget=forms.PasswordInput())
     term_accept = forms.BooleanField(widget=CheckboxInput())
-
-
 
     def clean_username(self):
         username = self.cleaned_data["username"]
         if Member.objects.filter(username=username).exists():
             raise ValidationError("username already exists.")
         if "@" in username:
-            raise ValidationError("username must not has @ sign")
+            raise ValidationError("username can't contain '@' character")
         return username
 
     def clean_email(self):
@@ -35,9 +33,7 @@ class SignupForm(forms.Form):
     def clean(self):
         cd = self.cleaned_data
         if cd['password'] != cd['confirm_password']:
-            self._errors['password'] = "password don't match"
-            cd['confirm_password'] = ""
-            cd['password'] = ""
+            self._errors['password'] = "passwords don't match"
         return cd
 
 

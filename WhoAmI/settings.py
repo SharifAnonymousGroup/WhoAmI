@@ -99,3 +99,6 @@ EMAIL_HOST_USER = 'whoisme314@gmail.com'
 EMAIL_HOST_PASSWORD = 'usingnamespacestd'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+
+SITE_URL = 'localhost:8000'

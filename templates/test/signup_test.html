@@ -41,14 +41,13 @@
     </div>
     <div class="field">
         <div class="ui selection dropdown">
-            {{ gender.form }}
 
             <div class="default text">Gender</div>
             <i class="dropdown icon"></i>
-
             <div class="menu">
-                {% for x in form.gender %}
-                    <div class="item"> {{ x }} </div>
+                {{ form.gender }}
+                {% for x in form.gender.field.choices %}
+                    <div class="item" value="{{ x.0 }}"> {{ x.1 }} </div>
                 {% endfor %}
             </div>
         </div>
@@ -111,6 +110,16 @@
                         }
                     ]
                 },
+                age: {
+                    identifier: 'age',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Please enter your age'
+                        }
+                    ]
+                },
+
                 password: {
                     identifier: 'password',
                     rules: [

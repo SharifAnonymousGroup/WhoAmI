@@ -41,15 +41,17 @@ def signup_request(request):
                                          last_name=last_name, gender=gender, email=email, age=age)
             signup_mail(username, email)
         else:
+            form.cleaned_data['password'] = ""
+            form.cleaned_data['confirm_password'] = ""
             return render(request, 'test/signup_test.html', {'form': form})
-
-    return HttpResponse()
+        return HttpResponse('You registered successfully')
+    else:
+        return HttpResponse('Your request method was not POST')
 
 
 def signup_mail(username, email):
-    plaintext = get_template('email_test/email.txt')
-
-    html = get_template('email_test/email.html')
+    plaintext = get_template('email_test/registration_mail.txt')
+    html = get_template('email_test/registration_mail.html')
 
     d = Context({'username': username})
 
@@ -59,3 +61,4 @@ def signup_mail(username, email):
     msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
     msg.attach_alternative(html_content, "text/html")
     msg.send()
+    print 'mail was sent!'
