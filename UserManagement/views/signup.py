@@ -8,6 +8,7 @@ from django.template.loader import get_template
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
 
 from UserManagement.forms.signup_form import *
+from Utils.send_mail.asynchronous_send_mail import send_mail
 
 
 __author__ = 'garfild'
@@ -39,7 +40,11 @@ def signup_request(request):
             age = cd['age']
             Member.objects.create_member(username=username, password=password, first_name=first_name,
                                          last_name=last_name, gender=gender, email=email, age=age)
-            signup_mail(username, email)
+
+            send_mail('Welcome to Who Am I', MAIL, [email],
+                      'email_test/registration_mail.txt',
+                      'email_test/registration_mail.html',
+                      {'username': username})
         else:
             form.cleaned_data['password'] = ""
             form.cleaned_data['confirm_password'] = ""
@@ -49,16 +54,3 @@ def signup_request(request):
         return HttpResponse('Your request method was not POST')
 
 
-def signup_mail(username, email):
-    plaintext = get_template('email_test/registration_mail.txt')
-    html = get_template('email_test/registration_mail.html')
-
-    d = Context({'username': username})
-
-    subject, from_email, to = 'hello', MAIL, email
-    text_content = plaintext.render(d)
-    html_content = html.render(d)
-    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-    msg.attach_alternative(html_content, "text/html")
-    msg.send()
-    print 'mail was sent!'

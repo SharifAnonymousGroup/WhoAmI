@@ -1,16 +1,19 @@
 from datetime import timedelta
 import urllib
-from django.contrib.sites.models import Site
+import random
+import string
+
 from django.core.mail.message import EmailMultiAlternatives
 from django.template.context import Context
 from django.template.loader import get_template
 from django.utils import timezone
-import random
-import string
 from django.http.response import HttpResponse
 from django.shortcuts import render
+
 from UserManagement.models import Member
+from Utils.send_mail.asynchronous_send_mail import send_mail
 from WhoAmI import settings
+
 
 __author__ = 'garfild'
 MAIL = "whoisme314@gmail.com"
@@ -40,7 +43,11 @@ def forget_password_request(request):
                 "user": user.username,
             })
             url = settings.SITE_URL + "/account/reset_password/?" + params
-            reset_password_mail(user.username, url, user.email)
+            send_mail('reset your password', MAIL, [user.email],
+                      'email_test/reset_password_mail.txt',
+                      'email_test/reset_password_mail.html',
+                      {'username': user.username, 'url': url})
+            return HttpResponse('reset password mail was sent to your mail!')
         except Member.DoesNotExist:
             return render(request, 'test/forget_password_test.html', {'error': True})
 
@@ -49,19 +56,10 @@ def forget_password_request(request):
     else:
         return HttpResponse("Your request is not POST")
 
+
 def generate_code():
     chars = string.ascii_letters + string.digits
     size = 30
     return ''.join(random.choice(chars) for _ in range(size))
 
-def reset_password_mail(username, url, email):
-    plaintext = get_template('email_test/reset_password_mail.txt')
-    html = get_template('email_test/reset_password_mail.html')
-    d = Context({'username': username, 'url': url})
-    subject, from_email, to = 'reset your password', MAIL, email
-    text_content = plaintext.render(d)
-    html_content = html.render(d)
-    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-    msg.attach_alternative(html_content, "text/html")
-    msg.send()
-    print 'mail was sent!'
+
