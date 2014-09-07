@@ -2,7 +2,8 @@
 <html>
 <head lang="en">
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}usermanagement/scss/homepage.css">
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}usermanagement/bower_components/semantic-ui/build/packaged/css/semantic.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="{{ STATIC_URL }}usermanagement/bower_components/semantic-ui/build/packaged/css/semantic.min.css">
     <meta charset="UTF-8">
     <title>Who Am I</title>
 </head>
@@ -22,51 +23,52 @@
 
 <div class="main-page-disc">
     <p id="error">Who <span>&nbsp; Am </span>&nbsp; I</p>
+
     <p id="night-keeping">Now is the time you start NIGHTKEEPING with WhoAmI</p>
 </div>
 
 <div class="ui left black styled sidebar menu" id="left-sidebar">
-    <form action="https://google.com" method="POST" id="form-signup" class="ui form">
+    <form action="/account/signup_request/" method="POST" id="form-signup" class="ui form">
 
 
         <div class="item margin-login">
-            <div class="ui left icon input" >
-                <input placeholder="First Name" type="text" id="firstname-signup" name="first_name">
+            <div class="ui left icon input" id="firstname-signup">
+                {{ form.first_name }}
                 <i class="user icon"></i>
             </div>
         </div>
 
         <div class="item margin-login">
-            <div class="ui left icon input" >
-                <input placeholder="Last Name" type="text" id="lastname-signup">
+            <div class="ui left icon input" id="lastname-signup">
+                {{ form.last_name }}
+                <i class="user icon"></i>
+            </div>
+        </div>
+
+        <div class="item margin-login" id="age-signup">
+            <div class="ui left icon input">
+                {{ form.age }}
+                <i class="user icon"></i>
+            </div>
+        </div>
+        <div class="item margin-login">
+            <div class="ui left icon input" id="username-signup">
+                {{ form.username }}
+                <i class="user icon"></i>
+            </div>
+        </div>
+
+
+        <div class="item margin-login">
+            <div class="ui left icon input" id="password-signup">
+                {{ form.password }}
                 <i class="user icon"></i>
             </div>
         </div>
 
         <div class="item margin-login">
-            <div class="ui left icon input" >
-                <input placeholder="Age" type="text" id="age-signup">
-                <i class="user icon"></i>
-            </div>
-        </div>
-        <div class="item margin-login">
-            <div class="ui left icon input" >
-                <input placeholder="Email / Username" type="text" id="username-signup" >
-                <i class="user icon"></i>
-            </div>
-        </div>
-
-
-        <div class="item margin-login">
-            <div class="ui left icon input" >
-                <input placeholder="Password" type="text" id="password-signup" >
-                <i class="user icon"></i>
-            </div>
-        </div>
-
-        <div class="item margin-login">
-            <div class="ui left icon input" >
-                <input placeholder="Confirm Password" type="text" id="confirmpassword-signup" >
+            <div class="ui left icon input" id="confirmpassword-signup">
+                {{ form.confirm_password }}
                 <i class="user icon"></i>
             </div>
         </div>
@@ -75,36 +77,36 @@
         <div class="item margin-login black" style="width:100%">
             <div class="ui selection fluid dropdown">
                 <input name="gender" type="hidden">
+
                 <div class="default text">Gender</div>
                 <i class="dropdown icon"></i>
+
                 <div class="menu">
-                    <div class="item" data-value="1">Male</div>
-                    <div class="item" data-value="0">Female</div>
+                    {{ form.gender }}
+                    {% for x in form.gender.field.choices %}
+                        <div class="item" value="{{ x.0 }}"> {{ x.1 }} </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
 
         <div class="item margin-login" style="width:100%">
-            <div class="fluid ui animated button submit green" id="button-signup">
-                <div class="visible content">Sign Up</div>
-                <div class="hidden content">
-                    <i class="right arrow icon"></i>
-                </div>
-            </div>
+            <input class="fluid ui button submit green" id="button-signup" type="submit" value="Sign Up">
         </div>
     </form>
+    {{ form.error }}
 </div>
 
 
 <div class="ui right black styled sidebar menu" id="right-sidebar">
     <div class="item margin-login">
-        <div class="ui left icon input" >
+        <div class="ui left icon input">
             <input placeholder="Username / Email" type="text" id="username-signin">
             <i class="user icon"></i>
         </div>
     </div>
     <div class="item margin-login">
-        <div class="ui left icon input" >
+        <div class="ui left icon input">
             <input placeholder="Password" type="text" id="password-signin">
             <i class="user icon"></i>
         </div>
