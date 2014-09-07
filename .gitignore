@@ -8,5 +8,8 @@
 /db.sqlite3
 __pycache__/
 /static/bower_components/**
+/static/usermanagement/bower_components/**
+/static/usermanagement/scss/*.css
+/static/usermanagement/scss/*.map
 
 
