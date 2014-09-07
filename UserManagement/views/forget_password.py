@@ -36,7 +36,8 @@ def forget_password_request(request):
             user = Member.objects.get(**kwargs)
             random_code = generate_code()
             user.reset_password_code = random_code
-            user.reset_password_expiredtime = timezone.now() + timedelta(hours=4)
+            user.reset_password_expiredtime = timezone.now() + timedelta(hours=24)
+            print user.reset_password_expiredtime
             user.save()
             params = urllib.urlencode({
                 "code": random_code,

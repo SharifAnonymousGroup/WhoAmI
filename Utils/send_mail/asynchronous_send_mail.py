@@ -18,8 +18,8 @@ class EmailThread(threading.Thread):
         threading.Thread.__init__(self)
 
     def run(self):
-        print self.plaintext_template
-        print self.html_template
+        #print self.plaintext_template
+        #print self.html_template
         plaintext = get_template(self.plaintext_template)
         html = get_template(self.html_template)
         d = Context(self.context)
