@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <link rel="stylesheet" type="text/css" href="scss/homepage.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/semantic-ui/build/packaged/css/semantic.min.css">
+    <meta charset="UTF-8">
+    <title>Who Am I</title>
+</head>
+<body>
+
+<div class="ui black huge launch right attached pushed animated button" id="leftside-button">
+    <i class="right icon user layout"></i>
+    <span class="text" style="display: inline;" id="left-sidebar-button-text">Sign Up</span>
+</div>
+
+<div class="ui black huge launch left attached pushed animated button" id="rightside-button">
+
+    <span class="text" style="display: inline;" id="right-sidebar-button-text">Sign In&nbsp;&nbsp;</span>
+    <i class="left icon user layout"></i>
+
+</div>
+
+<div class="main-page-disc">
+    <p id="error">Who <span>&nbsp; Am </span>&nbsp; I</p>
+    <p id="night-keeping">Now is the time you start NIGHTKEEPING with WhoAmI</p>
+</div>
+
+<div class="ui left black styled sidebar menu" id="left-sidebar">
+    <form action="https://google.com" method="POST" id="form-signup" class="ui form">
+
+
+        <div class="item margin-login">
+            <div class="ui left icon input" >
+                <input placeholder="First Name" type="text" id="firstname-signup" name="first_name">
+                <i class="user icon"></i>
+            </div>
+        </div>
+
+        <div class="item margin-login">
+            <div class="ui left icon input" >
+                <input placeholder="Last Name" type="text" id="lastname-signup">
+                <i class="user icon"></i>
+            </div>
+        </div>
+
+        <div class="item margin-login">
+            <div class="ui left icon input" >
+                <input placeholder="Age" type="text" id="age-signup">
+                <i class="user icon"></i>
+            </div>
+        </div>
+        <div class="item margin-login">
+            <div class="ui left icon input" >
+                <input placeholder="Email / Username" type="text" id="username-signup" >
+                <i class="user icon"></i>
+            </div>
+        </div>
+
+
+        <div class="item margin-login">
+            <div class="ui left icon input" >
+                <input placeholder="Password" type="text" id="password-signup" >
+                <i class="user icon"></i>
+            </div>
+        </div>
+
+        <div class="item margin-login">
+            <div class="ui left icon input" >
+                <input placeholder="Confirm Password" type="text" id="confirmpassword-signup" >
+                <i class="user icon"></i>
+            </div>
+        </div>
+
+
+        <div class="item margin-login black" style="width:100%">
+            <div class="ui selection fluid dropdown">
+                <input name="gender" type="hidden">
+                <div class="default text">Gender</div>
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                    <div class="item" data-value="1">Male</div>
+                    <div class="item" data-value="0">Female</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item margin-login" style="width:100%">
+            <div class="fluid ui animated button submit green" id="button-signup">
+                <div class="visible content">Sign Up</div>
+                <div class="hidden content">
+                    <i class="right arrow icon"></i>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div class="ui right black styled sidebar menu" id="right-sidebar">
+    <div class="item margin-login">
+        <div class="ui left icon input" >
+            <input placeholder="Username / Email" type="text" id="username-signin">
+            <i class="user icon"></i>
+        </div>
+    </div>
+    <div class="item margin-login">
+        <div class="ui left icon input" >
+            <input placeholder="Password" type="text" id="password-signin">
+            <i class="user icon"></i>
+        </div>
+    </div>
+
+    <div class="item margin-login" style="width:100%">
+        <div class="fluid ui animated button green" id="button-signin">
+            <div class="visible content">Sign In</div>
+            <div class="hidden content">
+                Start Playing Who Am I
+            </div>
+        </div>
+    </div>
+
+    <div class="item margin-login" style="width:100%">
+        <div class="fluid ui button red" id="button-forgotpassword-signin">
+            <div class="content" id="forgotpassword-text">Forgot Password</div>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="ui basic small modal" id="modal-forgotpassword">
+    <i class="close icon"></i>
+
+    <div class="content margin-login" style="width:100%">
+        <div class="modal-text">
+            We will send your new password to your Email
+        </div>
+
+        <div class="ui left icon input" style="width: 100%">
+            <input placeholder="Username / Email" type="text" id="username-modal">
+            <i class="user icon"></i>
+        </div>
+    </div>
+    <div class="actions">
+        <div class="ui blue button" id="modal-send-button">Send</div>
+    </div>
+</div>
+
+<!--
+<div class="ui divider horizontally">
+
+</div>
+-->
+
+
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/semantic-ui/build/packaged/javascript/semantic.min.js"></script>
+<script src="javascripts/homepage.js"></script>
+</body>
+</html>

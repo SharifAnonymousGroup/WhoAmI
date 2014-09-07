@@ -1,0 +1,42 @@
+@font-face {
+  font-family: Monoton;
+  src: url(../fonts/Monoton-Regular.ttf);
+}
+
+@font-face {
+  font-family: Bitwise;
+  src: url(../fonts/bitwise.ttf);
+}
+
+.main-page-disc {
+  text-align: center;
+
+  #error {
+    font-family: 'Monoton', cursive;
+    padding-top: 10px;
+    font-size: 75px;
+    text-transform: uppercase;
+    text-shadow: 0 0 80px red, 0 0 30px black , 0 0 6px DarkRed;
+    color: red;
+    width: 50%;
+    text-align: center;
+    margin: auto;
+    margin-top: 10%;
+
+    //text-shadow: 0 0 80px #ffffff, 0 0 30px #008000, 0 0 6px #0000ff;
+    span {
+      animation: upper 11s linear infinite;
+    }
+  }
+
+
+  #error:hover {
+    text-shadow: 0 0 200px #ffffff, 0 0 80px #008000, 0 0 6px #0000ff;
+  }
+
+  #night-keeping {
+    font-family: 'bitwise';
+    margin-top: 20px;
+    font-size: 26px;
+  }
+}

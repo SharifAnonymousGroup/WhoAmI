@@ -1,0 +1,92 @@
+@import "main-page-disc";
+
+body {
+  background-image: url("../images/background.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  overflow: hidden;
+}
+
+#right-sidebar {
+  background-color: rgba(0, 0, 0, 0.4);
+  padding-top: 20px;
+}
+
+
+#left-sidebar {
+  background-color: rgba(0, 0, 0, 0.4);
+  padding-top: 20px;
+}
+.margin-login{
+  margin-top: 20px;
+  font-family: 'bitwise';
+}
+.modal-text{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+  text-align: center;
+}
+.ui.modal{
+  background-color: red;
+}
+#leftside-button{
+  width:16%;
+  margin-left: -10px;
+  font-size: 25px;
+  opacity: 0.75;
+  font-family: 'bitwise';
+
+}
+#rightside-button{
+  
+  width:16%;
+  margin-right: -10px;
+  font-size: 25px;
+  opacity: 0.75;
+  font-family: 'bitwise';
+  float: right;
+
+}
+#modal-forgotpassword{
+  font-family: 'bitwise';
+
+}
+
+#username-signup{
+  font-family: 'bitwise';
+  width: 100%;
+}
+
+#firstname-signup{
+  font-family: 'bitwise';
+}
+
+#lastname-signup{
+  font-family: 'bitwise';
+}
+
+#password-signup{
+  font-family: 'bitwise';
+
+}
+#confirmpassword-signup{
+  font-family: 'bitwise';
+
+}
+#age-signup{
+  font-family: 'bitwise';
+}
+
+#username-signin{
+  font-family:'bitwise'
+}
+
+#password-signin{
+  font-family:'bitwise'
+}
+#form-signup{
+  background-color: rgba(255, 255, 255,0.0);
+  border: solid 0px rgba(0,0,0,0) !important;
+}
