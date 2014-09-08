@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}usermanagement/scss/homepage.css">
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}UserManagement/scss/homepage.css">
     <link rel="stylesheet" type="text/css"
-          href="{{ STATIC_URL }}usermanagement/bower_components/semantic-ui/build/packaged/css/semantic.min.css">
+          href="{{ STATIC_URL }}UserManagement/bower_components/semantic-ui/build/packaged/css/semantic.min.css">
     <meta charset="UTF-8">
     <title>Who Am I</title>
 </head>
@@ -28,13 +28,13 @@
 </div>
 
 <div class="ui left black styled sidebar menu" id="left-sidebar">
-    <form action="/account/signup_request/" method="POST" id="form-signup" class="ui form">
+    <form action="/account/signup_request/" method="POST" id="form-signup" class="ui form margin-login">
 
 
         <div class="item margin-login">
             <div class="ui left icon input" id="firstname-signup">
                 {{ form.first_name }}
-                <i class="user icon"></i>
+                <i class="user icon" ></i>
             </div>
         </div>
 
@@ -45,12 +45,6 @@
             </div>
         </div>
 
-        <div class="item margin-login" id="age-signup">
-            <div class="ui left icon input">
-                {{ form.age }}
-                <i class="user icon"></i>
-            </div>
-        </div>
         <div class="item margin-login">
             <div class="ui left icon input" id="username-signup">
                 {{ form.username }}
@@ -58,6 +52,19 @@
             </div>
         </div>
 
+        <div class="item margin-login" id="age-signup">
+            <div class="ui left icon input">
+                {{ form.email }}
+                <i class="user icon"></i>
+            </div>
+        </div>
+
+        <div class="item margin-login" id="age-signup">
+            <div class="ui left icon input">
+                {{ form.age }}
+                <i class="user icon"></i>
+            </div>
+        </div>
 
         <div class="item margin-login">
             <div class="ui left icon input" id="password-signup">
@@ -89,12 +96,11 @@
                 </div>
             </div>
         </div>
-
         <div class="item margin-login" style="width:100%">
             <input class="fluid ui button submit green" id="button-signup" type="submit" value="Sign Up">
         </div>
     </form>
-    {{ form.error }}
+    <div class="item" style="color: #ffffff"> {{ form.errors }} </div>>
 </div>
 
 
@@ -153,8 +159,6 @@
 
 </div>
 -->
-
-
 <script src="{{ STATIC_URL }}usermanagement/bower_components/jquery/dist/jquery.min.js"></script>
 <script src="{{ STATIC_URL }}usermanagement/bower_components/semantic-ui/build/packaged/javascript/semantic.min.js"></script>
 <script src="{{ STATIC_URL }}usermanagement/javascripts/homepage.js"></script>
