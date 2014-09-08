@@ -20,6 +20,7 @@ body {
 .margin-login{
   margin-top: 20px;
   font-family: 'bitwise';
+
 }
 .modal-text{
   margin-top: 20px;
@@ -34,71 +35,73 @@ body {
 #leftside-button{
   width:16%;
   margin-left: -10px;
-  font-size: 25px;
   opacity: 0.75;
   font-family: 'bitwise';
   color: #ffffff;
+  font-size: 1.5em;
 
 }
 #rightside-button{
-  
+
   width:16%;
   margin-right: -10px;
-  font-size: 25px;
   opacity: 0.75;
   font-family: 'bitwise';
   float: right;
+  font-size: 1.5em;
 
 }
 #modal-forgotpassword{
   font-family: 'bitwise';
+  font-size: 1.0em;
 
 }
 
 #username-signup{
   input{
-  font-family: 'bitwise';
-  width: 100%;
+    font-family: 'bitwise';
+    width: 100%;
+    font-size: 1.0em !important;
   }
 }
 
 #firstname-signup{
   input {
     font-family: 'bitwise';
-
+    width: 100%;
+    font-size: 1.0em !important;
   }
 }
 
 #lastname-signup{
-  font-family: 'bitwise';
   input {
     font-family: 'bitwise';
-
+    width: 100%;
+    font-size: 1.0em !important;
   }
 
 }
 
 #password-signup{
-  font-family: 'bitwise';
   input {
     font-family: 'bitwise';
-
+    width: 100%;
+    font-size: 1.0em !important;
   }
-
 }
 #confirmpassword-signup{
-  font-family: 'bitwise';
   input {
     font-family: 'bitwise';
-
+    width: 100%;
+    font-size: 1.0em !important;
   }
 
 }
 #age-signup{
-  font-family: 'bitwise';
   input {
     font-family: 'bitwise';
-
+    width: 100%;
+    font-size: 1.0em !important;
   }
 
 }

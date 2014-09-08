@@ -12,7 +12,7 @@ class Player(models.Model):
     score = models.IntegerField()
     color = models.CharField(max_length=1, choices=COLOR_CHOICES)
 
-class Game(models.Model):
+class Room(models.Model):
     timeOfEachTurn = models.IntegerField() # in second
     maxNumberOfPlayer = models.IntegerField()
     creator = models.ForeignKey('UserManagement.Member')
@@ -25,5 +25,5 @@ class Message(models.Model):
     room = models.ForeignKey('Room', related_name='rooms')
     text = models.TextField(max_length=250)
 
-class Round(models.Model):
-    room = models.ForeignKey('Room', related_name='rooms')
+#class Round(models.Model):
+ #   room = models.ForeignKey('Room', related_name='rooms')
