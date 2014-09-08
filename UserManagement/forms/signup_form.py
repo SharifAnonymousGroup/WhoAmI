@@ -1,3 +1,4 @@
+from logging import PlaceHolder
 from django import forms
 from django.core.exceptions import ValidationError
 from django.forms.widgets import CheckboxInput
@@ -6,15 +7,14 @@ from UserManagement.models import Member, GENDER_CHOISES
 
 
 class SignupForm(forms.Form):
-    first_name = forms.CharField()
-    last_name = forms.CharField()
-    username = forms.CharField()
-    email = forms.EmailField()
-    age = forms.IntegerField(max_value=100)
+    first_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'First Name'}))
+    last_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Last Name'}))
+    username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'UserName'}))
+    email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder': 'Email'}))
+    age = forms.IntegerField(max_value=100, widget=forms.TextInput(attrs={'placeholder': 'Age'}))
     gender = forms.ChoiceField(choices=GENDER_CHOISES)
-    password = forms.CharField(widget=forms.PasswordInput())
-    confirm_password = forms.CharField(widget=forms.PasswordInput())
-    term_accept = forms.BooleanField(widget=CheckboxInput())
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
+    confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Confirm Password'}))
 
     def clean_username(self):
         username = self.cleaned_data["username"]
@@ -30,12 +30,21 @@ class SignupForm(forms.Form):
             raise ValidationError("email already exists.")
         return email
 
+    # def clean_password(self):
+    #     password = self.cleaned_data['password']
+    #     print "password is : "  + password
+    #     if  self.cleaned_data['password'] is None:
+    #         raise ValidationError("Password is empty")
+
     def clean(self):
         cd = self.cleaned_data
-        if cd['password'] != cd['confirm_password']:
-            self._errors['password'] = "passwords don't match"
+        password = cd.get('password', '')
+        confirm_password = cd.get('confirm_password', '')
+        print password
+        print confirm_password
+        if password != confirm_password:
+            self._errors['password'] = self.error_class(["Your Passwords don't match"])
         return cd
-
 
     class Meta:
         model = Member

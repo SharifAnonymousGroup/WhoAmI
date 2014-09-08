@@ -48,7 +48,8 @@ def signup_request(request):
         else:
             form.cleaned_data['password'] = ""
             form.cleaned_data['confirm_password'] = ""
-            return render(request, 'test/signup_test.html', {'form': form})
+            return render(request, 'UserManagementUI/homepage.html', {'form': form, 'login_error': False,
+                                                              'forget_password_error': False})
         return HttpResponse('You registered successfully')
     else:
         return HttpResponse('Your request method was not POST')
