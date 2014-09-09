@@ -93,7 +93,7 @@ $(document).ready(function () {
         $('.ui.modal')
             .modal('show')
     });
-
+/*
     $('.ui.form')
         .form({
             firstName: {
@@ -183,5 +183,24 @@ $(document).ready(function () {
             inline: 'true'
         });
 
-
+*/
 });
+//the link: http://stackoverflow.com/questions/7335780/how-to-post-a-django-form-with-ajax-jquery
+function send_signup(){
+    $('#form-signup').submit(function(){
+        $.ajax({
+            data: $(this).serialize(),
+                type: $(this).attr('method'),
+                url: $(this).attr('action'),
+                success: function(response) {
+                    console.log("the ajax has been sent");
+                    for(var i = 0;i<response.length;i++)
+                         $('.errors').html("<p>"+response[i]+"</p>");
+                    $('.errors').html("<p>"+response["username"]+"</p>");
+                    console.log(response.data);
+                    console.log("hello");
+                }
+        });
+    });
+
+};

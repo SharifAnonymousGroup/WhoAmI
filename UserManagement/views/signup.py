@@ -1,7 +1,8 @@
+import json
 from django.core.mail.message import EmailMultiAlternatives
 from django.http.response import HttpResponse
 from django.template import Context
-
+from django.utils import simplejson
 from django.shortcuts import render
 
 from django.template.loader import get_template
@@ -48,8 +49,11 @@ def signup_request(request):
         else:
             form.cleaned_data['password'] = ""
             form.cleaned_data['confirm_password'] = ""
-            return render(request, 'UserManagementUI/homepage.html', {'form': form, 'login_error': False,
-                                                              'forget_password_error': False})
+            errors = form.errors
+            # return render(request, 'UserManagementUI/homepage.html', {'form': form, 'login_error': False,
+            #                                                   'forget_password_error': False})
+            return HttpResponse(json.dumps(form.errors), mimetype="application/json")
+
         return HttpResponse('You registered successfully')
     else:
         return HttpResponse('Your request method was not POST')

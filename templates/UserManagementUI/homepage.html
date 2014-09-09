@@ -26,7 +26,7 @@
 </div>
 
 <div class="ui left black styled sidebar menu" id="left-sidebar">
-    <form action="/account/signup_request/" method="POST" id="form-signup" class="ui form margin-login">
+    <form action="/account/signup_request/" onsubmit="send_signup();return false;" method="POST" id="form-signup" class="ui form margin-login">
 
 
         <div class="item margin-login">
@@ -98,7 +98,7 @@
             <input class="fluid ui button submit green" id="button-signup" type="submit" value="Sign Up">
         </div>
     </form>
-    <div class="item" style="color: #ffffff"> {{ form.errors }} </div>>
+    <div class="item errors" style="color: #ffffff">  </div>>
 </div>
 
 
