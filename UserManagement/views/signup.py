@@ -1,14 +1,12 @@
 import json
-from django.core.mail.message import EmailMultiAlternatives
-from django.http.response import HttpResponse
-from django.template import Context
-from django.utils import simplejson
-from django.shortcuts import render
 
-from django.template.loader import get_template
+from django.http.response import HttpResponse
+
+from django.shortcuts import render
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
 
 from UserManagement.forms.signup_form import *
+
 from Utils.send_mail.asynchronous_send_mail import send_mail
 
 
@@ -46,15 +44,20 @@ def signup_request(request):
                       'email_test/registration_mail.txt',
                       'email_test/registration_mail.html',
                       {'username': username})
+            print "zakhar"
         else:
             form.cleaned_data['password'] = ""
             form.cleaned_data['confirm_password'] = ""
-            errors = form.errors
-            # return render(request, 'UserManagementUI/homepage.html', {'form': form, 'login_error': False,
-            #                                                   'forget_password_error': False})
-            return HttpResponse(json.dumps(form.errors), mimetype="application/json")
 
-        return HttpResponse('You registered successfully')
+            # response = form.errors_as_json(strip_tags=True)
+            # print response
+            # return render(request, 'UserManagementUI/homepage.html', {'form': form, 'login_error': False,
+            # 'forget_password_error': False})
+            print "not zakhar"
+            response_data = {'err': form.errors}
+            return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+        return render(request, 'test/login_test.html', {})
     else:
         return HttpResponse('Your request method was not POST')
 
