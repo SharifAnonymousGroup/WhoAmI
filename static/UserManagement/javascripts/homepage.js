@@ -187,19 +187,31 @@ $(document).ready(function () {
 });
 //the link: http://stackoverflow.com/questions/7335780/how-to-post-a-django-form-with-ajax-jquery
 //link:http://stackoverflow.com/questions/20306981/how-do-i-integrate-ajax-with-django-applications
-
-function send_form() {
-    $('#form-signup').submit(function () {
+//link:http://stackoverflow.com/questions/10894484/get-key-value-of-dictionary-by-index-in-jquery
+//link:http://stackoverflow.com/questions/17768105/jquery-json-decode-php-to-javascript
+//link:http://stackoverflow.com/questions/1208067/wheres-my-json-data-in-my-incoming-django-request
+//link:http://stackoverflow.com/questions/2428092/creating-a-json-response-using-django-and-python
+function send_form(form_id,message_place) {
+    console.log("WHAT IS YOUR NAME");
+    $(form_id).submit(function () {
+        console.log("dafaat");
         $.ajax({
+
             data: $(this).serialize(),
             type: $(this).attr('method'),
             url: $(this).attr('action'),
             success: function (response) {
-                $('.err').html("");
-//                var myArray = JSON.parse(response);//what is it ?
+//                console.log($(this).attr('action'));//chera kar nemikone?ba'd bala kar mikone??
+
+
+                console.log("ajax is inja");
+//link:http://stackoverflow.com/questions/1189468/jquery-selecting-and-filtering-elements-inside-a-div
+//http://stackoverflow.com/questions/306583/this-selector-and-children
+                $('.message_holder').html("");
+//                var myArray = JSON.parse(response);//in chist?
                 var error = response["err"];
                 for(var key in error){
-                    $('.err').append("<p style='color:red'>"+key+":</br>&nbsp&nbsp"+error[key]+"</br>"+"</p>");
+                    $(message_place).append("<p style='color:red'>"+key+":</br>&nbsp&nbsp"+error[key]+"</br>"+"</p>");
 
                 }
 

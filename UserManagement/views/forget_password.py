@@ -1,4 +1,5 @@
 from datetime import timedelta
+import json
 import urllib
 import random
 import string
@@ -9,6 +10,7 @@ from django.template.loader import get_template
 from django.utils import timezone
 from django.http.response import HttpResponse
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_protect, csrf_exempt
 
 from UserManagement.models import Member
 from Utils.send_mail.asynchronous_send_mail import send_mail
@@ -23,10 +25,17 @@ SITE_NAME = "WHO AM I"
 def forget_password(request):
     return render(request, 'test/forget_password_test.html', {'error': False})
 
-
+@csrf_protect
+@csrf_exempt
 def forget_password_request(request):
+    response_data = {}
+    response_data['err'] = {}
     if request.method == 'POST':
         username_or_email = request.POST['username']
+        if username_or_email == '':
+            print "what is your name"
+            response_data['err']['username_or_email'] = "this field is empty"
+            return HttpResponse(json.dumps(response_data), content_type="application/json")
         if '@' in username_or_email:
             kwargs = {'email': username_or_email}
         else:
@@ -36,7 +45,7 @@ def forget_password_request(request):
             user = Member.objects.get(**kwargs)
             random_code = generate_code()
             user.reset_password_code = random_code
-            user.reset_password_expiredtime = timezone.now() + timedelta(hours=24)
+            user.reset_password_expiredtime = timezone.now() + timedelta(hours=4)
             print user.reset_password_expiredtime
             user.save()
             params = urllib.urlencode({
@@ -48,14 +57,18 @@ def forget_password_request(request):
                       'email_test/reset_password_mail.txt',
                       'email_test/reset_password_mail.html',
                       {'username': user.username, 'url': url})
-            return HttpResponse('reset password mail was sent to your mail!')
+            response_data['err']['status'] = 'email send to your email'
+            return HttpResponse(json.dumps(response_data), content_type="application/json")
+            # return HttpResponse('reset password mail was sent to your mail!')
         except Member.DoesNotExist:
-            return render(request, 'test/forget_password_test.html', {'error': True})
-
-        return HttpResponse("Your password reset send to your mail")
+            response_data['err']['status'] = 'invalid username or email'
+            return HttpResponse(json.dumps(response_data), content_type="application/json")
+            # return render(request, 'test/forget_password_test.html', {'error': True})
 
     else:
-        return HttpResponse("Your request is not POST")
+        response_data['err']['request_method'] = "Your method is not post"
+        return HttpResponse(json.dumps(response_data), content_type="application/json")
+        # return HttpResponse("Your request is not POST")
 
 
 def generate_code():
