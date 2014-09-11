@@ -11,5 +11,6 @@ __pycache__/
 /static/usermanagement/bower_components/**
 /static/usermanagement/scss/*.css
 /static/usermanagement/scss/*.map
+/templates/UserManagementUI/homepage.html
 
 

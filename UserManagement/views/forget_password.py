@@ -42,7 +42,7 @@ def forget_password_request(request):
             params = urllib.urlencode({
                 "code": random_code,
                 "user": user.username,
-            })
+                })
             url = settings.SITE_URL + "/account/reset_password/?" + params
             send_mail('reset your password', MAIL, [user.email],
                       'email_test/reset_password_mail.txt',

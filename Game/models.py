@@ -13,15 +13,39 @@ class Player(models.Model):
     score = models.IntegerField()
     color = models.CharField(max_length=1, choices=COLOR_CHOICES)
 
+    def __init__(self, member, game, color):
+        self.member = member
+        self.game = game
+        self.color = color
+        self.isAlive = True
+        self.score = 0
+        self.save()
+
 
 class Game(models.Model):
     time_of_each_round = models.IntegerField() # in second
     max_number_of_player = models.IntegerField()
     creator = models.ForeignKey('UserManagement.Member')
     code = models.CharField(max_length=30)
-    turn = models.IntegerField()
+    round = models.ForeignKey('Round',related_name='current_round')
     create_time = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField()
+    is_started = models.BooleanField()
+    name = models.CharField(max_length=30)
+
+    def __init__(self, name, time_of_each_round, max_number_of_player, creator):
+        self.time_of_each_round = time_of_each_round
+        self.max_number_of_player = max_number_of_player
+        self.creator = creator
+        self.turn = 0
+        self.is_active = True
+        self.is_started = False
+        self.name = name
+        self.save()
+
+    #Todo
+    def create_code(self):
+        pass
 
 
 class Message(models.Model):
@@ -30,9 +54,19 @@ class Message(models.Model):
     round = models.ForeignKey('Round', related_name='messages')
     text = models.TextField(max_length=250)
 
+    def __init__(self, sender, round, text):
+        self.sender = sender
+        self.round = round
+        self.text = text
+        self.save()
+
 
 class Round(models.Model):
-    game = models.ForeignKey('Game', related_name='games')
+    game = models.ForeignKey('Game', related_name='rounds')
+
+    def __init__(self, game):
+        self.game = game
+        self.save()
 
 
 class Vote(models.Model):
@@ -40,3 +74,10 @@ class Vote(models.Model):
     voter = models.ForeignKey('Player', related_name='votes')
     color = models.CharField(choices=COLOR_CHOICES, max_length=1)
     target = models.ForeignKey('Player', related_name='voted-to', null=True)
+
+    def __init__(self, round, voter, color, target):
+        self.round = round
+        self.voter = voter
+        self.color = color
+        self.target = target
+        self.save()
