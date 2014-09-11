@@ -7,7 +7,7 @@ from django.template.loader import get_template
 
 class EmailThread(threading.Thread):
     def __init__(self, subject, from_email, recipient_list,
-                plaintext_template, html_template, context, fail_silently):
+                 plaintext_template, html_template, context, fail_silently):
         self.subject = subject
         self.recipient_list = recipient_list
         self.from_email = from_email
@@ -18,7 +18,7 @@ class EmailThread(threading.Thread):
         threading.Thread.__init__(self)
 
     def run(self):
-        #print self.plaintext_template
+        # print self.plaintext_template
         #print self.html_template
         plaintext = get_template(self.plaintext_template)
         html = get_template(self.html_template)
@@ -34,6 +34,5 @@ class EmailThread(threading.Thread):
 
 def send_mail(subject, from_email, recipient_list, plaintext_template,
               html_template=None, context=None, fail_silently=False, *args, **kwargs):
-
     EmailThread(subject, from_email, recipient_list,
                 plaintext_template, html_template, context, fail_silently).start()

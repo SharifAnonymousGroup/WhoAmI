@@ -55,8 +55,6 @@ class Member(AbstractUser):
         return self.get_full_name() + " " + self.username
 
     def reset_password_expired(self):
-        print self.reset_password_expiredtime
-        print timezone.now()
         if self.reset_password_expiredtime < timezone.now():
             return True
         return False

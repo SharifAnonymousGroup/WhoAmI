@@ -40,8 +40,6 @@ class SignupForm(forms.Form):
         cd = self.cleaned_data
         password = cd.get('password', '')
         confirm_password = cd.get('confirm_password', '')
-        print password
-        print confirm_password
         if password != confirm_password:
             self._errors['password'] = self.error_class(["Your Passwords don't match"])
         return cd

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head lang="en">
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}UserManagement/scss/homepage.css">
 
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}UserManagement/bower_components/semantic-ui/build/packaged/css/semantic.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="{{ STATIC_URL }}UserManagement/bower_components/semantic-ui/build/packaged/css/semantic.min.css">
     <meta charset="UTF-8">
     <title>Who Am I</title>
 </head>
@@ -26,13 +27,18 @@
 </div>
 
 <div class="ui left black styled sidebar menu" id="left-sidebar">
-    <form action="/account/signup_request/" method="POST" id="form-signup" class="ui form margin-login">
+    <form action="/account/signup_request/" onsubmit="send_form('#form-signup','.signup_message_holder');return false;"
+          method="POST"
+          id="form-signup"
+          class="myForm signup ">
+        {% csrf_token %}
+        class="ui form margin-login">
 
 
         <div class="item margin-login">
             <div class="ui left icon input" id="firstname-signup">
                 {{ form.first_name }}
-                <i class="user icon" ></i>
+                <i class="user icon"></i>
             </div>
         </div>
 
@@ -97,59 +103,81 @@
         <div class="item margin-login" style="width:100%">
             <input class="fluid ui button submit green" id="button-signup" type="submit" value="Sign Up">
         </div>
+        <div class="item margin-login" style="width:100%">
+            <div class="message_holder signup_message_holder"></div>
+        </div>
+
     </form>
-    <div class="item" style="color: #ffffff"> {{ form.errors }} </div>>
+
+    <div class="item errors" style="color: #ffffff"></div>
+    >
 </div>
 
 
 <div class="ui right black styled sidebar menu" id="right-sidebar">
-    <div class="item margin-login">
-        <div class="ui left icon input">
-            <input placeholder="Username / Email" type="text" id="username-signin">
-            <i class="user icon"></i>
-        </div>
-    </div>
-    <div class="item margin-login">
-        <div class="ui left icon input">
-            <input placeholder="Password" type="text" id="password-signin">
-            <i class="user icon"></i>
-        </div>
-    </div>
-
-    <div class="item margin-login" style="width:100%">
-        <div class="fluid ui animated button green" id="button-signin">
-            <div class="visible content">Sign In</div>
-            <div class="hidden content">
-                Start Playing Who Am I
+    <form action="/account/login_request/" onsubmit="send_form('#form-signin','.signin_message_holder');return false;"
+          method="POST"
+          id="form-signin"
+          class="login">
+        {% csrf_token %}
+        <div class="item margin-login">
+            <div class="ui left icon input">
+                <input placeholder="Username / Email" type="text" id="username-signin" name="username">
+                <i class="user icon"></i>
             </div>
         </div>
-    </div>
-
-    <div class="item margin-login" style="width:100%">
-        <div class="fluid ui button red" id="button-forgotpassword-signin">
-            <div class="content" id="forgotpassword-text">Forgot Password</div>
+        <div class="item margin-login">
+            <div class="ui left icon input">
+                <input placeholder="Password" type="text" id="password-signin" name="password">
+                <i class="user icon"></i>
+            </div>
         </div>
-    </div>
 
+        <div class="item margin-login" style="width:100%">
+            <input class="fluid ui button submit green" id="button-signup" type="submit" value="Sign In">
+            {% comment %}
+             <div class="fluid ui animated button submit green" id="button-signin" type="submit" >
+                <div class="visible content">Sign In</div>
+                <div class="hidden content">
+                    Start Playing Who Am I
+                </div>
+            </div>
+            {% endcomment %}
+        </div>
+
+        <div class="item margin-login" style="width:100%">
+            <div class="fluid ui button red" id="button-forgotpassword-signin">
+                <div class="content" id="forgotpassword-text">Forgot Password</div>
+            </div>
+        </div>
+        <div class="item margin-login" style="width:100%">
+            <div class="message_holder signin_message_holder"></div>
+        </div>
+    </form>
 </div>
 
 
 <div class="ui basic small modal" id="modal-forgotpassword">
     <i class="close icon"></i>
 
-    <div class="content margin-login" style="width:100%">
-        <div class="modal-text">
-            We will send your new password to your Email
+    <form action="/account/forget_password_request/" method="POST"
+          onsubmit="send_form('#form-forgot','.signin_message_holder');return false;" id='form-forgot'>
+        {% csrf_token %}
+        <div class="content margin-login" style="width:100%">
+            <div class="modal-text">
+                We will send your new password to your Email
+            </div>
+
+            <div class="ui left icon input" style="width: 100%">
+                <input placeholder="Username / Email" type="text" id="username-modal" name="username">
+                <i class="user icon"></i>
+            </div>
         </div>
 
-        <div class="ui left icon input" style="width: 100%">
-            <input placeholder="Username / Email" type="text" id="username-modal">
-            <i class="user icon"></i>
+        <div class="actions">
+            <input class="ui blue button" id="modal-send-button" value="SEND" type="submit"/>
         </div>
-    </div>
-    <div class="actions">
-        <div class="ui blue button" id="modal-send-button">Send</div>
-    </div>
+    </form>
 </div>
 
 <!--
