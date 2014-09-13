@@ -5,5 +5,5 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-                       url(r'^newgame$', 'Game.views.newgame', name='new_game'),
+                       url(r'^newgame$', 'Game.views.newgame.newgame', name='new_game'),
 )
