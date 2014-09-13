@@ -47,7 +47,6 @@ class Member(AbstractUser):
     gender = models.CharField(max_length=1, choices=GENDER_CHOISES)
     credit = models.IntegerField()
     picture = models.ImageField(upload_to='Data/profile_pictures', null=True, blank=True)
-
     reset_password_code = models.CharField(max_length=40, null=True)
     reset_password_expiredtime = models.DateTimeField(null=True)
     objects = MemberManager()
@@ -61,7 +60,6 @@ class Member(AbstractUser):
 
     class Meta:
         unique_together = ('email',)
-
 
 #class GameHistory(Logged):
  #   winner = models.ForeignKey('Member')

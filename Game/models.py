@@ -14,6 +14,7 @@ class Player(models.Model):
     color = models.CharField(max_length=1, choices=COLOR_CHOICES)
 
     def __init__(self, member, game, color):
+        super(Player, self).__init__()
         self.member = member
         self.game = game
         self.color = color
@@ -27,15 +28,18 @@ class Game(models.Model):
     max_number_of_player = models.IntegerField()
     creator = models.ForeignKey('UserManagement.Member')
     code = models.CharField(max_length=30)
-    round = models.ForeignKey('Round',related_name='current_round')
+    round = models.ForeignKey('Round',related_name='current_round', null=True)
     create_time = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField()
     is_started = models.BooleanField()
     name = models.CharField(max_length=30)
 
     def __init__(self, name, time_of_each_round, max_number_of_player, creator):
+        super(Game, self).__init__()
         self.time_of_each_round = time_of_each_round
         self.max_number_of_player = max_number_of_player
+        print 'start new game'
+        print creator.username + " " + creator.get_full_name()
         self.creator = creator
         self.turn = 0
         self.is_active = True
@@ -55,6 +59,7 @@ class Message(models.Model):
     text = models.TextField(max_length=250)
 
     def __init__(self, sender, round, text):
+        super(Message, self).__init__()
         self.sender = sender
         self.round = round
         self.text = text
@@ -65,6 +70,7 @@ class Round(models.Model):
     game = models.ForeignKey('Game', related_name='rounds')
 
     def __init__(self, game):
+        super(Round, self).__init__()
         self.game = game
         self.save()
 
@@ -76,6 +82,7 @@ class Vote(models.Model):
     target = models.ForeignKey('Player', related_name='voted-to', null=True)
 
     def __init__(self, round, voter, color, target):
+        super(Vote, self).__init__()
         self.round = round
         self.voter = voter
         self.color = color
