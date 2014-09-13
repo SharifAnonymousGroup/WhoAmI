@@ -1,11 +1,17 @@
 from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponse
+from django.shortcuts import render
 from Game.forms.newgame_form import NewgameForm
 from Game.models import Game
 
 __author__ = 'MiladDK'
 @login_required
-def create_newgame(request):
+def newgame(request):
+    form = NewgameForm()
+    return render(request, 'test/new_game_test.html', {'form': form})
+
+@login_required
+def newgame_request(request):
     if request.method == "POST" :
         form = NewgameForm(request.POST)
         if form.is_valid():

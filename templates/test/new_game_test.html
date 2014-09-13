@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="shortcut icon" href="{{ STATIC_URL }}base_images/tab_image.jpg"/>
+    <link href="{{ STATIC_URL }}bower_components/semantic/build/packaged/css/semantic.min.css" rel="stylesheet"
+          type="text/css"/>
+    <script src="{{ STATIC_URL }}bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="{{ STATIC_URL }}bower_components/semantic/build/packaged/javascript/semantic.min.js"></script>
+
+</head>
+<body>
+
+
+<form class="ui form segment" action="/account/signup_request/" method="POST">
+    {% csrf_token %}
+
+    <div class="fields">
+        <div class="field">
+            <label>Name of the game</label>
+
+            {{ form.name }}
+        </div>
+    </div>
+    <div class="field">
+        <label>Max Number of Player</label>
+        {{ form.max_number_of_player }}
+    </div>
+    <div class="field">
+        <label>Time of each round</label>
+        {{ form.time_of_each_round }}
+    </div>
+
+    <div class="field">
+        <label>Username</label>
+        {{ form.username }}
+    </div>
+    <div class="field">
+        <div class="ui selection dropdown">
+
+            <div class="default text">Gender</div>
+            <i class="dropdown icon"></i>
+            <div class="menu">
+                {{ form.gender }}
+                {% for x in form.gender.field.choices %}
+                    <div class="item" value="{{ x.0 }}"> {{ x.1 }} </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="field">
+        <label>Password</label>
+        {{ form.password }}
+    </div>
+    <div class="field">
+        <label>Confirm Password</label>
+        {{ form.confirm_password }}
+    </div>
+    <div class="inline field">
+        <div class="ui checkbox">
+            {{ form.term_accept }}
+            <label>I agree to the Terms and Conditions</label>
+        </div>
+    </div>
+    <div class="ui blue submit button">Submit</div>
+
+</form>
+<div class="err">form.errors</div>
+
+
+
+
+</body>
+</html>

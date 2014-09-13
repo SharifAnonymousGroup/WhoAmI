@@ -4,9 +4,6 @@ import urllib
 import random
 import string
 
-from django.core.mail.message import EmailMultiAlternatives
-from django.template.context import Context
-from django.template.loader import get_template
 from django.utils import timezone
 from django.http.response import HttpResponse
 from django.shortcuts import render
