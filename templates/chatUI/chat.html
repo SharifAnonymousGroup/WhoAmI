@@ -4,20 +4,22 @@
     <meta charset="UTF-8">
     <title>Chat!</title>
     <style>
-        .message_box{
+        #message_box{
             height: 400px;
             width: 40%;
             overflow: auto;
             border: solid black 2px;
             margin: auto;
         }
-        .chat_input{
+        #chat_input{
             margin-left: 390px;
         }
     </style>
+    <script src="{{ STATIC_URL }}bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="{{ STATIC_URL }}chatUI/javascript/chat.js"></script>
 </head>
 <body>
-<div class="message_box"></div>
-<input type="text" name="chat_input" class="chat_input" >
+<div id="message_box"></div>
+<input type="text" name="chat_input" id="chat_input" >
 </body>
 </html>

@@ -102,3 +102,4 @@ EMAIL_USE_TLS = True
 
 
 SITE_URL = 'localhost:8000'
+LOGIN_URL = 'localhost:8000'

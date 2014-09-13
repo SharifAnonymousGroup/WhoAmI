@@ -31,42 +31,10 @@
         {{ form.time_of_each_round }}
     </div>
 
-    <div class="field">
-        <label>Username</label>
-        {{ form.username }}
-    </div>
-    <div class="field">
-        <div class="ui selection dropdown">
 
-            <div class="default text">Gender</div>
-            <i class="dropdown icon"></i>
-            <div class="menu">
-                {{ form.gender }}
-                {% for x in form.gender.field.choices %}
-                    <div class="item" value="{{ x.0 }}"> {{ x.1 }} </div>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
-
-    <div class="field">
-        <label>Password</label>
-        {{ form.password }}
-    </div>
-    <div class="field">
-        <label>Confirm Password</label>
-        {{ form.confirm_password }}
-    </div>
-    <div class="inline field">
-        <div class="ui checkbox">
-            {{ form.term_accept }}
-            <label>I agree to the Terms and Conditions</label>
-        </div>
-    </div>
-    <div class="ui blue submit button">Submit</div>
-
+    <input class="ui blue button" value="Submit" type="submit"/>
 </form>
-<div class="err">form.errors</div>
+{{ form.errors }}
 
 
 

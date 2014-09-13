@@ -40,7 +40,9 @@ def login_request(request):
             password = request.POST['password']
             username = user.username
             user = auth.authenticate(username=username, password=password)
+
             if user is not None:
+                auth.login(request, user)
                 response_data['is_successful'] = True
                 response_data['message'] = 'You successfully loged in!'
                 return HttpResponse(json.dumps(response_data), content_type="application/json")
