@@ -1,8 +1,10 @@
+import string
 from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponse
 from django.shortcuts import render
 from Game.forms.newgame_form import NewgameForm
 from Game.models import Game
+from UserManagement.models import Member
 
 __author__ = 'MiladDK'
 
@@ -15,9 +17,15 @@ def newgame(request):
 def newgame_request(request):
     if request.method == "POST":
         form = NewgameForm(request.POST)
-        print 'salam'
         if form.is_valid():
-            game = Game(form.name, form.time_of_each_round, form.max_number_of_player, request.user)
+            cd = form.cleaned_data;
+            name = cd['name']
+            max_number_of_player = cd['max_number_of_player']
+            time_of_each_round = cd['time_of_each_round']
+            member = Member.objects.get(username=request.user.username)
+            print member.username + " " + member.get_full_name()
+            game = Game(name, time_of_each_round,  max_number_of_player, member)
             print 'new game created by name ' + game.name
+            return HttpResponse()
     else :
-        HttpResponse("Your Request was not POST Method")
+        return HttpResponse("Your Request was not POST Method")
