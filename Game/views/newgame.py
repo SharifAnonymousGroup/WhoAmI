@@ -5,6 +5,7 @@ from Game.forms.newgame_form import NewgameForm
 from Game.models import Game
 
 __author__ = 'MiladDK'
+
 @login_required
 def newgame(request):
     form = NewgameForm()
@@ -12,9 +13,11 @@ def newgame(request):
 
 @login_required
 def newgame_request(request):
-    if request.method == "POST" :
+    if request.method == "POST":
         form = NewgameForm(request.POST)
+        print 'salam'
         if form.is_valid():
             game = Game(form.name, form.time_of_each_round, form.max_number_of_player, request.user)
+            print 'new game created by name ' + game.name
     else :
         HttpResponse("Your Request was not POST Method")
