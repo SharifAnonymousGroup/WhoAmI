@@ -44,7 +44,8 @@ def signup_request(request):
                       'email_test/registration_mail.txt',
                       'email_test/registration_mail.html',
                       {'username': username})
-            print "zakhar"
+            response_data = {'is_successful': True, 'message': 'You successfully signed up!'}
+            return HttpResponse(json.dumps(response_data), content_type="application/json")
         else:
             form.cleaned_data['password'] = ""
             form.cleaned_data['confirm_password'] = ""
@@ -53,8 +54,7 @@ def signup_request(request):
             # print response
             # return render(request, 'UserManagementUI/homepage.html', {'form': form, 'login_error': False,
             # 'forget_password_error': False})
-            print "not zakhar"
-            response_data = {'err': form.errors}
+            response_data = {'is_successful': False, 'message': form.errors}
             return HttpResponse(json.dumps(response_data), content_type="application/json")
 
         return render(request, 'test/login_test.html', {})

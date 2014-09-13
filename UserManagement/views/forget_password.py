@@ -29,13 +29,14 @@ def forget_password(request):
 @csrf_exempt
 def forget_password_request(request):
     response_data = {}
-    response_data['err'] = {}
+    response_data['message'] = {}
+    response_data['is_successful'] = False
     if request.method == 'POST':
         username_or_email = request.POST['username']
         if username_or_email == '':
-            print "what is your name"
-            response_data['err']['username_or_email'] = "this field is empty"
+            response_data['message']['username_or_email'] = "Please enter your username or email."
             return HttpResponse(json.dumps(response_data), content_type="application/json")
+
         if '@' in username_or_email:
             kwargs = {'email': username_or_email}
         else:
@@ -46,7 +47,6 @@ def forget_password_request(request):
             random_code = generate_code()
             user.reset_password_code = random_code
             user.reset_password_expiredtime = timezone.now() + timedelta(hours=4)
-            print user.reset_password_expiredtime
             user.save()
             params = urllib.urlencode({
                 "code": random_code,
@@ -57,16 +57,17 @@ def forget_password_request(request):
                       'email_test/reset_password_mail.txt',
                       'email_test/reset_password_mail.html',
                       {'username': user.username, 'url': url})
-            response_data['err']['status'] = 'email send to your email'
+            response_data['is_successful'] = True
+            response_data['message'] = 'reset password mail was sent to you email.'
             return HttpResponse(json.dumps(response_data), content_type="application/json")
             # return HttpResponse('reset password mail was sent to your mail!')
         except Member.DoesNotExist:
-            response_data['err']['status'] = 'invalid username or email'
+            response_data['message']['username'] = 'invalid username or email'
             return HttpResponse(json.dumps(response_data), content_type="application/json")
             # return render(request, 'test/forget_password_test.html', {'error': True})
 
     else:
-        response_data['err']['request_method'] = "Your method is not post"
+        response_data['message']['request_method'] = "Your method is not post"
         return HttpResponse(json.dumps(response_data), content_type="application/json")
         # return HttpResponse("Your request is not POST")
 

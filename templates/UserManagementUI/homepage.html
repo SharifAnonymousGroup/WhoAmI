@@ -27,7 +27,7 @@
 </div>
 
 <div class="ui left black styled sidebar menu" id="left-sidebar">
-    <form action="/account/signup_request/" onsubmit="send_form('#form-signup','.signup_message_holder');return false;"
+    <form action="/account/signup_request/" onsubmit="return false;"
           method="POST"
           id="form-signup"
           class="myForm signup ">
@@ -115,7 +115,7 @@
 
 
 <div class="ui right black styled sidebar menu" id="right-sidebar">
-    <form action="/account/login_request/" onsubmit="send_form('#form-signin','.signin_message_holder');return false;"
+    <form action="/account/login_request/" onsubmit="return false;"
           method="POST"
           id="form-signin"
           class="login">
@@ -128,7 +128,7 @@
         </div>
         <div class="item margin-login">
             <div class="ui left icon input">
-                <input placeholder="Password" type="text" id="password-signin" name="password">
+                <input placeholder="Password" type="password" id="password-signin" name="password">
                 <i class="user icon"></i>
             </div>
         </div>
@@ -161,7 +161,7 @@
     <i class="close icon"></i>
 
     <form action="/account/forget_password_request/" method="POST"
-          onsubmit="send_form('#form-forgot','.signin_message_holder');return false;" id='form-forgot'>
+          onsubmit="return false;" id='form-forgot'>
         {% csrf_token %}
         <div class="content margin-login" style="width:100%">
             <div class="modal-text">
