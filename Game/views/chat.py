@@ -1,7 +1,11 @@
+import urllib
+
 from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponse
 from django.shortcuts import render
-from Game.models import Message
+
+from UserManagement.models import Member
+from WhoAmI.settings import NODE_URL
 
 
 __author__ = 'garfild'
@@ -14,8 +18,18 @@ def chat(request):
 
 @login_required()
 def send_message(request):
-    user = request.user;
+    user = Member(request.user)
+    player = user.player.get(isAlive=True)
+    room = player.game.code
     message = request.GET.get('message')
-    m = Message()
+    # we must save this message
+    params = urllib.urlencode({
+        "message": message,
+        "sender": player.color,
+        "room": room
+    })
+
+    f = urllib.urlopen(NODE_URL + '/?%s' % params)
+    # f.read()
 
     return HttpResponse()

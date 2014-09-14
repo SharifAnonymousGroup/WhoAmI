@@ -2,8 +2,8 @@
 
 from UserManagement.models import *
 
-COLOR_CHOICES = ( ('r', 'red'), ('w', 'white'), ('g', 'green'), ('b', 'blue'), ('o', 'orange'),
-                  ('y', 'yellow'), ('p', 'purple'), ('x', 'pink'), ('q', 'grey'))
+COLOR_CHOICES = (('r', 'red'), ('w', 'white'), ('g', 'green'), ('b', 'blue'), ('o', 'orange'),
+                 ('y', 'yellow'), ('p', 'purple'), ('x', 'pink'), ('q', 'grey'))
 
 
 class Player(models.Model):
@@ -24,11 +24,11 @@ class Player(models.Model):
 
 
 class Game(models.Model):
-    time_of_each_round = models.IntegerField() # in second
+    time_of_each_round = models.IntegerField()  # in second
     max_number_of_player = models.IntegerField()
     creator = models.ForeignKey('UserManagement.Member')
     code = models.CharField(max_length=30)
-    round = models.ForeignKey('Round',related_name='current_round', null=True)
+    round = models.ForeignKey('Round', related_name='current_round', null=True)
     create_time = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField()
     is_started = models.BooleanField()
@@ -47,7 +47,9 @@ class Game(models.Model):
         self.name = name
         self.save()
 
-    #Todo
+
+
+    # Todo
     def create_code(self):
         pass
 
@@ -64,6 +66,7 @@ class Message(models.Model):
         self.round = round
         self.text = text
         self.save()
+        print "what is your name"
 
 
 class Round(models.Model):

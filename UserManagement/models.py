@@ -26,6 +26,7 @@ class MemberManager(UserManager):
         )
         member.set_password(password)
         member.save()
+        print "what is your name"
 
     def create_superuser(self, username, email, password, **extra_fields):
         member = self.model(age=extra_fields['age'],
