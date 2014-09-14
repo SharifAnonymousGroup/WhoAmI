@@ -18,14 +18,14 @@ def newgame_request(request):
     if request.method == "POST":
         form = NewgameForm(request.POST)
         if form.is_valid():
-            cd = form.cleaned_data;
+            cd = form.cleaned_data
             name = cd['name']
-            max_number_of_player = cd['max_number_of_player']
+            max_number_of_players = cd['max_number_of_players']
             time_of_each_round = cd['time_of_each_round']
             member = Member.objects.get(username=request.user.username)
             print member.username + " " + member.get_full_name()
-            game = Game(name, time_of_each_round,  max_number_of_player, member)
-            print 'new game created by name ' + game.name
-            return HttpResponse()
+            game = Game.objects.create_game(name = name, time_of_each_round = time_of_each_round,
+                                       max_number_of_players = max_number_of_players, creator = member)
+            return HttpResponse('your room was created. your room link is' + game.get_url())
     else :
         return HttpResponse("Your Request was not POST Method")
