@@ -1,0 +1,67 @@
+.padding-custom, .list, .chat, .options {
+  padding-top: 4px !important;
+  padding-left: 0.4% !important;
+  padding-right: 0.4% !important; }
+
+.border {
+  border: 1px solid black;
+  position: relative;
+  display: inline-block; }
+
+.wrap {
+  display: inline-block;
+  width: 100%;
+  height: auto;
+  border: 1px solid black;
+  position: relative; }
+
+.itemcustom {
+  width: 50px; }
+
+.list {
+  height: 570px; }
+
+.chat {
+  height: 570px; }
+
+.options {
+  height: 570px; }
+
+.footer {
+  position: relative;
+  top: -27px; }
+
+.social {
+  height: 55px; }
+
+.rights {
+  height: 35px; }
+
+.timer {
+  height: 80px;
+  width: 80px;
+  border-radius: 100%;
+  position: relative;
+  float: right;
+  display: inline;
+  top: 2px;
+  right: 2px;
+  border: 1px solid black; }
+
+.circ, .hour, .round {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: 100%;
+  border: 1px solid transparent;
+  text-align: center; }
+
+.hour {
+  background-color: red;
+  color: #000000; }
+
+.round {
+  background-color: #0000ff;
+  color: #ffffff; }
+
+/*# sourceMappingURL=main.css.map */
