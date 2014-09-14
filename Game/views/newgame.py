@@ -26,6 +26,7 @@ def newgame_request(request):
             print member.username + " " + member.get_full_name()
             game = Game.objects.create_game(name = name, time_of_each_round = time_of_each_round,
                                        max_number_of_players = max_number_of_players, creator = member)
-            return HttpResponse('your room was created. your room link is' + game.get_url())
+            game.add_member(request.user)
+            return HttpResponse('your room was created. your room link is ' + game.get_url())
     else :
         return HttpResponse("Your Request was not POST Method")
