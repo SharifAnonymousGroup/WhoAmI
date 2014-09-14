@@ -3,8 +3,10 @@
  */
 
 $(document).ready(function () {
+    //console.log("ajab!");
     $('#chat_input').keypress(function (event) {
         if (event.keyCode == 13) {
+            console.log("some one enter");
             var message = $(this).val();
             $.ajax({
                 url: 'chat/send_message',
@@ -13,6 +15,7 @@ $(document).ready(function () {
                     message: message
                 }
             });
+            $(this).val("");
         }
     });
 });

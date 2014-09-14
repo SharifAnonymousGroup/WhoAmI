@@ -19,17 +19,22 @@ def chat(request):
 @login_required()
 def send_message(request):
     user = Member(request.user)
+    user = request.user
+    player = user
     player = user.player.get(isAlive=True)
+    print player
     room = player.game.code
+    print "RE!"
     message = request.GET.get('message')
+    print message
     # we must save this message
     params = urllib.urlencode({
         "message": message,
-        "sender": player.color,
+        "sender": player, #player.color,
         "room": room
     })
 
-    f = urllib.urlopen(NODE_URL + '/?%s' % params)
-    # f.read()
+    f = urllib.urlopen(NODE_URL + '?%s' % params)
+    #f.read()
 
-    return HttpResponse()
+    return HttpResponse("")

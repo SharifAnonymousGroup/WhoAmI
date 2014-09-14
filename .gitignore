@@ -12,5 +12,6 @@ __pycache__/
 /static/usermanagement/scss/*.css
 /static/usermanagement/scss/*.map
 /templates/UserManagementUI/homepage.html
+/Game/nodes/node_modules/**
 
 
