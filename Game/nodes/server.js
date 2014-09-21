@@ -10,7 +10,8 @@ app.use('/', function (request, response) {
 //    console.log(request.url);
 //    console.log("someOne Connected");
     var params = url.parse(request.url, true).query;
-//    console.log(params)
+    room = params.room;
+    io.to(room).emit('message',params);
 
 });
 
@@ -23,13 +24,13 @@ server.listen(3333);
 var io = require('socket.io')(8080);
 io.on('connection', function (socket) {
 
-   socket.on('room',function(room){
+    socket.on('room', function (room) {
         socket.join(room);
-        io.to(room).emit('event',"ali added");
-   });
+        io.to(room).emit('event', "ali added");
+    });
 });
 
-function validation(socket){
+function validation(socket) {
     //bayad por she :)))
 }
 

@@ -4,12 +4,14 @@
 
 $(document).ready(function () {
 //    var url = window.location.pathname;
+    var chat_box = $('#message_box');
     var room = $("#room").val();
     var socket = io.connect('http://localhost:8080');
 
-    socket.emit('room',room);
-    socket.on('event',function(data){
-       console.log(data);
+    socket.emit('room', room);
+    socket.on('message', function (params) {
+        console.log(params.sender);
+        chat_box.append('<p>'+params.message+ '</p>');
     });
 
 //    socket.on('message', function (data) {
@@ -20,13 +22,15 @@ $(document).ready(function () {
         if (event.keyCode == 13) {
             console.log("some one enter");
             var message = $(this).val();
-            $.ajax({
-                url: '/game/chat/send_message',
-                method: 'GET',
-                data: {
-                    message: message
-                }
-            });
+            if (message != '') {
+                $.ajax({
+                    url: '/game/chat/send_message',
+                    method: 'GET',
+                    data: {
+                        message: message
+                    }
+                });
+            };
             $(this).val("");
         }
     });

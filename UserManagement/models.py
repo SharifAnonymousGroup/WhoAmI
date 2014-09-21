@@ -52,7 +52,7 @@ class Member(AbstractUser):
     reset_password_expiredtime = models.DateTimeField(null=True)
     objects = MemberManager()
     def __unicode__(self):
-        return self.get_full_name() + " " + self.username
+        return  self.username
 
     def reset_password_expired(self):
         if self.reset_password_expiredtime < timezone.now():
