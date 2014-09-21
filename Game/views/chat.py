@@ -25,9 +25,12 @@ def send_message(request):
     room = player.game.code
     message = request.GET.get('message')
     # we must save this message
+    color = eval(player.color)
+    print color[1]
+
     params = urllib.urlencode({
         "message": message,
-        "sender": player.color,
+        "sender": color[1],
         "room": room
     })
     url = 'http://localhost:3333/?%s' % params

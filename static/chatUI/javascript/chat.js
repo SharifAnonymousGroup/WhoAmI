@@ -10,8 +10,7 @@ $(document).ready(function () {
 
     socket.emit('room', room);
     socket.on('message', function (params) {
-        console.log(params.sender);
-        chat_box.append('<p>'+params.message+ '</p>');
+        chat_box.append('<p>'+params.sender+": " + params.message+ '</p>');
     });
 
 //    socket.on('message', function (data) {
