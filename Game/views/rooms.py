@@ -17,7 +17,7 @@ def room(request):
                 game = Game.objects.get(code=code)
                 if not game.is_active:
                     return HttpResponse('your link is expired')
-                if not game.have_member(Member(request.user)):
+                if not game.have_member(request.user):
                     if len(Player.objects.filter(game=game)) < game.max_number_of_players:
                         game.add_member(request.user)
                         # return HttpResponse
