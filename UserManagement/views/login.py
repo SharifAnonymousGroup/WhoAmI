@@ -42,6 +42,7 @@ def login_request(request):
             user = auth.authenticate(username=username, password=password)
 
             if user is not None:
+                auth.logout(request)
                 auth.login(request, user)
                 response_data['is_successful'] = True
                 response_data['message'] = 'You successfully loged in!'

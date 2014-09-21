@@ -6,3 +6,4 @@ from Game.models import *
 
 admin.site.register(Player)
 admin.site.register(Game)
+# admin.site.register()

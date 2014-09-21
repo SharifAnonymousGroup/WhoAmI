@@ -1,10 +1,11 @@
 import urllib
 
 from django.contrib.auth.decorators import login_required
+
 from django.http.response import HttpResponse
 from django.shortcuts import render
 
-from UserManagement.models import Member
+from Game.models import Player
 from WhoAmI.settings import NODE_URL
 
 
@@ -18,23 +19,18 @@ def chat(request):
 
 @login_required()
 def send_message(request):
-    user = Member(request.user)
+    # user = Member(request.user)
     user = request.user
-    player = user
-    player = user.player.get(isAlive=True)
-    print player
+    player = Player.objects.filter(member=user, isAlive=True)[0]
     room = player.game.code
-    print "RE!"
     message = request.GET.get('message')
-    print message
     # we must save this message
     params = urllib.urlencode({
         "message": message,
-        "sender": player, #player.color,
+        "sender": player.color,
         "room": room
     })
-
-    f = urllib.urlopen(NODE_URL + '?%s' % params)
-    #f.read()
+    url = 'http://localhost:3333/?%s' % params
+    f = urllib.urlopen(url)
 
     return HttpResponse("")

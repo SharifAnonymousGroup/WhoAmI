@@ -15,10 +15,15 @@
             margin-left: 390px;
         }
     </style>
+    <script src="{{ STATIC_URL }}socket.io.js"></script>
     <script src="{{ STATIC_URL }}bower_components/jquery/dist/jquery.min.js"></script>
     <script src="{{ STATIC_URL }}chatUI/javascript/chat.js"></script>
 </head>
 <body>
+
+
+
+<input type="hidden" value="{{ room }}" id="room">
 <div id="message_box"></div>
 <input type="text" name="chat_input" id="chat_input" >
 </body>

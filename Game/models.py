@@ -27,6 +27,10 @@ class Player(models.Model):
     objects = PlayerManager()
 
 
+    def __unicode__(self):
+        return self.member.__unicode__() + " " + str(self.isAlive)
+
+
 class GameManager(models.Manager):
     def create_game(self, name, time_of_each_round, max_number_of_players, creator):
         game = self.model(name=name, time_of_each_round=time_of_each_round,
@@ -69,7 +73,11 @@ class Game(models.Model):
             return True
 
     def add_member(self, member):
-        player = Player.objects.create_player(member=member, game=self)
+        Player.objects.create_player(member=member, game=self)
+        print "player created!"
+
+    def __unicode__(self):
+        return self.name
 
 
 class MessageManager(models.Model):
