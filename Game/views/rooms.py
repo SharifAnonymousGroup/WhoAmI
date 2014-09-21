@@ -2,32 +2,33 @@ from django.http.response import HttpResponse
 from django.shortcuts import render
 
 from Game.models import Game, Player
-from UserManagement.models import Member
 
 
 __author__ = 'Iman'
 
 
 def room(request):
-
+    print "umad injahaaaa"
     if request.method == 'GET':
         code = request.GET.get('code', '')
         if code != '':
             try:
+                print "inja ke nemikhaim umad!"
                 game = Game.objects.get(code=code)
                 if not game.is_active:
                     return HttpResponse('your link is expired')
                 if not game.have_member(request.user):
+                    print "inja ke mikhaim umad!"
                     if len(Player.objects.filter(game=game)) < game.max_number_of_players:
                         game.add_member(request.user)
+
                         # return HttpResponse
 
                         return render(request, 'chatUI/chat.html', {'room': code})
                     else:
                         return HttpResponse('room is full!')
                 else:
-                    # return HttpResponse('you successfully joined to the game')
-                    print "player is not created"
+                    print "ajab kari shOdesa"
                     return render(request, 'chatUI/chat.html', {'room': code})
             except Game.DoesNotExist:
                 return HttpResponse('Your url is not valid')

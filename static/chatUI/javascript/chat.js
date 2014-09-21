@@ -19,18 +19,23 @@ $(document).ready(function () {
     //con   sole.log("ajab!");
     $('#chat_input').keypress(function (event) {
         if (event.keyCode == 13) {
-            console.log("some one enter");
+            //console.log("some one enter");
             var message = $(this).val();
             if (message != '') {
+                console.log('messagemun sent');
+                console.log(message);
                 $.ajax({
-                    url: '/game/chat/send_message',
+                    url: '/game/chat/send_message/',
                     method: 'GET',
                     data: {
                         message: message
+                    },
+                    success: function(data) {
+                        $(this).val("");
+                        console.log("ajax resid");
                     }
                 });
-            };
-            $(this).val("");
+            }
         }
     });
 });

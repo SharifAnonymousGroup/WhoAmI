@@ -75,6 +75,13 @@ class Game(models.Model):
             return False
 
     def add_member(self, member):
+        # zakhar (bolooke zakhar bayad pak she badan)
+        player_list = Player.objects.filter(member=member)
+        for player in player_list:
+            player.isAlive = False
+            player.save()
+            print "salam"
+        # end Of zAKHAR
         Player.objects.create_player(member=member, game=self)
         print "player created!"
 

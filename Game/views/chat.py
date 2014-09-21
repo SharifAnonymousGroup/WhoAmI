@@ -19,9 +19,11 @@ def chat(request):
 
 @login_required()
 def send_message(request):
+    print "tu send messag ke miad"
     # user = Member(request.user)
     user = request.user
-    player = Player.objects.filter(member=user, isAlive=True)[0]
+    player = Player.objects.get(member=user, isAlive=True)
+
     room = player.game.code
     message = request.GET.get('message')
     # we must save this message
@@ -35,5 +37,5 @@ def send_message(request):
     })
     url = 'http://localhost:3333/?%s' % params
     f = urllib.urlopen(url)
-
-    return HttpResponse("")
+    print "ghable httpres"
+    return HttpResponse()
