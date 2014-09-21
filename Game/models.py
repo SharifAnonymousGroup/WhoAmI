@@ -13,6 +13,8 @@ COLOR_CHOICES = ( ('r', 'red'), ('w', 'white'), ('g', 'green'), ('b', 'blue'), (
 
 class PlayerManager(models.Manager):
     def create_player(self, member, game):
+        print member.username
+        print game.name
         player = self.model(member=member, game=game, color=COLOR_CHOICES[0], isAlive=True, score=0)
         player.save()
         return player
@@ -63,14 +65,14 @@ class Game(models.Model):
         params = urllib.urlencode({
             "code": self.code,
         })
-        return SITE_URL + '/game/rooms/?' + params
+        return SITE_URL + 'game/rooms/?' + params
 
     def have_member(self, member):
         try:
             Player.objects.get(game=self, member=member)
-            return False
-        except:
             return True
+        except:
+            return False
 
     def add_member(self, member):
         Player.objects.create_player(member=member, game=self)

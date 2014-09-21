@@ -9,11 +9,9 @@ __author__ = 'Iman'
 
 
 def room(request):
-    print "user:"
-    print request.user
+
     if request.method == 'GET':
         code = request.GET.get('code', '')
-
         if code != '':
             try:
                 game = Game.objects.get(code=code)
@@ -21,8 +19,7 @@ def room(request):
                     return HttpResponse('your link is expired')
                 if not game.have_member(Member(request.user)):
                     if len(Player.objects.filter(game=game)) < game.max_number_of_players:
-                        game.add_member(Member(request.user))
-                        print "player is created"
+                        game.add_member(request.user)
                         # return HttpResponse
 
                         return render(request, 'chatUI/chat.html', {'room': code})
@@ -30,7 +27,7 @@ def room(request):
                         return HttpResponse('room is full!')
                 else:
                     # return HttpResponse('you successfully joined to the game')
-                    print "player is not craeted"
+                    print "player is not created"
                     return render(request, 'chatUI/chat.html', {'room': code})
             except Game.DoesNotExist:
                 return HttpResponse('Your url is not valid')

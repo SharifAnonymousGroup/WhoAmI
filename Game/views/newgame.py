@@ -28,5 +28,5 @@ def newgame_request(request):
                                        max_number_of_players = max_number_of_players, creator = member)
             game.add_member(request.user)
             return HttpResponse('your room was created. your room link is ' + game.get_url())
-    else :
+    else:
         return HttpResponse("Your Request was not POST Method")

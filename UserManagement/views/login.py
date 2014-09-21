@@ -45,7 +45,7 @@ def login_request(request):
                 auth.logout(request)
                 auth.login(request, user)
                 response_data['is_successful'] = True
-                response_data['message'] = 'You successfully loged in!'
+                response_data['message'] = 'You successfully loged in as ' + user.username
                 return HttpResponse(json.dumps(response_data), content_type="application/json")
             else:
                 # return render(request, 'test/login_test.html', {'error': True}
