@@ -11,10 +11,10 @@
   text-align: center;
   #error {
     font-family: 'Monoton', cursive;
-    padding-top: 10px;
-    font-size: 75px;
+    padding-top: 3%;
+    font-size: 5em;
     text-transform: uppercase;
-    text-shadow: 0 0 80px red, 0 0 30px black , 0 0 6px DarkRed;
+    text-shadow: 0 0 0.5em red, 0 0 0.5em black , 0 0 0.5em DarkRed;
     color: red;
     width: 50%;
     text-align: center;
@@ -29,12 +29,12 @@
 
 
   #error:hover {
-    text-shadow: 0 0 200px #ffffff, 0 0 80px #008000, 0 0 6px #0000ff;
+    text-shadow: 0 0 1.2em #ffffff, 0 0 0.8em #008000, 0 0 0.2em #0000ff;
   }
 
   #night-keeping {
     font-family: 'bitwise';
-    margin-top: 20px;
-    font-size: 26px;
+    margin-top: 2%;
+    font-size: 1.8em;
   }
 }

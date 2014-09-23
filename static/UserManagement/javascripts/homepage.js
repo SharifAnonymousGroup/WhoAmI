@@ -58,25 +58,25 @@ $(document).ready(function () {
         if (demoEntered == 0 || demoEntered == 3) {
             demoEntered = 2;
             $('#leftside-button').css('marginLeft', '0px').animate(
-                {width: "9%"}, 400
+                {width: "5%"}, 400
             );
             $('#left-sidebar-button-text').css('display', 'none');
 
             $('#rightside-button').css('marginRight', '0px').animate(
-                {width: "9%"}, 400
+                {width: "5%"}, 400
             );
             $('#right-sidebar-button-text').css('display', 'none');
 
         }
         else {
             demoEntered = 3;
-            $('#leftside-button').css('marginLeft', '-10px').animate(
-                {width: "16%"}, 400, 'swing', function () {
+            $('#leftside-button').css('marginLeft', '-1%').animate(
+                {width: "10%"}, 400, 'swing', function () {
                     $('#left-sidebar-button-text').css('display', 'inline');
                 }
             );
-            $('#rightside-button').css('marginRight', '-10px').animate(
-                {width: "16%"}, 400, 'swing', function () {
+            $('#rightside-button').css('marginRight', '-1%').animate(
+                {width: "10%"}, 400, 'swing', function () {
                     $('#right-sidebar-button-text').css('display', 'inline');
                 }
             );
@@ -99,25 +99,25 @@ $(document).ready(function () {
         if (demoEntered == 0 || demoEntered == 3) {
             demoEntered = 2;
             $('#leftside-button').css('marginLeft', '0px').animate(
-                {width: "9%"}, 400
+                {width: "5%"}, 400
             );
             $('#left-sidebar-button-text').css('display', 'none');
 
             $('#rightside-button').css('marginRight', '0px').animate(
-                {width: "9%"}, 400
+                {width: "5%"}, 400
             );
             $('#right-sidebar-button-text').css('display', 'none');
 
         }
         else {
             demoEntered = 3;
-            $('#leftside-button').css('marginLeft', '-10px').animate(
-                {width: "16%"}, 400, 'swing', function () {
+            $('#leftside-button').css('marginLeft', '-1%').animate(
+                {width: "10%"}, 400, 'swing', function () {
                     $('#left-sidebar-button-text').css('display', 'inline');
                 }
             );
-            $('#rightside-button').css('marginRight', '-10px').animate(
-                {width: "16%"}, 400, 'swing', function () {
+            $('#rightside-button').css('marginRight', '-1%').animate(
+                {width: "10%"}, 400, 'swing', function () {
                     $('#right-sidebar-button-text').css('display', 'inline');
                 }
             );
