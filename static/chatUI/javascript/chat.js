@@ -22,8 +22,6 @@ $(document).ready(function () {
             //console.log("some one enter");
             var message = $(this).val();
             if (message != '') {
-                console.log('messagemun sent');
-                console.log(message);
                 $.ajax({
                     url: '/game/chat/send_message/',
                     method: 'GET',
@@ -31,7 +29,7 @@ $(document).ready(function () {
                         message: message
                     },
                     success: function(data) {
-                        $(this).val("");
+                        $('#chat_input').val("");
                         console.log("ajax resid");
                     }
                 });

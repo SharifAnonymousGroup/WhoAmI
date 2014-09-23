@@ -1,12 +1,11 @@
+import contextlib
 import urllib
 
 from django.contrib.auth.decorators import login_required
-
 from django.http.response import HttpResponse
 from django.shortcuts import render
 
 from Game.models import Player
-from WhoAmI.settings import NODE_URL
 
 
 __author__ = 'garfild'
@@ -35,7 +34,8 @@ def send_message(request):
         "sender": color[1],
         "room": room
     })
+    print "ta injash ke umad"
     url = 'http://localhost:3333/?%s' % params
-    f = urllib.urlopen(url)
+    urllib.urlopen(url)
     print "ghable httpres"
     return HttpResponse()
