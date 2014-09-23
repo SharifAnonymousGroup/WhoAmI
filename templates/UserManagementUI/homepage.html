@@ -4,20 +4,24 @@
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}UserManagement/scss/homepage.css">
 
     <link rel="stylesheet" type="text/css"
-          href="{{ STATIC_URL }}bower_components/semantic-ui/build/packaged/css/semantic.min.css">
+          href="{{ STATIC_URL }}bower_components/semantic/build/packaged/css/semantic.min.css">
     <meta charset="UTF-8">
     <title>Who Am I</title>
 </head>
 <body>
 
-<div class="right labeled icon attached ui black huge launch animated button" id="leftside-button">
-    <i class="icon user layout"></i>
+<div class="ui labeled right attached black huge button" id="leftside-button">
+    <i class="icon user layout left"></i>
+
     <span class="text" style="display: inline;" id="left-sidebar-button-text">Sign Up</span>
+
 </div>
 
-<div class="left labeled icon ui black huge launch attached animated button" id="rightside-button">
-    <i class="icon user layout"></i>
-    <span class="text" style="display: inline;" id="right-sidebar-button-text">Sign In&nbsp;&nbsp;</span>
+
+<div class="ui labeled left attached black huge button " id="rightside-button">
+    <i class="icon user layout right"></i>
+    <span class="text" style="display: inline;" id="right-sidebar-button-text">Sign In</span>
+
 </div>
 
 <div class="main-page-disc">
@@ -188,7 +192,7 @@
 
 
 <script src="{{ STATIC_URL }}bower_components/jquery/dist/jquery.min.js"></script>
-<script src="{{ STATIC_URL }}bower_components/semantic-ui/build/packaged/javascript/semantic.min.js"></script>
+<script src="{{ STATIC_URL }}bower_components/semantic/build/packaged/javascript/semantic.min.js"></script>
 <script src="{{ STATIC_URL }}UserManagement/javascripts/homepage.js"></script>
 </body>
 </html>
