@@ -6,12 +6,15 @@
 var app = require('express')();
 var server = require('http').Server(app);
 var url = require('url');
-app.use('/', function (request, response) {
+app.get('/', function (request, response) {
 //    console.log(request.url);
-//    console.log("someOne Connected");
+    console.log("someOne Connected");
     var params = url.parse(request.url, true).query;
     room = params.room;
     io.to(room).emit('message',params);
+    response.end();
+
+
 
 });
 
