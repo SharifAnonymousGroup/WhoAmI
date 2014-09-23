@@ -15,6 +15,7 @@
   "dependencies": {
       "bootstrap": "*",
       "jquery": "*",
-	  "semantic": "*"
+      "bootstrap-sass-official": "*",
+	  "semantic-ui": "*"
   }
 }
