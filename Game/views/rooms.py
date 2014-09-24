@@ -1,7 +1,7 @@
 from django.http.response import HttpResponse
 from django.shortcuts import render
 
-from Game.models import Game, Player
+from Game.models import Game, Player, Message
 
 
 __author__ = 'Iman'
@@ -24,15 +24,18 @@ def room(request):
 
                         # return HttpResponse
 
-                        return render(request, 'chatUI/chat.html', {'room': code})
+                        return render(request, 'chatUI/chat.html', {'room': code, 'message': current_message(game)})
                     else:
                         return HttpResponse('room is full!')
                 else:
-                    print "ajab kari shOdesa"
-                    return render(request, 'chatUI/chat.html', {'room': code})
+                    return render(request, 'chatUI/chat.html', {'room': code, 'message': current_message(game)})
             except Game.DoesNotExist:
                 return HttpResponse('Your url is not valid')
         else:
             return HttpResponse('Your url is not valid')
     else:
         return HttpResponse('Your request was not get')
+
+
+def current_message(game):
+    return Message.objects.filter(game=game)

@@ -1,4 +1,5 @@
 # Create your models here
+from cups import require
 import random
 import string
 import urllib
@@ -37,7 +38,6 @@ class GameManager(models.Manager):
     def create_game(self, name, time_of_each_round, max_number_of_players, creator):
         game = self.model(name=name, time_of_each_round=time_of_each_round,
                           max_number_of_players=max_number_of_players, creator=creator)
-        print 'salam'
         game.is_active = True
         game.is_started = False
         game.code = game.create_code()
@@ -89,8 +89,9 @@ class Game(models.Model):
         return self.name
 
 
-class MessageManager(models.Model):
+class MessageManager(models.Manager):
     def create_message(self, sender, round, text):
+        print "zakhar"
         message = self.model(sender=sender, round=round, text=text)
         message.save()
         return message
@@ -99,9 +100,9 @@ class MessageManager(models.Model):
 class Message(models.Model):
     sending_time = models.DateTimeField(auto_now_add=True)
     sender = models.ForeignKey('Player', related_name='messages')
-    round = models.ForeignKey('Round', related_name='messages')
+    round = models.ForeignKey('Round', related_name='messages', blank=True, null=True)
     text = models.TextField(max_length=250)
-    objects = MessageManager
+    objects = MessageManager()
 
 
 class RoundManager(models.Manager):
