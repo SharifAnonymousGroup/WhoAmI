@@ -91,7 +91,6 @@ class Game(models.Model):
 
 class MessageManager(models.Manager):
     def create_message(self, sender, round, text):
-        print "zakhar"
         message = self.model(sender=sender, round=round, text=text)
         message.save()
         return message

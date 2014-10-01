@@ -38,4 +38,4 @@ def room(request):
 
 
 def current_message(game):
-    return Message.objects.filter(game=game)
+    return Message.objects.filter()
