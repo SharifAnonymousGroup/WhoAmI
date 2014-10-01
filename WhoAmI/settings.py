@@ -103,6 +103,6 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 
+LOGIN_URL = '/'
 SITE_URL = 'localhost:8000/'
-LOGIN_URL = ''
 NODE_URL = 'localhost:3333/'

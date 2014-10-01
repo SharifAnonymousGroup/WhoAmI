@@ -2,6 +2,7 @@
 import random
 import string
 import urllib
+import sys
 
 from UserManagement.models import *
 from WhoAmI.settings import SITE_URL
@@ -78,18 +79,16 @@ class Game(models.Model):
 
     def add_member(self, member):
         # zakhar (bolooke zakhar bayad pak she badan)
-        print(member.username)
         player_list = Player.objects.filter(member=member)
         # print("salam bar to sag :|")
         for player in player_list:
             player.isAlive = False
             player.save()
-            print "salam"
         # end Of zAKHAR
         self.number_of_joint_players += 1
         Player.objects.create_player(member=member, game=self)
-        print "player created!"
         self.save()
+        print >>sys.stderr, "player created and jont the game " + self.name
 
 
     def remove_member(self, member):
