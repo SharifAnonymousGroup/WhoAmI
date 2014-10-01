@@ -7,11 +7,11 @@ from UserManagement.models import Member, GENDER_CHOISES
 
 
 class SignupForm(forms.Form):
-    first_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'First Name'}))
-    last_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Last Name'}))
+    first_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'First Name'}), required=False)
+    last_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Last Name'}), required=False)
     username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'UserName'}))
     email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder': 'Email'}))
-    age = forms.IntegerField(max_value=100, widget=forms.TextInput(attrs={'placeholder': 'Age'}))
+    age = forms.IntegerField(max_value=100, widget=forms.TextInput(attrs={'placeholder': 'Age'}), required=False)
     gender = forms.ChoiceField(choices=GENDER_CHOISES)
     password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
     confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Confirm Password'}))

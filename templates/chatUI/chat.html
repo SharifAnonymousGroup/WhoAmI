@@ -15,12 +15,16 @@
             margin-left: 390px;
         }
     </style>
+    <link rel="stylesheet" href="{{ STATIC_URL }}flipclock/compiled/flipclock.css">
     <script src="{{ STATIC_URL }}socket.io.js"></script>
     <script src="{{ STATIC_URL }}bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="{{ STATIC_URL }}flipclock/compiled/flipclock.js"></script>
     <script src="{{ STATIC_URL }}chatUI/javascript/chat.js"></script>
+
 </head>
 <body>
 
+		<div class="clock" style="margin:2em;"></div>
 
 
 <input type="hidden" value="{{ room }}" id="room">

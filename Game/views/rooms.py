@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponse
 from django.shortcuts import render
 
@@ -6,9 +7,10 @@ from Game.models import Game, Player, Message
 
 __author__ = 'Iman'
 
-
+@login_required
 def room(request):
-    print "umad injahaaaa"
+    print "sag sag asg sag"
+    print request.user.username
     if request.method == 'GET':
         code = request.GET.get('code', '')
         if code != '':
@@ -19,7 +21,8 @@ def room(request):
                     return HttpResponse('your link is expired')
                 if not game.have_member(request.user):
                     print "inja ke mikhaim umad!"
-                    if len(Player.objects.filter(game=game)) < game.max_number_of_players:
+                    if game.number_of_joint_players < game.max_number_of_players and not game.is_started:
+                        print request.user.username
                         game.add_member(request.user)
 
                         # return HttpResponse

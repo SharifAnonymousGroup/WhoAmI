@@ -1,5 +1,8 @@
-
 $hgt: 570px;
+
+body {
+  background-color: #c0c0c0;
+}
 
 .padding-custom {
   padding-top: 4px !important;
@@ -9,7 +12,7 @@ $hgt: 570px;
 
 
 .border {
-  border: 1px solid black;
+  //border: 1px solid black;
   position: relative;
   display: inline-block;
 }
@@ -39,25 +42,25 @@ $hgt: 570px;
 .options {
   @extend .padding-custom;
   height: $hgt;
+  //border: 1px solid #dcdcdc;
 }
 
 .scores {
-  //position: relative
-  //display: inline-block;
-  //width: 18.5%;
-  //height: 150px;
-  //top: 1px;
-  //right: 1px;
-  //float: right;
+  height: 83px; border: 1px solid #dcdcdc; margin-bottom: 16px; background-color: #ffffff;
+}
+
+.features {
+  height: 402px; border: 1px solid #dcdcdc; margin-bottom: 7px; background-color: #ffffff;
 }
 
 .whisper {
-
+  height: 43px; border: 1px solid #dcdcdc; background-color: #ffffff;
 }
 
 .footer {
   position: relative;
   top: -27px;
+  text-align: center;
 }
 
 .social {
@@ -66,6 +69,7 @@ $hgt: 570px;
 
 .rights {
   height: 35px;
+  //text-align: center;
 }
 
 .timer {
@@ -102,4 +106,63 @@ $hgt: 570px;
   @extend .circ;
   background-color: #0000ff;
   color: #ffffff;
+}
+
+.pink {
+  background-color: pink!important;
+}
+
+.brown {
+  background-color: brown!important;
+}
+
+.darkred {
+  background-color: darkred!important;
+}
+
+.yellow_ {
+  background-color: #ffff00!important;
+}
+
+.custom {
+  width: 70%!important;
+  font-size: 9px!important;
+  margin: auto!important;
+  text-align: center !important;
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+}
+
+
+.player-menu {
+  width: auto!important;
+  overflow-y: auto;
+  height: 450px;
+}
+
+.color-menu {
+  width: auto!important;
+  overflow-y: auto;
+  height: 450px;
+}
+
+.death-label {
+  font-size: 8px;
+  top: 1px;
+}
+
+.vote-info {
+  width: auto; height: 80px; border: 1px solid #dcdcdc; background-color: #ffffff; margin-bottom: 16px;
+}
+
+.chat-head {
+  position: relative; width: 98%; height: 14%; margin: auto; margin-bottom: 17px;  border: 1px solid #dcdcdc; background-color: #ffffff;
+}
+
+.chat-box {
+  position: relative; width: 98%;margin: auto; height: 71%; border: 1px solid #dcdcdc; background-color: #ffffff;
+}
+
+.message-box {
+  position: relative; width: 98%; margin: auto; height: auto;top: 1%;  border: 1px solid #dcdcdc; background-color: #ffffff;
 }
