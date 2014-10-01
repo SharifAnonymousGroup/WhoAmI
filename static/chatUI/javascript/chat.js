@@ -4,6 +4,12 @@
 
 $(document).ready(function () {
 //    var url = window.location.pathname;
+
+    var clock = $('.clock').FlipClock(10, {
+        clockFace: 'MinuteCounter',
+		countdown: true
+    });
+
     var chat_box = $('#message_box');
     var room = $("#room").val();
     var socket = io.connect('http://localhost:8080');
@@ -15,7 +21,7 @@ $(document).ready(function () {
 
 //    socket.on('message', function (data) {
 //        $("#content").append("<div>" + data.sender + ": " + data.message + "</div>")
-//    });
+//    });s
     //con   sole.log("ajab!");
     $('#chat_input').keypress(function (event) {
         if (event.keyCode == 13) {

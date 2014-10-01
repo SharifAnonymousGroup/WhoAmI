@@ -40,6 +40,7 @@ class GameManager(models.Manager):
         print 'salam'
         game.is_active = True
         game.is_started = False
+        game.number_of_joint_players = 0
         game.code = game.create_code()
         game.save()
         return game
@@ -54,6 +55,7 @@ class Game(models.Model):
     is_active = models.BooleanField()
     is_started = models.BooleanField()
     name = models.CharField(max_length=30)
+    number_of_joint_players = models.IntegerField()
     objects = GameManager()
 
     def create_code(self):
@@ -76,14 +78,25 @@ class Game(models.Model):
 
     def add_member(self, member):
         # zakhar (bolooke zakhar bayad pak she badan)
+        print(member.username)
         player_list = Player.objects.filter(member=member)
+        # print("salam bar to sag :|")
         for player in player_list:
             player.isAlive = False
             player.save()
             print "salam"
         # end Of zAKHAR
+        self.number_of_joint_players += 1
         Player.objects.create_player(member=member, game=self)
         print "player created!"
+        self.save()
+
+
+    def remove_member(self, member):
+        self.players.get(member=member).delete()
+        self.number_of_joint_players -= 1
+        self.save()
+
 
     def __unicode__(self):
         return self.name
