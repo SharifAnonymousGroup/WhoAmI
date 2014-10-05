@@ -28,7 +28,11 @@
 
 
 <input type="hidden" value="{{ room }}" id="room">
-<div id="message_box"></div>
+<div id="message_box">
+    {% for x in message %}
+        <p>x</p>
+    {% endfor %}
+</div>
 <input type="text" name="chat_input" id="chat_input" >
 </body>
 </html>
