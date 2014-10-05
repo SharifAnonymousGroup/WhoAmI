@@ -1,5 +1,4 @@
 # Create your models here
-from cups import require
 import random
 import string
 import urllib
@@ -9,15 +8,13 @@ from UserManagement.models import *
 from WhoAmI.settings import SITE_URL
 
 
-COLOR_CHOICES = ( ('r', 'red'), ('w', 'white'), ('g', 'green'), ('b', 'blue'), ('o', 'orange'),
-                  ('y', 'yellow'), ('p', 'purple'), ('x', 'pink'), ('q', 'grey'))
+COLOR_CHOICES = (('r', 'red'), ('w', 'white'), ('g', 'green'), ('b', 'blue'), ('o', 'orange'),
+                ('y', 'yellow'), ('p', 'purple'), ('x', 'pink'), ('q', 'grey'))
 
 
 class PlayerManager(models.Manager):
-    def create_player(self, member, game):
-        print member.username
-        print game.name
-        player = self.model(member=member, game=game, color=COLOR_CHOICES[0], isAlive=True, score=0)
+    def create_player(self, member, game, color):
+        player = self.model(member=member, game=game, color=color, isAlive=True, score=0)
         player.save()
         return player
 
@@ -30,20 +27,23 @@ class Player(models.Model):
     color = models.CharField(max_length=1, choices=COLOR_CHOICES)
     objects = PlayerManager()
 
-
     def __unicode__(self):
         return self.member.__unicode__() + " " + str(self.isAlive)
 
+    def get_color(self):
+        return eval(self.color)[1]
 
 class GameManager(models.Manager):
     def create_game(self, name, time_of_each_round, max_number_of_players, creator):
         game = self.model(name=name, time_of_each_round=time_of_each_round,
-                          max_number_of_players=max_number_of_players, creator=creator)
+                          max_number_of_players=max_number_of_players, creator=creator,
+                          )
         game.is_active = True
         game.is_started = False
         game.number_of_joint_players = 0
         game.code = game.create_code()
         game.save()
+        Round.objects.create_round(game, 0)
         return game
 
 
@@ -70,6 +70,19 @@ class Game(models.Model):
         })
         return SITE_URL + 'game/rooms/?' + params
 
+    def get_next_color(self):
+        #TODO colar choises's size should be at lease max allowed player!!!!
+        array = range(0, len(COLOR_CHOICES))
+        random.shuffle(array)
+        for x in array:
+            good = True
+            for player in self.players.all():
+                if COLOR_CHOICES[x] == player.color:
+                    good = False
+                    break
+            if good:
+                return COLOR_CHOICES[x]
+
     def have_member(self, member):
         try:
             Player.objects.get(game=self, member=member)
@@ -86,16 +99,20 @@ class Game(models.Model):
             player.save()
         # end Of zAKHAR
         self.number_of_joint_players += 1
-        Player.objects.create_player(member=member, game=self)
+        player = Player.objects.create_player(member=member, game=self, color=self.get_next_color())
         self.save()
-        print >>sys.stderr, "player created and jont the game " + self.name
-
+        print >>sys.stderr, "player for " + member.username + \
+                            " created and jont the game " + self.name + \
+                            " by color " + player.color[1]
 
     def remove_member(self, member):
         self.players.get(member=member).delete()
         self.number_of_joint_players -= 1
         self.save()
 
+    def get_round_messages  (self):
+        messegas = Message.objects.filter(round=self.current_round.get())
+        return messegas
 
     def __unicode__(self):
         return self.name
@@ -108,6 +125,9 @@ class MessageManager(models.Manager):
         return message
 
 
+
+
+
 class Message(models.Model):
     sending_time = models.DateTimeField(auto_now_add=True)
     sender = models.ForeignKey('Player', related_name='messages')
@@ -115,18 +135,25 @@ class Message(models.Model):
     text = models.TextField(max_length=250)
     objects = MessageManager()
 
+    def __unicode__(self):
+        color = eval(self.sender.color)
+        return self.text
+
 
 class RoundManager(models.Manager):
     def create_round(self, game, turn):
-        round = self.model(game=game, turn=turn)
+        round = self.model(game=game, current_game=game, turn=turn)
         round.save()
         return round
 
 
 class Round(models.Model):
     game = models.ForeignKey('Game', related_name='rounds')
+    current_game = models.ForeignKey('Game', related_name='current_round')
     turn = models.IntegerField()
     objects = RoundManager()
+    def __unicode__(self):
+        return self.game.__unicode__() + " -> " + self.turn
 
 
 class VoteManager(models.Manager):
