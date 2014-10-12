@@ -3,19 +3,18 @@ from django.db import models
 
 
 # Create your models here.
-from django.db.models.fields.related import *
 from django.utils import timezone
 
 
 GENDER_CHOISES = (('F', 'Female'), ('M', 'Male'))
 
 
-#class Logged(models.Model):
+# class Logged(models.Model):
 #    created_at = models.DateTimeField(auto_now_add=True)
- #   edited_at = models.DateTimeField(auto_now_add=True, auto_now=True)
+#   edited_at = models.DateTimeField(auto_now_add=True, auto_now=True)
 #
- #   class Meta:
-  #      abstract = True
+#   class Meta:
+#      abstract = True
 
 
 class MemberManager(UserManager):
@@ -38,7 +37,7 @@ class MemberManager(UserManager):
                             email=email,
                             is_staff=True,
                             is_superuser=True
-                            )
+        )
         member.set_password(password)
         member.save()
 
@@ -51,8 +50,9 @@ class Member(AbstractUser):
     reset_password_code = models.CharField(max_length=40, null=True)
     reset_password_expiredtime = models.DateTimeField(null=True)
     objects = MemberManager()
+
     def __unicode__(self):
-        return  self.username
+        return self.username
 
     def reset_password_expired(self):
         if self.reset_password_expiredtime < timezone.now():
