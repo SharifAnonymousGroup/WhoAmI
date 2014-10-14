@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponse
 from django.shortcuts import render
 
-from Game.models import Player, Message
+from Game.models import Player, Message, Game
 
 
 __author__ = 'garfild'
@@ -34,3 +34,12 @@ def send_message(request):
     url = 'http://localhost:3333/?%s' % params
     urllib.urlopen(url)
     return HttpResponse()
+
+
+@login_required
+def leave_game(request):
+    user = request.user
+    player = Player.objects.get(member=user, isAlive=True)
+    game = player.game
+    game.remove_member(user)
+    return HttpResponse('you removed from game')

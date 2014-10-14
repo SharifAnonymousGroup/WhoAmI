@@ -1,6 +1,5 @@
-import new
+
 from django import forms
-from Game.models import Game
 
 __author__ = 'MiladDK'
 

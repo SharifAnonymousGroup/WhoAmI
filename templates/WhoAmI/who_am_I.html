@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="{{ STATIC_URL }}bower_components/jquery/dist/jquery.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}main/main.css">
+    <script type="text/javascript" src="{{ STATIC_URL }}main/main.js"></script>
+    <link type="text/css" rel="stylesheet"
+          href="{{ STATIC_URL }}bower_components/semantic/build/packaged/css/semantic.min.css">
+    <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}WhoAmI/button.css"
+    <script type="text/javascript"
+            src="{{ STATIC_URL }}bower_components/semantic/build/packaged/javascript/semantic.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}election/election.js"></script>
+    <title>What the fuck</title>
+
+</head>
+<body>
+
+<div hidden id="json_players">{{ json_players }}</div>
+<!-- ************************navigation bar************************** -->
+<div class="ui tiered menu">
+    <div class="menu">
+        <a class="active item">
+            <i class="users icon"></i>
+            Friends
+        </a>
+        <a class="item">
+            <i class="grid layout icon"></i> Browse
+        </a>
+        <a class="item">
+            <i class="mail icon"></i> Messages
+        </a>
+
+        <div class="right menu">
+            <div class="item">
+                <div class="ui icon input">
+                    <input placeholder="Search..." type="text">
+                    <i class="search icon"></i>
+                </div>
+            </div>
+            <div class="ui dropdown item" id="id1">
+                More <i class="icon dropdown"></i>
+
+                <div class="menu">
+                    <a class="item"><i class="edit icon"></i> Edit Profile</a>
+                    <a class="item"><i class="globe icon"></i> Choose Language</a>
+                    <a class="item"><i class="settings icon"></i> Account Settings</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui sub menu">
+        <a class="active item">Search</a>
+        <a class="item">Add</a>
+        <a class="item">Remove</a>
+    </div>
+</div>
+<!-- **************************End navbar menu*************************** -->
+
+
+{#********************************SHOROOO!!!************************************#}
+<div class="ui two column grid">
+    {#        ***************************ghesmate chap*************************?#}
+    <div class="column ">
+        <div class="ui fluid  segment">
+            <h3 class="ui header">Rooms</h3>
+
+            <div class="ui divided selection list">
+
+                <a class="item">
+                    <div class="ui  purple   horizontal label rooms_button">Join Game
+
+                    </div>
+                    biya bokhore
+
+                </a>
+
+
+                <a class="item">
+                    <div class="ui  orange horizontal label rooms_button">In Progress
+
+                    </div>
+                    Ice Cream
+                </a>
+
+            </div>
+        </div>
+    </div>
+    {#        *************************** akhare ghesmate chap*************************?#}
+    {#        ***************************ghesmate rast*************************?#}
+    <div class="column">
+        <div class="ui fluid form segment">
+            <h3 class="ui header">New Game</h3>
+
+
+            <div class="field">
+                <label>Name</label>
+                <input placeholder="" type="text">
+            </div>
+            <div class="field">
+                <label>Max Number Of Player</label>
+                <input placeholder="" type="number">
+            </div>
+
+            <div class="field">
+                <label>Time Of Each Round</label>
+                <input placeholder="" type="number">
+            </div>
+
+
+            <div class="ui blue submit button">Sex with me</div>
+        </div>
+    </div>
+</div>
+{#        *************************** akhare ghesmate rast************************?#}
+</body>
+</html>

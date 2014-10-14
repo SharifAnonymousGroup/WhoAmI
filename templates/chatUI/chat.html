@@ -24,8 +24,30 @@
 </head>
 <body>
 
-		<div class="clock" style="margin:2em;"></div>
+<div class="clock" style="margin:2em;"></div>
 
+
+<!-- az injaaaaaaa ta tamumesh pooooyaaaam... *!*!*!*!*!*!*!*!*!*! -->
+<script>
+    $(document).ready(function(){
+        $('#end-game').click(function(){
+            window.location = "/game/endgame";/*
+        console.log("dari miai?");
+        $.ajax ({
+            url: "/game/endgame",
+            method: 'GET',
+            success: function(data) {
+            }
+        });*/
+        });
+    });
+</script>
+
+<button type="button" id="end-game">leave game</button>
+
+<p id="status"></p>
+
+<!-- tamumesh injaas *!*!*!*!*!*!*!**!*!*!*! -->
 
 <input type="hidden" value="{{ room }}" id="room">
 <div id="message_box">
