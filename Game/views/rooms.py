@@ -17,7 +17,7 @@ def room(request):
                 if not game.is_active:
                     return HttpResponse('your link is expired')
                 if not game.have_member(request.user):
-                    if game.number_of_joint_players < game.max_number_of_players and not game.is_started:
+                    if game.number_of_players < game.max_number_of_players and not game.is_started:
                         game.add_member(request.user)
 
                         # return HttpResponse

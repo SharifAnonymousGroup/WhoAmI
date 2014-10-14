@@ -9,7 +9,9 @@ from WhoAmI.settings import SITE_URL
 
 
 COLOR_CHOICES = (('r', 'red'), ('w', 'white'), ('g', 'green'), ('b', 'blue'), ('o', 'orange'),
-                ('y', 'yellow'), ('p', 'purple'), ('x', 'pink'), ('q', 'grey'))
+                ('y', 'yellow'), ('p', 'purple'), ('x', 'pink'), ('q', 'grey'), ('k', 'black'),
+                ('l', 'lightskyblue'), ('a', 'antiquewhite'), ('t', 'teal'), ('c', 'chocolate'),
+                ('d','darkgoldenrod'))
 
 
 class PlayerManager(models.Manager):
@@ -41,10 +43,11 @@ class GameManager(models.Manager):
                           )
         game.is_active = True
         game.is_started = False
-        game.number_of_joint_players = 0
+        game.number_of_players = 0
         game.code = game.create_code()
         game.save()
-        Round.objects.create_round(game, 0, timezone.now())
+        round = Round.objects.create_round(game, 0, timezone.now())
+        game.current_round = round
         return game
 
 
@@ -57,7 +60,8 @@ class Game(models.Model):
     is_active = models.BooleanField()
     is_started = models.BooleanField()
     name = models.CharField(max_length=30)
-    number_of_joint_players = models.IntegerField()
+    number_of_players = models.IntegerField()
+    current_round = models.ForeignKey('Round', null=True, related_name='current_game')
     objects = GameManager()
 
     def create_code(self):
@@ -76,12 +80,9 @@ class Game(models.Model):
         array = range(0, len(COLOR_CHOICES))
         random.shuffle(array)
         for x in array:
-            good = True
-            for player in self.players.all():
-                if COLOR_CHOICES[x] == player.color:
-                    good = False
-                    break
-            if good:
+            try:
+                self.players.get(color=COLOR_CHOICES[x])
+            except:
                 return COLOR_CHOICES[x]
 
     def have_member(self, member):
@@ -93,13 +94,13 @@ class Game(models.Model):
 
     def add_member(self, member):
         # zakhar (bolooke zakhar bayad pak she badan)
-        player_list = Player.objects.filter(member=member)
+        player_list = member.player.all()
         # print("salam bar to sag :|")
         for player in player_list:
             player.isAlive = False
             player.save()
         # end Of zAKHAR
-        self.number_of_joint_players += 1
+        self.number_of_players += 1
         player = Player.objects.create_player(member=member, game=self, color=self.get_next_color())
         self.save()
         print >>sys.stderr, "player for " + member.username + \
@@ -108,12 +109,12 @@ class Game(models.Model):
 
     def remove_member(self, member):
         self.players.get(member=member).delete()
-        self.number_of_joint_players -= 1
+        self.number_of_players -= 1
         self.save()
 
-    def get_round_messages  (self):
-        messegas = Message.objects.filter(round=self.current_round.get())
-        return messegas
+    def get_round_messages(self):
+        messages = Message.objects.filter(round=self.current_round)
+        return messages
 
     def __unicode__(self):
         return self.name
@@ -127,8 +128,6 @@ class MessageManager(models.Manager):
         print message
         return message
 
-
-
 class Message(models.Model):
     sending_time = models.DateTimeField(auto_now_add=True)
     sender = models.ForeignKey('Player', related_name='messages')
@@ -140,23 +139,22 @@ class Message(models.Model):
         color = eval(self.sender.color)
         return self.text
 
-
 class RoundManager(models.Manager):
     def create_round(self, game, turn, start_time):
-        round = self.model(game=game, current_game=game, turn=turn, start_time=start_time)
+        round = self.model(game=game, turn=turn, start_time=start_time)
         round.save()
         return round
 
 
 class Round(models.Model):
     game = models.ForeignKey('Game', related_name='rounds')
-    current_game = models.ForeignKey('Game', related_name='current_round')
     turn = models.IntegerField()
     start_time = models.DateTimeField()
     objects = RoundManager()
 
     def __unicode__(self):
         return self.game.__unicode__() + " -> " + str(self.turn)
+
 
 
 class VoteManager(models.Manager):
