@@ -4,7 +4,8 @@
 
 $(document).ready(function () {
 //    var url = window.location.pathname;
-
+    var data = $(window.start_time);
+    console.log("start time is " + data);
     var clock = $('.clock').FlipClock(10, {
         clockFace: 'MinuteCounter',
 		countdown: true
