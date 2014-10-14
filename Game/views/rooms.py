@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponse
 from django.shortcuts import render
 
@@ -6,30 +7,26 @@ from Game.models import Game, Player
 
 __author__ = 'Iman'
 
-
+@login_required
 def room(request):
-    print "umad injahaaaa"
     if request.method == 'GET':
         code = request.GET.get('code', '')
         if code != '':
             try:
-                print "inja ke nemikhaim umad!"
                 game = Game.objects.get(code=code)
                 if not game.is_active:
                     return HttpResponse('your link is expired')
                 if not game.have_member(request.user):
-                    print "inja ke mikhaim umad!"
-                    if len(Player.objects.filter(game=game)) < game.max_number_of_players:
+                    if game.number_of_joint_players < game.max_number_of_players and not game.is_started:
                         game.add_member(request.user)
 
                         # return HttpResponse
 
-                        return render(request, 'chatUI/chat.html', {'room': code})
+                        return render(request, 'chatUI/chat.html', {'room': code, 'message': game.get_round_messages()})
                     else:
                         return HttpResponse('room is full!')
                 else:
-                    print "ajab kari shOdesa"
-                    return render(request, 'chatUI/chat.html', {'room': code})
+                    return render(request, 'chatUI/chat.html', {'room': code, 'message': game.get_round_messages()})
             except Game.DoesNotExist:
                 return HttpResponse('Your url is not valid')
         else:

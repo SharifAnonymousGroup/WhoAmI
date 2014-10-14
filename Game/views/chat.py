@@ -1,11 +1,10 @@
-import contextlib
 import urllib
 
 from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponse
 from django.shortcuts import render
 
-from Game.models import Player
+from Game.models import Player, Message
 
 
 __author__ = 'garfild'
@@ -18,14 +17,12 @@ def chat(request):
 
 @login_required()
 def send_message(request):
-    print "tu send messag ke miad"
-    # user = Member(request.user)
     user = request.user
     player = Player.objects.get(member=user, isAlive=True)
 
     room = player.game.code
     message = request.GET.get('message')
-    # we must save this message
+    Message.objects.create_message(sender=player, text=message, round=None)
     color = eval(player.color)
     print color[1]
 
@@ -34,8 +31,6 @@ def send_message(request):
         "sender": color[1],
         "room": room
     })
-    print "ta injash ke umad"
     url = 'http://localhost:3333/?%s' % params
     urllib.urlopen(url)
-    print "ghable httpres"
     return HttpResponse()

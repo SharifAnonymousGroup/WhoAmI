@@ -26,15 +26,15 @@ class MemberManager(UserManager):
         )
         member.set_password(password)
         member.save()
-        print "what is your name"
 
-    def create_superuser(self, username, email, password, **extra_fields):
-        member = self.model(age=extra_fields['age'],
-                            gender=extra_fields['gender'],
+
+    def create_superuser(self, age, gender, username, last_name, first_name, password, email):
+        member = self.model(age=age,
+                            gender=gender,
                             credit=0,
                             username=username,
-                            last_name=extra_fields['last_name'],
-                            first_name=extra_fields['first_name'],
+                            last_name=last_name,
+                            first_name=first_name,
                             email=email,
                             is_staff=True,
                             is_superuser=True
@@ -44,8 +44,8 @@ class MemberManager(UserManager):
 
 
 class Member(AbstractUser):
-    age = models.IntegerField()
-    gender = models.CharField(max_length=1, choices=GENDER_CHOISES)
+    age = models.IntegerField(null=True, blank=True)
+    gender = models.CharField(max_length=1, choices=GENDER_CHOISES, null=True, blank=True)
     credit = models.IntegerField()
     picture = models.ImageField(upload_to='Data/profile_pictures', null=True, blank=True)
     reset_password_code = models.CharField(max_length=40, null=True)
@@ -61,14 +61,3 @@ class Member(AbstractUser):
 
     class Meta:
         unique_together = ('email',)
-
-#class GameHistory(Logged):
- #   winner = models.ForeignKey('Member')
-  #  players = ManyToManyField('Member', related_name='games', through='Result')
-
-
-#class Result(models.Model):
- #   player = models.ForeignKey('Member', related_name='p')
-  #  game = models.ForeignKey('GameHistory', related_name='g')
-   # rate = models.IntegerField()
-    #added_credit = models.IntegerField()
