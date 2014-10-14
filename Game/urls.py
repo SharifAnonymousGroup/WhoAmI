@@ -7,7 +7,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
 
 
-                       url(r'^$', 'Game.views.chat.chat', name='chat'),
+                       url(r'^$', 'Game.views.game.game', name='game'),
                        url(r'^newgame/$', 'Game.views.newgame.newgame', name='new_game'),
 
 
