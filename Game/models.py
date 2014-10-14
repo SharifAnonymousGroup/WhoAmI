@@ -122,9 +122,9 @@ class Game(models.Model):
 class MessageManager(models.Manager):
     def create_message(self, sender, round, text):
         message = self.model(sender=sender, round=round, text=text)
-        print text
+#        print text
         message.save()
-        print message
+#        print message
         return message
 
 

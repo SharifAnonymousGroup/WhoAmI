@@ -51,8 +51,9 @@ class Member(AbstractUser):
     reset_password_code = models.CharField(max_length=40, null=True)
     reset_password_expiredtime = models.DateTimeField(null=True)
     objects = MemberManager()
+
     def __unicode__(self):
-        return  self.username
+        return self.username
 
     def reset_password_expired(self):
         if self.reset_password_expiredtime < timezone.now():

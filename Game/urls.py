@@ -9,7 +9,7 @@ urlpatterns = patterns('',
 
                        url(r'^$', 'Game.views.chat.chat', name='chat'),
                        url(r'^newgame/$', 'Game.views.newgame.newgame', name='new_game'),
-
+                       url(r'^endgame/$', 'Game.views.chat.leave_game'),
 
                        url(r'^chat/send_message/$', 'Game.views.chat.send_message', name='send_message'),
 
@@ -17,4 +17,4 @@ urlpatterns = patterns('',
                            name='new_game_request'),
                        url(r'^rooms/', 'Game.views.rooms.room', name='rooms'),
 
-)
+                       )
