@@ -43,7 +43,7 @@ class GameManager(models.Manager):
         game.number_of_joint_players = 0
         game.code = game.create_code()
         game.save()
-        Round.objects.create_round(game, 0)
+        Round.objects.create_round(game, 0, timezone.now())
         return game
 
 
@@ -121,7 +121,9 @@ class Game(models.Model):
 class MessageManager(models.Manager):
     def create_message(self, sender, round, text):
         message = self.model(sender=sender, round=round, text=text)
+        print text
         message.save()
+        print message
         return message
 
 
@@ -141,8 +143,8 @@ class Message(models.Model):
 
 
 class RoundManager(models.Manager):
-    def create_round(self, game, turn):
-        round = self.model(game=game, current_game=game, turn=turn)
+    def create_round(self, game, turn, start_time):
+        round = self.model(game=game, current_game=game, turn=turn, start_time=start_time)
         round.save()
         return round
 
@@ -151,6 +153,7 @@ class Round(models.Model):
     game = models.ForeignKey('Game', related_name='rounds')
     current_game = models.ForeignKey('Game', related_name='current_round')
     turn = models.IntegerField()
+    start_time = models.DateTimeField()
     objects = RoundManager()
     def __unicode__(self):
         return self.game.__unicode__() + " -> " + self.turn

@@ -22,11 +22,14 @@ def room(request):
 
                         # return HttpResponse
 
-                        return render(request, 'chatUI/chat.html', {'room': code, 'message': game.get_round_messages()})
+                        return render(request, 'chatUI/chat.html', {'room': code, 'message': game.get_round_messages(),
+                                                                    'round': game.current_round})
                     else:
                         return HttpResponse('room is full!')
                 else:
-                    return render(request, 'chatUI/chat.html', {'room': code, 'message': game.get_round_messages()})
+                    return render(request, 'chatUI/chat.html', {'room': code, 'message': game.get_round_messages(),
+                                                                'round': game.current_round})
+                    print 'its here'
             except Game.DoesNotExist:
                 return HttpResponse('Your url is not valid')
         else:
