@@ -27,19 +27,15 @@ def signup(request):
 @csrf_exempt
 def signup_request(request):
     if request.method == 'POST':
+        print "nsothinoethunotuheousnth"
         form = SignupForm(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
             username = cd['username']
             password = cd['password']
-            first_name = cd['first_name']
-            last_name = cd['last_name']
-            gender = cd['gender']
             email = cd['email']
-            age = cd['age']
-            Member.objects.create_member(username=username, password=password, first_name=first_name,
-                                         last_name=last_name, gender=gender, email=email, age=age)
-
+            Member.objects.create_member(username=username, password=password, first_name="",
+                                         last_name="", gender=None, email=email, age=None)
             send_mail('Welcome to Who Am I', MAIL, [email],
                       'email_test/registration_mail.txt',
                       'email_test/registration_mail.html',
