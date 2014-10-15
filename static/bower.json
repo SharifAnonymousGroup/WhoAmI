@@ -16,7 +16,6 @@
       "bootstrap": "*",
       "jquery": "*",
       "bootstrap-sass-official": "*",
-	  "semantic-ui": "*",
-      "semantic": "*"
+	  "semantic-ui": "*"
   }
 }
