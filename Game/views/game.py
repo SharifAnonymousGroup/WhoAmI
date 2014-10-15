@@ -6,4 +6,4 @@ __author__ = 'garfild'
 
 
 def game(request):
-    return render(request,'WhoAmI/who_am_I.html',{})
+    return render(request, 'WhoAmI/main_page.html',{})

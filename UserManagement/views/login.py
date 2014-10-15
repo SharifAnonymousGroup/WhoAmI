@@ -14,8 +14,6 @@ def login(request):
     return render(request, 'test/login_test.html', {})
 
 
-@csrf_protect
-@csrf_exempt
 def login_request(request):
     response_data = {}
     response_data['message'] = {}

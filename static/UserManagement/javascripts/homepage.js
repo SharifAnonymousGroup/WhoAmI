@@ -71,12 +71,12 @@ $(document).ready(function () {
         else {
             demoEntered = 3;
             $('#leftside-button').css('marginLeft', '-1%').animate(
-                {width: "10%"}, 400, 'swing', function () {
+                {width: "12%"}, 400, 'swing', function () {
                     $('#left-sidebar-button-text').css('display', 'inline');
                 }
             );
             $('#rightside-button').css('marginRight', '-1%').animate(
-                {width: "10%"}, 400, 'swing', function () {
+                {width: "12%"}, 400, 'swing', function () {
                     $('#right-sidebar-button-text').css('display', 'inline');
                 }
             );
@@ -112,12 +112,12 @@ $(document).ready(function () {
         else {
             demoEntered = 3;
             $('#leftside-button').css('marginLeft', '-1%').animate(
-                {width: "10%"}, 400, 'swing', function () {
+                {width: "12%"}, 400, 'swing', function () {
                     $('#left-sidebar-button-text').css('display', 'inline');
                 }
             );
             $('#rightside-button').css('marginRight', '-1%').animate(
-                {width: "10%"}, 400, 'swing', function () {
+                {width: "12%"}, 400, 'swing', function () {
                     $('#right-sidebar-button-text').css('display', 'inline');
                 }
             );

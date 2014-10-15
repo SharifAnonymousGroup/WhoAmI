@@ -4,8 +4,8 @@
 
 $(document).ready(function () {
 //    var url = window.location.pathname;
-    var data = $(window.start_time);
-    console.log("start time is " + data);
+
+
     var clock = $('.clock').FlipClock(10, {
         clockFace: 'MinuteCounter',
 		countdown: true
@@ -17,7 +17,9 @@ $(document).ready(function () {
 
     socket.emit('room', room);
     socket.on('message', function (params) {
-        chat_box.append('<p>'+params.sender+": " + params.message+ '</p>');
+        console.log("message is " + params.message);
+        var $sender = $('<span></span>').addClass('label label-'+params.sender).text(params.sender);
+        $('<p></p>').text(params.message).prepend(': ').prepend($sender).appendTo(chat_box);
     });
 
 //    socket.on('message', function (data) {
