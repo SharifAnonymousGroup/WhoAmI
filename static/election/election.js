@@ -23,6 +23,7 @@ $(document).ready(function () {
             if (index > -1) {
                 array.splice(index, 1);
             }
+            $(" option[value='kaze']").remove();
         }
     })
 });

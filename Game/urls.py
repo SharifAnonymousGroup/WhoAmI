@@ -16,6 +16,6 @@ urlpatterns = patterns('',
                        url(r'^newgame_request/$', 'Game.views.newgame.newgame_request',
                            name='new_game_request'),
                        url(r'^rooms/', 'Game.views.rooms.room', name='rooms'),
-                       url(r'^election/','Game.views.election.election', name='election')
+                       url(r'^election/', 'Game.views.election.election', name='election')
 
-                       )
+)
