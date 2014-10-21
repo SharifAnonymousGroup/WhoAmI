@@ -22,12 +22,12 @@ def room(request):
 
                         # return HttpResponse
 
-                        return render(request, 'chatUI/chat.html', {'room': code, 'message': game.get_round_messages(),
-                                                                    'round': game.current_round})
                     else:
+                        return render(request, 'WhoAmI/game_page.html', {'room': game, 'message': game.get_round_messages(),
+                                                                         'round': game.current_round})
                         return HttpResponse('room is full!')
                 else:
-                    return render(request, 'chatUI/chat.html', {'room': code, 'message': game.get_round_messages(),
+                    return render(request, 'WhoAmI/game_page.html', {'room': game, 'message': game.get_round_messages(),
                                                                 'round': game.current_round})
                     print 'its here'
             except Game.DoesNotExist:

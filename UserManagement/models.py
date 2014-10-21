@@ -41,7 +41,7 @@ class MemberManager(UserManager):
         member.set_password(password)
         member.save()
 
-
+#TODO bayad fielde current player besh ezafe she.
 class Member(AbstractUser):
     age = models.IntegerField(null=True, blank=True)
     gender = models.CharField(max_length=1, choices=GENDER_CHOISES, null=True, blank=True)

@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <script type="text/javascript" src="{{ STATIC_URL }}bower_components/jquery/dist/jquery.min.js"></script>
     <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}main/main.css">
+    <script type="text/javascript" src="{{ STATIC_URL }}WhoAmI/javascript/main_page.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}main/main.js"></script>
     <link type="text/css" rel="stylesheet"
-          href="{{ STATIC_URL }}bower_components/semantic-ui/build/packaged/css/semantic.min.css">
+    href="{{ STATIC_URL }}bower_components/semantic-ui/build/packaged/css/semantic.min.css">
     <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}WhoAmI/scss/main_page.css"
     <script type="text/javascript"
-            src="{{ STATIC_URL }}bower_components/semantic-ui/build/packaged/javascript/semantic.min.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}election/election.js"></script>
-    <title>What the fuck</title>
+    src="{{ STATIC_URL }}bower_components/semantic-ui/build/packaged/javascript/semantic.min.js"></script>
+
+    <title>Who Am I</title>
 
 </head>
 <body>
@@ -67,22 +68,24 @@
 
             <div class="ui divided selection list">
 
+                {% for x in rooms %}
+                    {% if x.is_started %}
+                        <a class="item"  href="{{ x.get_url }}">
+                            <input type="submit" class="ui  orange   horizontal label rooms_button" value="In Progress" id="in_progress">
+                            <span>{{ x.name }}</span>
+                        </a>
+                    {% else %}
+                        <a class="item" href="{{ x.get_url }}">
+                                <input type="button" class="ui  purple   horizontal label rooms_button" id="join_game" value="Join Game" >
+                            <span>{{ x.name }}</span>
+                        </a>
+                    {% endif %}
+                {% endfor %}
+
                 <a class="item">
-                    <div class="ui  purple   horizontal label rooms_button">Join Game
-
-                    </div>
-                    biya bokhore
-
+                    <input type="button" class="ui purple horizontal label rooms_button" id="in_progress" value="In Progress">
                 </a>
-
-
-                <a class="item">
-                    <div class="ui  orange horizontal label rooms_button">In Progress
-
-                    </div>
-                    Ice Cream
-                </a>
-
+                <div class="message_box"></div>
             </div>
         </div>
     </div>
@@ -92,23 +95,26 @@
         <div class="ui fluid form segment">
             <h3 class="ui header">New Game</h3>
 
+                <form action="newgame_request/" method="post">
+                    {% csrf_token %}
+                    <div class="field">
+                        <label>Name</label>
+                        {{ form.name }}
+                    </div>
+                    <div class="field">
+                        <label>Max Number Of Player</label>
+                        {{ form.max_number_of_players }}
+                    </div>
 
-            <div class="field">
-                <label>Name</label>
-                <input placeholder="" type="text">
-            </div>
-            <div class="field">
-                <label>Max Number Of Player</label>
-                <input placeholder="" type="number">
-            </div>
+                    <div class="field">
+                        <label>Time Of Each Round</label>
+                        {{ form.time_of_each_round }}
+                    </div>
 
-            <div class="field">
-                <label>Time Of Each Round</label>
-                <input placeholder="" type="number">
-            </div>
+                    <input type="submit" class="ui blue submit button" value="Create Room">
 
+                </form>
 
-            <div class="ui blue submit button">Sex with me</div>
         </div>
     </div>
 </div>
