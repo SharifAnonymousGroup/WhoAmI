@@ -5,7 +5,6 @@ from django.http.response import HttpResponse
 from django.shortcuts import render
 
 from Game.models import Player, Message, Game
-from UserManagement.models import Member
 
 
 __author__ = 'garfild'
@@ -19,17 +18,13 @@ def chat(request):
 @login_required()
 def send_message(request):
     user = request.user
-    member = Member(user)
-    player = member.current_player
-    if player is None:
-        return HttpResponse('you cant send message in this room!')
-
+    player = Player.objects.get(member=user, isAlive=True)#TODO exception handeling
     room = player.game.code
     message = request.GET.get('message')
-    Message.objects.create_message(sender=player, text=message, round=None)
-    color = eval(player.color)
-    print color[1]
+    Message.objects.create_message(sender=player, text=message, round=player.game.current_round)
+    color = eval(player.color)#TODO mishe bedoone eval zadesh chon code python ejra mishe gand mizane
 
+    #TODO bayad methodesh post beshe!
     params = urllib.urlencode({
         "message": message,
         "sender": color[1],
@@ -43,10 +38,7 @@ def send_message(request):
 @login_required
 def leave_game(request):
     user = request.user
-    member = Member(user)
-    player = member.current_player
-    if player is None:
-        return HttpResponse("You was not in this room")
+    player = Player.objects.get(member=user, isAlive=True)
     game = player.game
     game.remove_member(user)
     return HttpResponse('you removed from game')

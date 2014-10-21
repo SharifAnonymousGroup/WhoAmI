@@ -16,6 +16,7 @@
         }
     </style>
     <link rel="stylesheet" href="{{ STATIC_URL }}flipclock/compiled/flipclock.css">
+
     <script src="{{ STATIC_URL }}socket.io.js"></script>
     <script src="{{ STATIC_URL }}bower_components/jquery/dist/jquery.min.js"></script>
     <script src="{{ STATIC_URL }}flipclock/compiled/flipclock.js"></script>
@@ -52,7 +53,7 @@
 <input type="hidden" value="{{ room }}" id="room">
 <div id="message_box">
     {% for x in message %}
-        <p>x</p>
+        <p> {{ x.sender.get_color }}: {{ x }} </p>
     {% endfor %}
 </div>
 <input type="text" name="chat_input" id="chat_input" >
