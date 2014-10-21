@@ -31,7 +31,12 @@ function prepare_form(form_id, message_place) {
                 }
                 else{
                     var message = response['message'];
-                    $(message_place).append("<p style='color:green'>" + message + "</p>");
+                    if(form_id==='#form-signup' || form_id==='#form-forgot'){
+                        $(message_place).append("<p style='color:green'>" + message + "</p>");
+                    }
+                    else{
+                        window.location = "game/";
+                    }
                 }
 //              var myArray = JSON.parse(response);//in chist?
             }
@@ -136,96 +141,7 @@ $(document).ready(function () {
     prepare_form('#form-signin','.signin_message_holder');
     prepare_form('#form-forgot','.signin_message_holder');
 
-    /*
-     $('.ui.form')
-     .form({
-     firstName: {
-     identifier: 'first_name',
-     rules: [
-     {
-     type: 'empty',
-     prompt: 'Please enter your first name'
-     }
-     ]
-     },
-     lastName: {
-     identifier: 'last_name',
-     rules: [
-     {
-     type: 'empty',
-     prompt: 'Please enter your last name'
-     }
-     ]
-     },
-     email: {
-     identifier: 'email',
-     rules: [
-     {
-     type: 'email',
-     prompt: 'Please enter correct email address'
-     }
-     ]
-     },
-     username: {
-     identifier: 'username',
-     rules: [
-     {
-     type: 'empty',
-     prompt: 'Please enter a username'
-     }
-     ]
-     },
-     age: {
-     identifier: 'age',
-     rules: [
-     {
-     type: 'empty',
-     prompt: 'Please enter your age'
-     }
-     ]
-     },
 
-     password: {
-     identifier: 'password',
-     rules: [
-     {
-     type: 'empty',
-     prompt: 'Please enter a password'
-     },
-     {
-     type: 'length[6]',
-     prompt: 'Your password must be at least 6 characters'
-     }
-     ]
-     },
-     confirm_password: {
-     identifier: 'confirm_password',
-     rules: [
-     {
-     type: 'empty',
-     prompt: 'Please enter your password again'
-     },
-     {
-     type: 'match[password]',
-     prompt: 'Your password does not match with above password'
 
-     }
-     ]
-     },
-     terms: {
-     identifier: 'terms',
-     rules: [
-     {
-     type: 'checked',
-     prompt: 'You must agree to the terms and conditions'
-     }
-     ]
-     }
-     }, {
-     on: 'blur',
-     inline: 'true'
-     });
-
-     */
 });
 

@@ -9,10 +9,6 @@ from UserManagement.models import Member
 
 __author__ = 'MiladDK'
 
-@login_required
-def newgame(request):
-    form = NewgameForm()
-    return render(request, 'test/new_game_test.html', {'form': form})
 
 @login_required
 def newgame_request(request):

@@ -1,3 +1,20 @@
 .rooms_button{
     width: 125px; !important;
 }
+
+.message_box {
+    color: red;
+    font-size: 12px;
+    font-family: serif;
+    margin: auto;
+    position: relative;
+    display: inline-block;
+}
+
+#in_progress {
+    position: relative;
+}
+
+#join_game {
+    position: relative;
+}
