@@ -54,7 +54,6 @@ def signup_request(request):
             response_data = {'is_successful': False, 'message': form.errors}
             return HttpResponse(json.dumps(response_data), content_type="application/json")
 
-        return render(request, 'test/login_test.html', {})
     else:
         return HttpResponse('Your request method was not POST')
 
