@@ -19,7 +19,7 @@ def room(request):
                 if not game.have_member(request.user):
                     if game.number_of_players < game.max_number_of_players and not game.is_started:
                         game.add_member(request.user)
-
+                        #TODO tabe'e add_member nadarim ke!!! :-??
                         # return HttpResponse
 
                     else:

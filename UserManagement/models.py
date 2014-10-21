@@ -18,16 +18,15 @@ GENDER_CHOISES = (('F', 'Female'), ('M', 'Male'))
 
 
 class MemberManager(UserManager):
-    def create_member(self, age, gender, username, last_name, first_name, password, email):
+    def create_member(self, age, gender, username, last_name, first_name, password, email, current_player):
         member = self.model(
             age=age, gender=gender, credit=0, username=username,
-            last_name=last_name, first_name=first_name, email=email
+            last_name=last_name, first_name=first_name, email=email, current_player=current_player
         )
         member.set_password(password)
         member.save()
 
-
-    def create_superuser(self, age, gender, username, last_name, first_name, password, email):
+    def create_superuser(self, age, gender, username, last_name, first_name, password, email, current_player):
         member = self.model(age=age,
                             gender=gender,
                             credit=0,
@@ -36,13 +35,16 @@ class MemberManager(UserManager):
                             first_name=first_name,
                             email=email,
                             is_staff=True,
-                            is_superuser=True
+                            is_superuser=True,
+                            current_player=current_player
         )
         member.set_password(password)
         member.save()
 
+
 #TODO bayad fielde current player besh ezafe she.
 class Member(AbstractUser):
+    current_player = models.ForeignKey('Game.Player', null=True, related_name='current-player')
     age = models.IntegerField(null=True, blank=True)
     gender = models.CharField(max_length=1, choices=GENDER_CHOISES, null=True, blank=True)
     credit = models.IntegerField()

@@ -5,6 +5,7 @@ from django.http.response import HttpResponse
 from django.shortcuts import render
 
 from Game.models import Player, Message, Game
+from UserManagement.models import Member
 
 
 __author__ = 'garfild'
@@ -18,7 +19,10 @@ def chat(request):
 @login_required()
 def send_message(request):
     user = request.user
-    player = Player.objects.get(member=user, isAlive=True)
+    member = Member(user)
+    player = member.current_player
+    if player is None:
+        return HttpResponse('you cant send message in this room!')
 
     room = player.game.code
     message = request.GET.get('message')
@@ -39,7 +43,10 @@ def send_message(request):
 @login_required
 def leave_game(request):
     user = request.user
-    player = Player.objects.get(member=user, isAlive=True)
+    member = Member(user)
+    player = member.current_player
+    if player is None:
+        return HttpResponse("You was not in this room")
     game = player.game
     game.remove_member(user)
     return HttpResponse('you removed from game')
