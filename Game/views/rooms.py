@@ -2,10 +2,12 @@ from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponse
 from django.shortcuts import render
 
-from Game.models import Game, Player
+from Game.models import Game
+from Game.views.election import election
 
 
 __author__ = 'Iman'
+
 
 @login_required
 def room(request):
@@ -19,14 +21,20 @@ def room(request):
                 if not game.have_member(request.user):
                     if game.number_of_players < game.max_number_of_players and not game.is_started:
                         game.add_member(request.user)
-                        return render(request, 'WhoAmI/game_page.html', {'room': game, 'message': game.get_round_messages(),
-                                                                         'round': game.current_round})
+                        dic = {'room': game, 'message': game.get_round_messages(),
+                               'round': game.current_round}
+                        election_dic = election(request)
+                        z = dict(dic.items() + election_dic.items())
+                        return render(request, 'WhoAmI/game_page.html',  z)
                     else:
                         return HttpResponse('room is full!')
                 else:
-                    return render(request, 'WhoAmI/game_page.html', {'room': game, 'message': game.get_round_messages(),
-                                                                'round': game.current_round})
-                    print 'its here'
+                    dic = {'room': game, 'message': game.get_round_messages(),
+                           'round': game.current_round}
+                    election_dic = election(request)
+                    z = dict(dic.items() + election_dic.items())
+                    return render(request, 'WhoAmI/game_page.html', z)
+
             except Game.DoesNotExist:
                 return HttpResponse('Your url is not valid')
         else:

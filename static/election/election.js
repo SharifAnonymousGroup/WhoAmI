@@ -30,3 +30,7 @@ $(document).ready(function () {
         }
     })
 });
+
+function send_election_form(){
+
+}
