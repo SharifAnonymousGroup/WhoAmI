@@ -6,9 +6,9 @@
     <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}main/main.css">
     <script type="text/javascript" src="{{ STATIC_URL }}main/main.js"></script>
     <link type="text/css" rel="stylesheet"
-          href="{{ STATIC_URL }}bower_components/semantic/build/packaged/css/semantic.min.css">
+          href="{{ STATIC_URL }}bower_components/semantic-ui/build/packaged/css/semantic.min.css">
     <script type="text/javascript"
-            src="{{ STATIC_URL }}bower_components/semantic/build/packaged/javascript/semantic.min.js"></script>
+            src="{{ STATIC_URL }}bower_components/semantic-ui/build/packaged/javascript/semantic.min.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}election/election.js"></script>
     <title>What the fuck</title>
 
@@ -81,7 +81,7 @@
                                             <div class="text">Player</div>
                                             <i class="dropdown icon "></i>
 
-                                            <div class="menu">
+                                            <div class="menu    vote">
                                                 {% for player in players %}
                                                     <div class="item active" data-value={{ player }}>
                                                         <span>{{ player }} </span></div>

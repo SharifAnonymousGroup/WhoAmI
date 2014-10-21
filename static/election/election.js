@@ -19,11 +19,14 @@ $(document).ready(function () {
     $(".vote").dropdown({
         onChange: function (val) {
 
-            var index = players.indexOf(val);
-            if (index > -1) {
-                array.splice(index, 1);
-            }
-            $(" option[value='kaze']").remove();
+//            var index = players.indexOf(val);
+//            if (index > -1) {
+//                array.splice(index, 1);
+//            }
+//            dropdownElement = $(".vote");
+//            dropdownElement.find('option[value=kazem]').remove();
+//            $(".vote option[value=val]").remove();
+
         }
     })
 });

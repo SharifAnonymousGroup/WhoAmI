@@ -14,6 +14,7 @@ def election(request):
     user = request.user
     player = Player.objects.get(member=user, isAlive=True)
     game = player.game
+    print user.username
 
     players = Player.objects.filter(game=game, isAlive=True)
     colors = [eval(player.color)[1] for player in players]
