@@ -10,7 +10,7 @@
     <title>Room: {{ room.name }}</title>
 </head>
 <body>
-
+<div hidden id="json_players">{{ json_players }}</div>
 
 <!-- ************************navigation bar************************** -->
 <div class="ui tiered menu">
@@ -65,79 +65,26 @@
                         <div class="ui vertical menu player-menu">
                             <a class="item" ><b>Players</b> <label class="ui green circular label">4</label> </a>
                             <div class="item">
-                                <div><label class="ui black label"></label>
-                                    <div class="ui inline dropdown">
-                                        <div class="text" >Player</div>
-                                        <i class="dropdown icon"></i>
-                                        <div class= "menu">
-                                            <div class="item active" data-text="Mohammad Javad Rafiei"><span>Mohammad Javad Rafiei </span></div>
-                                            <div class="item" data-text="Iman Jami"><span>Iman Jami</span></div>
-                                            <div class="item" data-text="Mohsen Rashidi"><span>Mohsen Rashidi</span> </div>
-                                            <div class="item" data-text="Kazem"><span>Kazem</span> </div>
-                                            <div class="item" data-text="Amin Sabaghian"><span>Amin Sabaghian</span> </div>
+                               {% for color in colors %}
+                                    <div><label class="ui  {{ color }} label"></label>
 
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                                <div><label class="ui red label"></label>
-                                    <div class="ui inline dropdown">
-                                        <div class="text" >Player</div>
-                                        <i class="dropdown icon"></i>
-                                        <div class= "menu">
-                                            <div class="item active" data-text="Mohammad Javad Rafiei"><span>Mohammad Javad Rafiei </span></div>
-                                            <div class="item" data-text="Iman Jami"><span>Iman Jami</span></div>
-                                            <div class="item" data-text="Mohsen Rashidi"><span>Mohsen Rashidi</span> </div>
-                                            <div class="item" data-text="Kazem"><span>Kazem</span> </div>
-                                            <div class="item" data-text="Amin Sabaghian"><span>Amin Sabaghian</span> </div>
+                                        <div class="ui inline dropdown vote">
+                                            <input name="language" type="hidden" value="kaze">
 
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                                <div><label class="ui green label"></label>
-                                    <div class="ui inline dropdown">
-                                        <div class="text" >Player</div>
-                                        <i class="dropdown icon"></i>
-                                        <div class= "menu">
-                                            <div class="item active" data-text="Mohammad Javad Rafiei"><span>Mohammad Javad Rafiei </span></div>
-                                            <div class="item" data-text="Iman Jami"><span>Iman Jami</span></div>
-                                            <div class="item" data-text="Mohsen Rashidi"><span>Mohsen Rashidi</span> </div>
-                                            <div class="item" data-text="Kazem"><span>Kazem</span> </div>
-                                            <div class="item" data-text="Amin Sabaghian"><span>Amin Sabaghian</span> </div>
+                                            <div class="text">Player</div>
+                                            <i class="dropdown icon "></i>
 
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                                <div><label class="ui blue label"></label>
-                                    <div class="ui inline dropdown">
-                                        <div class="text" >Player</div>
-                                        <i class="dropdown icon"></i>
-                                        <div class= "menu">
-                                            <div class="item active" data-text="Mohammad Javad Rafiei"><span>Mohammad Javad Rafiei </span></div>
-                                            <div class="item" data-text="Iman Jami"><span>Iman Jami</span></div>
-                                            <div class="item" data-text="Mohsen Rashidi"><span>Mohsen Rashidi</span> </div>
-                                            <div class="item" data-text="Kazem"><span>Kazem</span> </div>
-                                            <div class="item" data-text="Amin Sabaghian"><span>Amin Sabaghian</span> </div>
+                                            <div class="menu    vote">
+                                                {% for player in players %}
+                                                    <div class="item active" data-value={{ player }}>
+                                                        <span>{{ player }} </span></div>
+                                                {% endfor %}
 
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <br>
-                                <div><label class="ui pink label"></label>
-                                    <div class="ui inline dropdown">
-                                        <div class="text" >Player</div>
-                                        <i class="dropdown icon"></i>
-                                        <div class= "menu">
-                                            <div class="item active" data-text="Mohammad Javad Rafiei"><span>Mohammad Javad Rafiei </span></div>
-                                            <div class="item" data-text="Iman Jami"><span>Iman Jami</span></div>
-                                            <div class="item" data-text="Mohsen Rashidi"><span>Mohsen Rashidi</span> </div>
-                                            <div class="item" data-text="Kazem"><span>Kazem</span> </div>
-                                            <div class="item" data-text="Amin Sabaghian"><span>Amin Sabaghian</span> </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                    <br/>
+                                {% endfor %}
 
 
                             </div>

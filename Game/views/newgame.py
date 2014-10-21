@@ -1,7 +1,5 @@
 from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, redirect
-
 from Game.forms.newgame_form import NewgameForm
 from Game.models import Game
 from UserManagement.models import Member
