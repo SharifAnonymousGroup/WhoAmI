@@ -8,9 +8,9 @@
 /db.sqlite3
 __pycache__/
 /static/bower_components/**
-/static/usermanagement/bower_components/**
-/static/usermanagement/scss/*.css
-/static/usermanagement/scss/*.map
+/static/UserManagement/bower_components/**
+/static/UserManagement/scss/*.css
+/static/UserManagement/scss/*.map
 /templates/UserManagementUI/homepage.html
 /Game/nodes/node_modules/**
 

@@ -1,9 +1,11 @@
 import json
 
 from django.contrib.auth.decorators import login_required
+from django.http.response import HttpResponse
 from django.shortcuts import render
 
 from Game.models import Player
+from UserManagement.models import Member
 
 
 __author__ = 'garfild'
@@ -12,7 +14,11 @@ __author__ = 'garfild'
 @login_required
 def election(request):
     user = request.user
-    player = Player.objects.get(member=user, isAlive=True)
+    member = Member(user)
+    player = member.current_player
+    if player is None:
+        return HttpResponse("you was not in this room")
+    #player = Player.objects.get(member=user, isAlive=True)
     game = player.game
     print user.username
 
