@@ -8,6 +8,7 @@ from UserManagement.models import *
 from WhoAmI.settings import SITE_URL
 
 
+
 COLOR_CHOICES = (('r', 'red'), ('w', 'white'), ('g', 'green'), ('b', 'blue'), ('o', 'orange'),
                 ('y', 'yellow'), ('p', 'purple'), ('x', 'pink'), ('q', 'grey'), ('k', 'black'),
                 ('l', 'lightskyblue'), ('a', 'antiquewhite'), ('t', 'teal'), ('c', 'chocolate'),
@@ -60,7 +61,7 @@ class Game(models.Model):
     is_active = models.BooleanField()
     is_started = models.BooleanField()
     name = models.CharField(max_length=30)
-    number_of_players = models.IntegerField()
+    number_of_players = models.IntegerField(default=0)
     current_round = models.ForeignKey('Round', null=True, related_name='current_game')
     objects = GameManager()
 
@@ -95,7 +96,8 @@ class Game(models.Model):
     def add_member(self, member):
         # zakhar (bolooke zakhar bayad pak she badan)
         player_list = member.player.all()
-        # print("salam bar to sag :|")
+        # pr
+        # int("salam bar to sag :|")
         for player in player_list:
             player.isAlive = False
             player.save()

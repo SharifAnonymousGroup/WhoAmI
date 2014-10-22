@@ -19,6 +19,8 @@ urlpatterns = patterns('',
                        url(r'^election/', 'Game.views.election.election', name='election'),
                        url(r'^election_request/', 'Game.views.election.election_request', name='election_request'),
 
-                       url(r'^endgame/$', 'Game.views.endgame.end', name='end_game')
+                       url(r'^endgame/$', 'Game.views.endgame.end', name='end_game'),
+
+                       url(r'^chat/$', 'Game.views.chat.chat')
 
 )
