@@ -8,11 +8,7 @@ $(document).ready(function() {
     })
 });
 
-//$(document).ready(function() {
-//   $("div").hover(function() {
-//       $(this).css("border", "2px solid black");
-//   });
-//});
+
 
 $(document).ready(function() {
     $("#player1").click(function() {

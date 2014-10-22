@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <script type="text/javascript" src="{{ STATIC_URL }}bower_components/jquery/dist/jquery.min.js"></script>
-    <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}main/main.css">
+    <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}WhoAmI/scss/game_page.css">
     <script type="text/javascript" src="{{ STATIC_URL }}main/main.js"></script>
     <link type="text/css" rel="stylesheet"
           href="{{ STATIC_URL }}bower_components/semantic-ui/build/packaged/css/semantic.min.css">
     <script type="text/javascript"
             src="{{ STATIC_URL }}bower_components/semantic-ui/build/packaged/javascript/semantic.min.js"></script>
     <title>Room: {{ room.name }}</title>
+    <script src="{{ STATIC_URL }}WhoAmI/javascript/game_page.js"></script>
+    <script src="{{ STATIC_URL }}WhoAmI/javascript/election/election.js"></script>
 </head>
 <body>
 <div hidden id="json_players">{{ json_players }}</div>
@@ -69,7 +71,7 @@
                             <a class="item"><b>Players</b> <label class="ui green circular label">4</label> </a>
 
                             <div class="item">
-                                <form action="/game/election_request" onsubmit="return false;"
+                                <form  id="election_form" onsubmit="return false;"
                                       method="POST"
                                       id="election_form">
                                     {% csrf_token %}
@@ -77,13 +79,13 @@
                                         <div><label class="ui  {{ color }} label"></label>
 
                                             <div class="ui inline dropdown vote">
-                                                <input name= type="hidden" value="kaze">
+                                                <input type="hidden" value="" name={{ color }}>
 
                                                 <div class="text">Player</div>
                                                 <i class="dropdown icon "></i>
 
                                                 <div class="menu    vote">
-                                                    {% for player in players %}
+                                             {% for player in players %}
                                                         <div class="item active" data-value={{ player }}>
                                                             <span>{{ player }} </span></div>
                                                     {% endfor %}
@@ -93,7 +95,7 @@
                                         </div>
                                         <br/>
                                     {% endfor %}
-
+                                <input class="fluid ui button submit green" id="election_button" type="submit" value="Send Election">
                                 </form>
                             </div>
                         </div>

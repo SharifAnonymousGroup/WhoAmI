@@ -17,6 +17,7 @@ urlpatterns = patterns('',
                            name='new_game_request'),
                        url(r'^rooms/', 'Game.views.rooms.room', name='rooms'),
                        url(r'^election/', 'Game.views.election.election', name='election'),
+                       url(r'^election_request/', 'Game.views.election.election_request', name='election_request'),
 
                        url(r'^endgame/$', 'Game.views.endgame.end', name='end_game')
 
