@@ -53,6 +53,7 @@ class GameManager(models.Manager):
 
 class Game(models.Model):
     time_of_each_round = models.IntegerField()  # in second
+    current_players = models.IntegerField(default=0)
     max_number_of_players = models.IntegerField()
     creator = models.ForeignKey('UserManagement.Member')
     code = models.CharField(max_length=40)
@@ -128,6 +129,7 @@ class MessageManager(models.Manager):
 #        print message
         return message
 
+
 class Message(models.Model):
     sending_time = models.DateTimeField(auto_now_add=True)
     sender = models.ForeignKey('Player', related_name='messages')
@@ -138,6 +140,7 @@ class Message(models.Model):
     def __unicode__(self):
         color = eval(self.sender.color)
         return self.text
+
 
 class RoundManager(models.Manager):
     def create_round(self, game, turn, start_time):
@@ -154,7 +157,6 @@ class Round(models.Model):
 
     def __unicode__(self):
         return self.game.__unicode__() + " -> " + str(self.turn)
-
 
 
 class VoteManager(models.Manager):
