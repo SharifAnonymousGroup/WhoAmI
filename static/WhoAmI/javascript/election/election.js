@@ -31,9 +31,19 @@ $(document).ready(function () {
     })
 });
 
-function send_election_form(){
-    console.log("zakhar");
+function send_election_form() {
+    console.log("Election is sent!");
     $.ajax({
-
+        url:"/game/election_request",
+        method:$(this).attr('method'),
+        data:$(this).serialize()
     });
+
+
+
 }
+$(document).ready(function () {
+    $('#election_form').submit(function () {
+        send_election_form();
+    });
+});

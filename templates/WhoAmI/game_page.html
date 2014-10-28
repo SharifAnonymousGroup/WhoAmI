@@ -3,14 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <script type="text/javascript" src="{{ STATIC_URL }}bower_components/jquery/dist/jquery.min.js"></script>
-    <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}main/main.css">
-    <script type="text/javascript" src="{{ STATIC_URL }}main/main.js"></script>
-    <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}bower_components/semantic-ui/build/packaged/css/semantic.min.css">
-    <script type="text/javascript" src="{{ STATIC_URL }}bower_components/semantic-ui/build/packaged/javascript/semantic.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}WhoAmI/scss/game_page.css">
+    <link type="text/css" rel="stylesheet"
+          href="{{ STATIC_URL }}bower_components/semantic-ui/build/packaged/css/semantic.min.css">
+    <script type="text/javascript"
+            src="{{ STATIC_URL }}bower_components/semantic-ui/build/packaged/javascript/semantic.min.js"></script>
     <title>Room: {{ room.name }}</title>
+    <script src="{{ STATIC_URL }}WhoAmI/javascript/game_page.js"></script>
+    <script src="{{ STATIC_URL }}WhoAmI/javascript/election/election.js"></script>
+    <script src="{{ STATIC_URL }}socket.io.js"></script>
 </head>
 <body>
-
+<div hidden id="json_players">{{ json_players }}</div>
+<input type="hidden" value="{{ room }}" id="room">
 
 <!-- ************************navigation bar************************** -->
 <div class="ui tiered menu">
@@ -25,6 +30,7 @@
         <a class="item">
             <i class="mail icon"></i> Messages
         </a>
+
         <div class="right menu">
             <div class="item">
                 <div class="ui icon input">
@@ -34,6 +40,7 @@
             </div>
             <div class="ui dropdown item" id="id1">
                 More <i class="icon dropdown"></i>
+
                 <div class="menu">
                     <a class="item"><i class="edit icon"></i> Edit Profile</a>
                     <a class="item"><i class="globe icon"></i> Choose Language</a>
@@ -51,7 +58,6 @@
 <!-- **************************End navbar menu*************************** -->
 
 
-
 <!-- ************************ UI Grid *********************************** -->
 <div class="ui grid">
     <!--  **************************** Main part ***********************-->
@@ -63,95 +69,51 @@
                 <div class="sixteen column row">
                     <div class="eleven wide column">
                         <div class="ui vertical menu player-menu">
-                            <a class="item" ><b>Players</b> <label class="ui green circular label">4</label> </a>
+                            <a class="item"><b>Players</b> <label class="ui green circular label">4</label> </a>
+
                             <div class="item">
-                                <div><label class="ui black label"></label>
-                                    <div class="ui inline dropdown">
-                                        <div class="text" >Player</div>
-                                        <i class="dropdown icon"></i>
-                                        <div class= "menu">
-                                            <div class="item active" data-text="Mohammad Javad Rafiei"><span>Mohammad Javad Rafiei </span></div>
-                                            <div class="item" data-text="Iman Jami"><span>Iman Jami</span></div>
-                                            <div class="item" data-text="Mohsen Rashidi"><span>Mohsen Rashidi</span> </div>
-                                            <div class="item" data-text="Kazem"><span>Kazem</span> </div>
-                                            <div class="item" data-text="Amin Sabaghian"><span>Amin Sabaghian</span> </div>
+                                <form  id="election_form" onsubmit="return false;"
+                                      method="POST"
+                                      id="election_form">
+                                    {% csrf_token %}
+                                    {% for color in colors %}
+                                        <div><label class="ui  {{ color }} label"></label>
 
+                                            <div class="ui inline dropdown vote">
+                                                <input type="hidden" value="" name={{ color }}>
+
+                                                <div class="text">Player</div>
+                                                <i class="dropdown icon "></i>
+
+                                                <div class="menu    vote">
+                                             {% for player in players %}
+                                                        <div class="item active" data-value={{ player }}>
+                                                            <span>{{ player }} </span></div>
+                                                    {% endfor %}
+
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <br>
-                                <div><label class="ui red label"></label>
-                                    <div class="ui inline dropdown">
-                                        <div class="text" >Player</div>
-                                        <i class="dropdown icon"></i>
-                                        <div class= "menu">
-                                            <div class="item active" data-text="Mohammad Javad Rafiei"><span>Mohammad Javad Rafiei </span></div>
-                                            <div class="item" data-text="Iman Jami"><span>Iman Jami</span></div>
-                                            <div class="item" data-text="Mohsen Rashidi"><span>Mohsen Rashidi</span> </div>
-                                            <div class="item" data-text="Kazem"><span>Kazem</span> </div>
-                                            <div class="item" data-text="Amin Sabaghian"><span>Amin Sabaghian</span> </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                                <div><label class="ui green label"></label>
-                                    <div class="ui inline dropdown">
-                                        <div class="text" >Player</div>
-                                        <i class="dropdown icon"></i>
-                                        <div class= "menu">
-                                            <div class="item active" data-text="Mohammad Javad Rafiei"><span>Mohammad Javad Rafiei </span></div>
-                                            <div class="item" data-text="Iman Jami"><span>Iman Jami</span></div>
-                                            <div class="item" data-text="Mohsen Rashidi"><span>Mohsen Rashidi</span> </div>
-                                            <div class="item" data-text="Kazem"><span>Kazem</span> </div>
-                                            <div class="item" data-text="Amin Sabaghian"><span>Amin Sabaghian</span> </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                                <div><label class="ui blue label"></label>
-                                    <div class="ui inline dropdown">
-                                        <div class="text" >Player</div>
-                                        <i class="dropdown icon"></i>
-                                        <div class= "menu">
-                                            <div class="item active" data-text="Mohammad Javad Rafiei"><span>Mohammad Javad Rafiei </span></div>
-                                            <div class="item" data-text="Iman Jami"><span>Iman Jami</span></div>
-                                            <div class="item" data-text="Mohsen Rashidi"><span>Mohsen Rashidi</span> </div>
-                                            <div class="item" data-text="Kazem"><span>Kazem</span> </div>
-                                            <div class="item" data-text="Amin Sabaghian"><span>Amin Sabaghian</span> </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                                <div><label class="ui pink label"></label>
-                                    <div class="ui inline dropdown">
-                                        <div class="text" >Player</div>
-                                        <i class="dropdown icon"></i>
-                                        <div class= "menu">
-                                            <div class="item active" data-text="Mohammad Javad Rafiei"><span>Mohammad Javad Rafiei </span></div>
-                                            <div class="item" data-text="Iman Jami"><span>Iman Jami</span></div>
-                                            <div class="item" data-text="Mohsen Rashidi"><span>Mohsen Rashidi</span> </div>
-                                            <div class="item" data-text="Kazem"><span>Kazem</span> </div>
-                                            <div class="item" data-text="Amin Sabaghian"><span>Amin Sabaghian</span> </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
+                                        <br/>
+                                    {% endfor %}
+                                <input class="fluid ui button submit green" id="election_button" type="submit" value="Send Election">
+                                </form>
                             </div>
                         </div>
                     </div>
                     <div class="five wide column ">
                         <div class="ui vertical menu color-menu">
                             <a class="item"><b>Colors</b></a>
+
                             <div class="item">
                                 <div class="menu">
 
                                     <a class="item ui blue horizontal label custom">blue</a>
                                     <br>
-                                    <a class="item ui red horizontal  label custom">red<div class="ui right black corner label death-label" ><i class="large white block basic icon"></i> </div> </a>
+                                    <a class="item ui red horizontal  label custom">red
+                                        <div class="ui right black corner label death-label"><i
+                                                class="large white block basic icon"></i></div>
+                                    </a>
                                     <br>
                                     <a class="item ui green horizontal label custom">green</a>
                                     <br>
@@ -176,14 +138,17 @@
         <!-- ********************************* End Left Box ****************************-->
 
         <div class="nine wide column border chat">
-            <div class="row " style="position: relative; width: 98%; height: 14%; margin: auto; margin-bottom: 17px;  border: 1px solid #dcdcdc; background-color: #ffffff;">
-                <h2 style="color: red; text-align: center;" >Guess other players by chat</h2>
+            <div class="row "
+                 style="position: relative; width: 98%; height: 14%; margin: auto; margin-bottom: 17px;  border: 1px solid #dcdcdc; background-color: #ffffff;">
+                <h2 style="color: red; text-align: center;">Guess other players by chat</h2>
             </div>
             <div style="position: relative; width: 98%;margin: auto; height: 71%; border: 1px solid #dcdcdc; background-color: #ffffff;">
             </div>
-            <div  style="position: relative; width: 98%; margin: auto; height: auto;top: 1%;  border: 1px solid #dcdcdc; background-color: #ffffff;">
+            <div style="position: relative; width: 98%; margin: auto; height: auto;top: 1%;  border: 1px solid #dcdcdc; background-color: #ffffff;">
                 <div class="ui fluid action input" style="height: 70%;">
-                    <input placeholder="Message..." style="height: 140%; color: darkred; font-family: serif; border: none; " type="text">
+                    <input placeholder="Message..."
+                           style="height: 140%; color: darkred; font-family: serif; border: none; " type="text" id="message_input">
+
                     <div class="ui button" style="clear: none; ">Submit</div>
                 </div>
             </div>
@@ -191,11 +156,14 @@
         <div class="three wide column border options">
             <div class="ui grid">
                 <div class="sixteen column row">
-                    <div class="sixteen wide column" style=" height: 83px; border: 1px solid #dcdcdc; margin-bottom: 16px; background-color: #ffffff;">
+                    <div class="sixteen wide column"
+                         style=" height: 83px; border: 1px solid #dcdcdc; margin-bottom: 16px; background-color: #ffffff;">
                         <h2 style="color: #000000; text-align: center;">Score : <span>240</span></h2>
                     </div>
-                    <div class="sixteen wide column" style=" height: 402px; border: 1px solid #dcdcdc; margin-bottom: 7px; background-color: #ffffff;"></div>
-                    <div class="sixteen wide column" style=" height: 43px; border: 1px solid #dcdcdc; background-color: #ffffff;"></div>
+                    <div class="sixteen wide column"
+                         style=" height: 402px; border: 1px solid #dcdcdc; margin-bottom: 7px; background-color: #ffffff;"></div>
+                    <div class="sixteen wide column"
+                         style=" height: 43px; border: 1px solid #dcdcdc; background-color: #ffffff;"></div>
                 </div>
             </div>
         </div>

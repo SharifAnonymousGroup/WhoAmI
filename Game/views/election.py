@@ -2,10 +2,8 @@ import json
 
 from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponse
-from django.shortcuts import render
 
 from Game.models import Player
-from UserManagement.models import Member
 
 
 __author__ = 'garfild'
@@ -14,16 +12,28 @@ __author__ = 'garfild'
 @login_required
 def election(request):
     user = request.user
-    member = Member(user)
-    player = member.current_player
+
+    # player = user.current_player
+    player = Player.objects.get(member=user, isAlive=True)
     if player is None:
         return HttpResponse("you was not in this room")
-    #player = Player.objects.get(member=user, isAlive=True)
     game = player.game
 
     players = Player.objects.filter(game=game, isAlive=True)
+    print players
+    print game.name
     colors = [eval(player.color)[1] for player in players]
     players = [player.member.username for player in players]
     json_players = json.dumps(players)
+    dic = {'colors': colors, 'json_players': json_players, 'players': players}
+    # print players
+    return dic
 
-    return render(request, 'test/election.html', {'colors': colors, 'json_players': json_players, 'players': players})
+
+def election_request(request):
+    print "election recieved"
+    user = request.user.username
+    if request.method == 'POST':
+        print "zakhar"
+        print request.POST[user]
+    return HttpResponse()

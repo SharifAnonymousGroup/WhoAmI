@@ -5,6 +5,7 @@ __author__ = 'garfild'
 
 
 class ElectionForm(forms.Form):
-    elected = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'placeholder': ''}))
+    voted = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'placeholder': ''}))
+
 
 

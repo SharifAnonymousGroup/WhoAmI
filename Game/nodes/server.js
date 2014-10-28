@@ -13,9 +13,6 @@ app.get('/', function (request, response) {
     room = params.room;
     io.to(room).emit('message',params);
     response.end();
-
-
-
 });
 
 

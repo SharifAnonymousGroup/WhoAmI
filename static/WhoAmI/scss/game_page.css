@@ -94,7 +94,7 @@ body {
   background-color: darkred !important; }
 
 .yellow_ {
-  background-color: yellow !important; }
+  background-color: #ffff00 !important; }
 
 .custom {
   width: 70% !important;
@@ -150,3 +150,5 @@ body {
   top: 1%;
   border: 1px solid #dcdcdc;
   background-color: #ffffff; }
+
+/*# sourceMappingURL=game_page.css.map */

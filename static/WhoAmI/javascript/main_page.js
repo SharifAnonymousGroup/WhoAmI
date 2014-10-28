@@ -4,7 +4,6 @@
 
 
 $(document).ready(function(){
-   console.log("salam kazem salam kazem salam ");
    $("#in_progress").click(function(){
        $(".message_box").html("This room is full");
    });
