@@ -184,6 +184,10 @@ body {
   overflow-x: auto;
   word-wrap: break-word;
 //  overflow-wrap: break-word;
+}
 
-
+#change-state {
+  opacity: 0.5;
+  text-align: center;
+  background-color: lightgray;
 }
