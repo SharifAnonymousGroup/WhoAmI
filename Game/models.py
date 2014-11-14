@@ -130,6 +130,7 @@ class Game(models.Model):
 
 
     def goto_next_round(self):
+        print "inja avale"
         turn = self.current_round.turn
         round = Round.objects.create_round(self, turn + 1, timezone.now())
 
@@ -143,7 +144,8 @@ class Game(models.Model):
             "turn": turn,
             "room": self.code
         })
-        url = NODE_URL + '/set_times/?%s' % params
+        url = NODE_URL + 'set_times/?%s' % params
+        print "inja tehrane"
         urllib.urlopen(url)
         return HttpResponse()
 

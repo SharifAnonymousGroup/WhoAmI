@@ -23,27 +23,26 @@ def send_message(request):
     user = request.user
     try:
         player = Player.objects.get(member=user, isAlive=True)
+        game = player.game
+        if timezone.now() <= game.current_round.start_time + timedelta.seconds(game.time_of_each_round):
+            room = player.game.code
+            message = request.GET.get('message')
+            Message.objects.create_message(sender=player, text=message, round=player.game.current_round)
+            color = eval(player.color)#TODO mishe bedoone eval zadesh chon code python ejra mishe gand mizane
+
+            #TODO bayad methodesh post beshe!
+            params = urllib.urlencode({
+                "message": message,
+                "sender": color[1],
+                "room": room
+            })
+            url = NODE_URL + '/message/?%s' % params
+            urllib.urlopen(url)
+            return HttpResponse()
+        else:
+            return HttpResponse("Chat is finished")
     except:
         HttpResponse("You are not join to a Game")
-    game = player.game
-    if timezone.now() <= game.current_round.start_time + timedelta.seconds(game.time_of_each_round):
-        room = player.game.code
-        message = request.GET.get('message')
-        Message.objects.create_message(sender=player, text=message, round=player.game.current_round)
-        color = eval(player.color)#TODO mishe bedoone eval zadesh chon code python ejra mishe gand mizane
-
-        #TODO bayad methodesh post beshe!
-        params = urllib.urlencode({
-            "message": message,
-            "sender": color[1],
-            "room": room
-        })
-        url = NODE_URL + '/message/?%s' % params
-        urllib.urlopen(url)
-        return HttpResponse()
-    else:
-        HttpResponse("Chat is finished")
-
 
 
 @login_required

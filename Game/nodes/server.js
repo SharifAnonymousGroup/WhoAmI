@@ -6,6 +6,7 @@ var SITE_URL = 'http://localhost:8000/';
 var app = require('express')();
 var server = require('http').Server(app);
 var url = require('url');
+var http  = require('http');
 app.get('/message', function (request, response) {
     var params = url.parse(request.url, true).query;
     room = params.room;
@@ -38,24 +39,47 @@ function validation(socket) {
 }
 
 
-app.get('set_time/', function (request, response) {
+app.get('/set_times', function (request, response) {
+    console.log('set time umad');
     var params = url.parse(request.url, true).query;
     if(params.turn ==0){
         io.to(params.room).emit('game_start',params);
+        console.log("game start");
     }
         setTimeout(function () {
-            io.to(params.room).emit('elction_start', params);
+            io.to(params.room).emit('election_start', params);
+            console.log("election start");
         }, params.round_duration);
     setTimeout(function () {
         io.to(params.room).emit('round_start',params);
+        console.log("round start");
 
-        $.ajax({
-            url: SITE_URL + "game/end_round/" ,
-            method:'POST',
-            data:{
-                room : params.room
-            }
+//        $.ajax({
+//            url: SITE_URL + "game/end_round/" ,
+//            method:'POST',
+//            data:{
+//                room : params.room
+//            }
+//        });
+        var post_options = {
+            host: "http://localhost",
+            port : '8000',
+            path: '/game/end_round',
+            method:'POST'
+        };
+        var post_req = http.request(post_options,function(response){
+            var str = '';
+            response.on('data', function (chunk) {
+                str += chunk;
+            });
+
+            response.on('end', function () {
+                console.log(str);
+            });
         });
+        post_req.write("hello zakhar");
+        post_req.end();
+
     }, params.round_duration + params.election_duration);
 
 

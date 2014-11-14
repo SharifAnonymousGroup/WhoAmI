@@ -4,25 +4,30 @@ from django.shortcuts import render
 
 from Game.models import Game, Player
 from Game.views.election import election
+from UserManagement.models import Member
 
 
 __author__ = 'Iman'
 
 @login_required
 def ready_for_game(request):
-    if request.method == 'POST':
+    if request.method == 'GET':
         user = request.user
-        player = Player.objects(member=user, isAlive=True)
+        player = Player.objects.get(member=user, isAlive=True)
+        print player
+        print player.game.max_number_of_players
+        print player.game.number_of_ready_players
         if not player.isReady:
             player.isReady = True
             player.game.number_of_ready_players += 1
             player.game.save()
             player.save()
-            if player.game.number_of_ready_players == player.game.number_of_players:
-                player.game.goto_next_round()
+        if player.game.number_of_ready_players == player.game.max_number_of_players:
+            player.game.goto_next_round()
+        return HttpResponse("it's ok")
 
     else:
-        HttpResponse('Your request is not post')
+        return HttpResponse('Your request is not post')
 
 
 @login_required
