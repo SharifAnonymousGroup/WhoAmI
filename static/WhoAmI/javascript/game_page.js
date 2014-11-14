@@ -43,7 +43,7 @@ $(document).ready(function () {
 
     socket.on('message', function (params) {
         console.log("message is " + params.message);
-        var $sender = $('<span></span>').addClass('label label-'+params.sender).text(params.sender);
+        var $sender = $('<span></span>').addClass('label '+params.sender).text(params.sender);
         $('<p></p>').text(params.message).prepend(': ').prepend($sender).appendTo(chat_box);
     });
 

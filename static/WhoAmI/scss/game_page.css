@@ -94,7 +94,10 @@ body {
   background-color: darkred !important; }
 
 .yellow_ {
-  background-color: #ffff00 !important; }
+  background-color: yellow !important; }
+
+.green {
+  background-color: #008000; }
 
 .custom {
   width: 70% !important;
@@ -150,5 +153,3 @@ body {
   top: 1%;
   border: 1px solid #dcdcdc;
   background-color: #ffffff; }
-
-/*# sourceMappingURL=game_page.css.map */
