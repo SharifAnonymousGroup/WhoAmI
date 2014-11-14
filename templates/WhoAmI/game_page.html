@@ -144,7 +144,10 @@
                  style="position: relative; width: 98%; height: 14%; margin: auto; margin-bottom: 17px;  border: 1px solid #dcdcdc; background-color: #ffffff;">
                 <h2 style="color: red; text-align: center;">Guess other players by chat</h2>
             </div>
-            <div id="message-box" style="position: relative; width: 98%;margin: auto; height: 71%; border: 1px solid #dcdcdc; background-color: #ffffff;">
+            <div id="message-box">
+                {% for mess in message %}
+                    <p>{{ mess }}</p>
+                {% endfor %}
             </div>
             <div style="position: relative; width: 98%; margin: auto; height: auto;top: 1%;  border: 1px solid #dcdcdc; background-color: #ffffff;">
                 <div class="ui fluid action input" style="height: 70%;">

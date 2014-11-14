@@ -168,6 +168,13 @@ body {
   position: relative; width: 98%;margin: auto; height: 71%; border: 1px solid #dcdcdc; background-color: #ffffff;
 }
 
-.message-box {
-  position: relative; width: 98%; margin: auto; height: auto;top: 1%;  border: 1px solid #dcdcdc; background-color: #ffffff;
+#message-box {
+  position: relative;
+  width: 98%;
+  margin: auto;
+  height: auto;
+  top: 1%;
+  border: 1px solid #dcdcdc;
+  background-color: #ffffff;
+  overflow: scroll;
 }
