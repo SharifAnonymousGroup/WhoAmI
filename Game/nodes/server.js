@@ -8,9 +8,10 @@ var server = require('http').Server(app);
 var url = require('url');
 app.get('/', function (request, response) {
 //    console.log(request.url);
-    console.log("someOne Connected");
+   // console.log("someOne Connected");
     var params = url.parse(request.url, true).query;
     room = params.room;
+    console.log(room);
     io.to(room).emit('message',params);
     response.end();
 });
@@ -23,12 +24,16 @@ server.listen(3333);
 
 var io = require('socket.io')(8080);
 io.on('connection', function (socket) {
-
+    console.log('someone connected');
     socket.on('room', function (room) {
         socket.join(room);
         io.to(room).emit('event', "ali added");
     });
+    socket.on('disconnect', function(){
+        console.log('some one disconnected');
+    });
 });
+
 
 function validation(socket) {
     //bayad por she :)))

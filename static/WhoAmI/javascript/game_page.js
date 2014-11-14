@@ -20,7 +20,7 @@ $(document).ready(function() {
     $('.ui.dropdown')
         .dropdown()
     ;
-})
+});
 
 
 
@@ -33,11 +33,14 @@ $(document).ready(function () {
 
 
 
-    var chat_box = $('.chat');
+    var chat_box = $('#message-box');
     var room = $("#room").val();
+    console.log("jeddan chera?");
+    console.log(room);
     var socket = io.connect('http://localhost:8080');
 
     socket.emit('room', room);
+
     socket.on('message', function (params) {
         console.log("message is " + params.message);
         var $sender = $('<span></span>').addClass('label label-'+params.sender).text(params.sender);
