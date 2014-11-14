@@ -14,6 +14,23 @@
     <script src="{{ STATIC_URL }}WhoAmI/javascript/election/election.js"></script>
 </head>
 <body>
+
+<div class="ui top inverted teal sidebar menu" id="change-state">
+    <div class="header item" id="state-text">changed</div>
+</div>
+
+<div class="ui small modal" id="start-game">
+    <div class="header">
+        Game Start!
+    </div>
+    <div class="content">
+        <div class="left"> Others are a lot, if you KNOW... </div>
+    </div>
+    <div class="actions">
+        <div class="ui button">Ok :)</div>
+    </div>
+</div>
+
 <div hidden id="json_players">{{ json_players }}</div>
 <input type="hidden" value="{{ room.code }}" id="room">
 
@@ -166,7 +183,16 @@
                         <h2 style="color: #000000; text-align: center;">Score : <span>240</span></h2>
                     </div>
                     <div class="sixteen wide column"
-                         style=" height: 402px; border: 1px solid #dcdcdc; margin-bottom: 7px; background-color: #ffffff;"></div>
+                         style=" height: 402px; border: 1px solid #dcdcdc; margin-bottom: 7px; background-color: #ffffff;">
+                        <div class="ui down button" id="ready-button">
+                            <i class="user icon"></i>
+                            Ready For Game
+                        </div>
+                        <div class="ui down button" id="leave-button">
+                            <i class="user icon"></i>
+                            Leave Game
+                        </div>
+                         </div>
                     <div class="sixteen wide column"
                          style=" height: 43px; border: 1px solid #dcdcdc; background-color: #ffffff;"></div>
                 </div>
