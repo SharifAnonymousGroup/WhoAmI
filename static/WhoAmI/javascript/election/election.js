@@ -38,7 +38,7 @@ function send_election_form() {
             $('.ui.modal#election_modal')
                 .modal('show');
             if(data['is_success']){
-                $('#election_button').prop('disabled', true);
+//                $('#election_button').prop('disabled', true);
             }
 
 
