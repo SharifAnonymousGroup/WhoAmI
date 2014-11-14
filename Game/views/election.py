@@ -32,8 +32,8 @@ def election(request):
 @login_required()
 def election_request(request):
     print "election"
-    election_form = request.GET  # get bayad beshe post['election_form]      election form behesh color midi mige ke voted ki boode :)))
-    if not request.method == 'POST':  # not bayad bardashte she
+    election_form = request.POST  # get bayad beshe post['election_form]      election form behesh color midi mige ke voted ki boode :)))
+    if request.method == 'POST':  # not bayad bardashte she
         user = request.user
         player = Player.objects.get(member=user, isAlive=True)
         game = player.game
@@ -43,34 +43,39 @@ def election_request(request):
             try:
                 election_form[color]
             except:
-                response = {'is_success': False, 'message': "You cheat because you change the color.your score is minez " + unicode(len(players))}
+                response = {'is_success': False,
+                            'message': "You cheat because you change the color.your score is minez " + unicode(
+                                len(players))}
                 player.score -= len(players)
                 return HttpResponse(json.dumps(response), content_type="application/json")
         target_list = []
         for color in colors:
             try:
                 member = Member.objects.get(username=election_form[color])
-                target = Player.objects.get(member=member, isAlive=True)
+                target_player = Player.objects.get(member=member, isAlive=True)
+                if target_player.game != game:
+                    response = {'is_success': False,
+                                'message': election_form[color] + " not exists in this room!What the Fuck!"}
+                    return HttpResponse(json.dumps(response), content_type="application/json")
+                try:
+                    vote = Vote.objects.get(round=game.current_round, voter=player, color=color)
+                    print "hastesh"
+                    vote.target = target_player
+                    vote.save()
+                except:
+                    Vote.objects.create_vote(round=game.current_round, voter=player, color=color, target=target_player)
+                    print "nistesh"
 
+
+                # TODO bayad to model ha vote (voter,round) ro yekta konim ke felan balad nistam :))))))))
+                if eval(player.color)[1] == color:
+                    print "zakhar"
+                    target_player.score -= 1
+                    player.score += 1
+                    target_player.save()
+                    player.save()
             except:
-                pass
+                continue
 
-
-        for color in colors:
-
-            member = Member.objects.get(username=election_form[color])
-            target = Player.objects.get(member=member, isAlive=True)
-
-            if target.game != game:
-                response = {'is_success': False, 'message': election_form[color] + " not exists in this room!What the Fuck!"}
-                return HttpResponse(json.dumps(response), content_type="application/json")
-            Vote.objects.create_vote(round=game.current_round, voter=player, color=color, target=target)
-            # TODO bayad to model ha vote (voter,round) ro yekta konim ke felan balad nistam :))))))))
-            if eval(player.color)[1] == color:
-                print "zakhar"
-                target.score -= 1
-                player.score += 1
-                target.save()
-                player.save()
     response = {'is_success': True, 'message': "your election was sucessful please wait for your friends!"}
     return HttpResponse(json.dumps(response), content_type="application/json")

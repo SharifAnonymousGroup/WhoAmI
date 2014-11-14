@@ -7,11 +7,11 @@ $(document).ready(function () {
     var players = JSON.parse($('#json_players').html());
 
 
-    $('.vote').mouseenter(function () {
-        var end = this.value;
-        console.log(end);
-        console.log("zakhar");
-    });
+//    $('.vote').mouseenter(function () {
+//        var end = this.value;
+//        console.log(end);
+//        console.log("zakhar");
+//    });
     $('.ui.dropdown')
         .dropdown()
 
@@ -32,7 +32,6 @@ $(document).ready(function () {
 });
 
 function send_election_form(){
-    console.log("zakhar");
     $.ajax({
 
     });
