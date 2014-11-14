@@ -32,6 +32,7 @@ def election(request):
 
 def election_request(request):
     print "election recieved"
+    print "zakhar biya"
     user = request.user.username
     if request.method == 'POST':
         print "zakhar"
