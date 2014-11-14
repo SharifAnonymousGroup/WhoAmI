@@ -11,7 +11,7 @@
     <title>Room: {{ room.name }}</title>
     <script src="{{ STATIC_URL }}socket.io.js"></script>
     <script src="{{ STATIC_URL }}WhoAmI/javascript/game_page.js"></script>
-    <script src="{{ STATIC_URL }}WhoAmI/javascript/election/election.js"></script>
+    <script src="{{ STATIC_URL }}WhoAmI/javascript/election/election.js"></script>45
 </head>
 <body>
 <div hidden id="json_players">{{ json_players }}</div>
@@ -72,12 +72,12 @@
                             <a class="item"><b>Players</b> <label class="ui green circular label">4</label> </a>
 
                             <div class="item">
-                                <form  id="election_form" onsubmit="return false;"
+                                <form id="election_form" onsubmit="return false;"
                                       method="POST"
                                       id="election_form">
                                     {% csrf_token %}
                                     {% for color in colors %}
-                                        <div><label class="ui  {{ color }} label"></label>
+                                        <div><label class="ui  {{ color }} label">
 
                                             <div class="ui inline dropdown vote">
                                                 <input type="hidden" value="" name={{ color }}>
@@ -86,17 +86,19 @@
                                                 <i class="dropdown icon "></i>
 
                                                 <div class="menu    vote">
-                                             {% for player in players %}
+                                                    {% for player in players %}
                                                         <div class="item active" data-value={{ player }}>
                                                             <span>{{ player }} </span></div>
                                                     {% endfor %}
 
                                                 </div>
                                             </div>
+                                        </label>
                                         </div>
                                         <br/>
                                     {% endfor %}
-                                <input class="fluid ui button submit green" id="election_button" type="submit" value="Send Election">
+                                    <input class="fluid ui button submit green" id="election_button" type="submit"
+                                           value="Send Election">
                                 </form>
                             </div>
                         </div>
@@ -183,5 +185,21 @@
     <!-- ********************End Footer ************************-->
 </div>
 <!-- ************************ End UI Grid ********************************-->
+{#start of modal#}
+<div class="ui basic small modal" id="election_modal">
+    <i class="close icon"></i>
+
+
+    <div class="content margin-login" style="width:100%">
+        <div class="modal-text ">
+            <p class="election_message"></p>
+        </div>
+
+
+    </div>
+
+
+</div>
+{#end of modal#}
 </body>
 </html>

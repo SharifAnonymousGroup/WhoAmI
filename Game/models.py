@@ -28,6 +28,8 @@ class Player(models.Model):
     isAlive = models.BooleanField()
     score = models.IntegerField()
     color = models.CharField(max_length=1, choices=COLOR_CHOICES)
+    # can_vote = models.BooleanField(default=1)
+    # can_voted = models.BooleanField(default=1)
     objects = PlayerManager()
 
     def __unicode__(self):

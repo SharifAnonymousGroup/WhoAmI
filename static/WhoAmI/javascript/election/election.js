@@ -7,11 +7,6 @@ $(document).ready(function () {
     var players = JSON.parse($('#json_players').html());
 
 
-    $('.vote').mouseenter(function () {
-        var end = this.value;
-        console.log(end);
-        console.log("zakhar");
-    });
     $('.ui.dropdown')
         .dropdown()
 
@@ -34,11 +29,21 @@ $(document).ready(function () {
 function send_election_form() {
     console.log("Election is sent!");
     $.ajax({
-        url:"/game/election_request",
-        method:$(this).attr('method'),
-        data:$(this).serialize()
-    });
+        type: 'POST',
+        url: "/game/election_request/",
+        data: $('#election_form').serialize(),
+        success: function (data) {
+            console.log("success shod");
+            $('.election_message').html(data['message']);
+            $('.ui.modal#election_modal')
+                .modal('show');
+            if(data['is_success']){
+                $('#election_button').prop('disabled', true);
+            }
 
+
+        }
+    });
 
 
 }
