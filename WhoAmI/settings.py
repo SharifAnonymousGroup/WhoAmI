@@ -10,7 +10,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-
+#import djcelery
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
+ #   'djcelery',
     'Game',
     'UserManagement',
 )
@@ -55,7 +56,7 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'WhoAmI.urls'
 
-WSGI_APPLICATION = 'WhoAmI.wsgi.application'
+#WSGI_APPLICATION = 'WhoAmI.wsgi.application'
 
 
 # Database
@@ -106,3 +107,16 @@ STATIC_URL = '/static/'
 LOGIN_URL = '/'
 SITE_URL = 'http://localhost:8000/'
 NODE_URL = 'localhost:3333/'
+
+#djcelery.setup_loader()
+
+## Broker settings.
+#BROKER_URL = 'amqp://guest:guest@localhost:5672//'
+
+# List of modules to import when celery starts.
+#CELERY_IMPORTS = ('celerytest.tasks', )
+
+## Using the database to store task state and results.
+#CELERY_RESULT_BACKEND = 'db+sqlite:///results.db'
+
+#CELERY_ANNOTATIONS = {'tasks.add': {'rate_limit': '10/s'}}

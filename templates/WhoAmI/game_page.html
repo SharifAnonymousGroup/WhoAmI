@@ -4,17 +4,18 @@
     <meta charset="UTF-8">
     <script type="text/javascript" src="{{ STATIC_URL }}bower_components/jquery/dist/jquery.min.js"></script>
     <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}WhoAmI/scss/game_page.css">
-    <script type="text/javascript" src="{{ STATIC_URL }}main/main.js"></script>
     <link type="text/css" rel="stylesheet"
           href="{{ STATIC_URL }}bower_components/semantic-ui/build/packaged/css/semantic.min.css">
     <script type="text/javascript"
             src="{{ STATIC_URL }}bower_components/semantic-ui/build/packaged/javascript/semantic.min.js"></script>
     <title>Room: {{ room.name }}</title>
+    <script src="{{ STATIC_URL }}socket.io.js"></script>
     <script src="{{ STATIC_URL }}WhoAmI/javascript/game_page.js"></script>
     <script src="{{ STATIC_URL }}WhoAmI/javascript/election/election.js"></script>45
 </head>
 <body>
 <div hidden id="json_players">{{ json_players }}</div>
+<input type="hidden" value="{{ room.code }}" id="room">
 
 <!-- ************************navigation bar************************** -->
 <div class="ui tiered menu">
@@ -143,12 +144,12 @@
                  style="position: relative; width: 98%; height: 14%; margin: auto; margin-bottom: 17px;  border: 1px solid #dcdcdc; background-color: #ffffff;">
                 <h2 style="color: red; text-align: center;">Guess other players by chat</h2>
             </div>
-            <div style="position: relative; width: 98%;margin: auto; height: 71%; border: 1px solid #dcdcdc; background-color: #ffffff;">
+            <div id="message-box" style="position: relative; width: 98%;margin: auto; height: 71%; border: 1px solid #dcdcdc; background-color: #ffffff;">
             </div>
             <div style="position: relative; width: 98%; margin: auto; height: auto;top: 1%;  border: 1px solid #dcdcdc; background-color: #ffffff;">
                 <div class="ui fluid action input" style="height: 70%;">
                     <input placeholder="Message..."
-                           style="height: 140%; color: darkred; font-family: serif; border: none; " type="text">
+                           style="height: 140%; color: darkred; font-family: serif; border: none; " type="text" id="message_input">
 
                     <div class="ui button" style="clear: none; ">Submit</div>
                 </div>

@@ -8,6 +8,7 @@ from UserManagement.models import *
 from WhoAmI.settings import SITE_URL
 
 
+
 COLOR_CHOICES = (('r', 'red'), ('w', 'white'), ('g', 'green'), ('b', 'blue'), ('o', 'orange'),
                 ('y', 'yellow'), ('p', 'purple'), ('x', 'pink'), ('q', 'grey'), ('k', 'black'),
                 ('l', 'lightskyblue'), ('a', 'antiquewhite'), ('t', 'teal'), ('c', 'chocolate'),
@@ -55,6 +56,7 @@ class GameManager(models.Manager):
 
 class Game(models.Model):
     time_of_each_round = models.IntegerField()  # in second
+    current_players = models.IntegerField(default=0)
     max_number_of_players = models.IntegerField()
     creator = models.ForeignKey('UserManagement.Member')
     code = models.CharField(max_length=40)
@@ -62,7 +64,7 @@ class Game(models.Model):
     is_active = models.BooleanField()
     is_started = models.BooleanField()
     name = models.CharField(max_length=30)
-    number_of_players = models.IntegerField()
+    number_of_players = models.IntegerField(default=0)
     current_round = models.ForeignKey('Round', null=True, related_name='current_game')
     objects = GameManager()
 
@@ -97,7 +99,8 @@ class Game(models.Model):
     def add_member(self, member):
         # zakhar (bolooke zakhar bayad pak she badan)
         player_list = member.player.all()
-        # print("salam bar to sag :|")
+        # pr
+        # int("salam bar to sag :|")
         for player in player_list:
             player.isAlive = False
             player.save()
@@ -130,6 +133,7 @@ class MessageManager(models.Manager):
 #        print message
         return message
 
+
 class Message(models.Model):
     sending_time = models.DateTimeField(auto_now_add=True)
     sender = models.ForeignKey('Player', related_name='messages')
@@ -140,6 +144,7 @@ class Message(models.Model):
     def __unicode__(self):
         color = eval(self.sender.color)
         return self.text
+
 
 class RoundManager(models.Manager):
     def create_round(self, game, turn, start_time):
@@ -156,7 +161,6 @@ class Round(models.Model):
 
     def __unicode__(self):
         return self.game.__unicode__() + " -> " + str(self.turn)
-
 
 
 class VoteManager(models.Manager):
