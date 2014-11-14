@@ -35,7 +35,7 @@ function prepare_form(form_id, message_place) {
                         $(message_place).append("<p style='color:green'>" + message + "</p>");
                     }
                     else{
-                        window.location = "game/";
+                        window.location = "/game/";
                     }
                 }
 //              var myArray = JSON.parse(response);//in chist?

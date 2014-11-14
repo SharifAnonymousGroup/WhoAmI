@@ -105,6 +105,6 @@ EMAIL_USE_TLS = True
 STATIC_URL = '/static/'
 LOGIN_URL = '/'
 SITE_URL = 'http://localhost:8000/'
-NODE_URL = 'localhost:3333/'
+NODE_URL = 'http://localhost:3333/'
 
 
