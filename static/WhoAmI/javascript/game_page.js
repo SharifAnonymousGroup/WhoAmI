@@ -32,8 +32,9 @@ $(document).ready(function () {
 //    var url = window.location.pathname;
 
 
-
+    //$(document).scrollTop($(document).height());
     var chat_box = $('#message-box');
+    chat_box.scrollTop(chat_box.prop('scrollHeight'));
     var room = $("#room").val();
     console.log("jeddan chera?");
     console.log(room);
@@ -45,6 +46,7 @@ $(document).ready(function () {
         console.log("message is " + params.message);
         var $sender = $('<span></span>').addClass('label '+params.sender).text(params.sender);
         $('<p></p>').text(params.message).prepend(': ').prepend($sender).appendTo(chat_box);
+        chat_box.scrollTop(chat_box.prop('scrollHeight'));
     });
 
 //    socket.on('message', function (data) {

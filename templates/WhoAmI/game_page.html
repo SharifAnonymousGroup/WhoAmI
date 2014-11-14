@@ -146,7 +146,7 @@
             </div>
             <div id="message-box">
                 {% for mess in message %}
-                    <p>{{ mess }}</p>
+                    <p><span class="label {{ mess.sender.get_color }}">{{ mess.sender.get_color }}</span>: {{ mess }}</p>
                 {% endfor %}
             </div>
             <div style="position: relative; width: 98%; margin: auto; height: auto;top: 1%;  border: 1px solid #dcdcdc; background-color: #ffffff;">
