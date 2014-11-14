@@ -2,11 +2,27 @@ from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponse
 from django.shortcuts import render
 
-from Game.models import Game
+from Game.models import Game, Player
 from Game.views.election import election
 
 
 __author__ = 'Iman'
+
+@login_required
+def ready_for_game(request):
+    if request.method == 'POST':
+        user = request.user
+        player = Player.objects(member=user, isAlive=True)
+        if not player.isReady:
+            player.isReady = True
+            player.game.number_of_ready_players += 1
+            player.game.save()
+            player.save()
+            if player.game.number_of_ready_players == player.game.number_of_players:
+                player.game.goto_next_round()
+
+    else:
+        HttpResponse('Your request is not post')
 
 
 @login_required
@@ -41,3 +57,5 @@ def room(request):
             return HttpResponse('Your url is not valid')
     else:
         return HttpResponse('Your request was not get')
+
+

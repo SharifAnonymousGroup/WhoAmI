@@ -1,8 +1,10 @@
+from datetime import timedelta
 import urllib
 
 from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponse
 from django.shortcuts import render
+from django.utils import timezone
 
 from Game.models import Player, Message, Game
 
@@ -18,21 +20,29 @@ def chat(request):
 @login_required()
 def send_message(request):
     user = request.user
-    player = Player.objects.get(member=user, isAlive=True)#TODO exception handeling
-    room = player.game.code
-    message = request.GET.get('message')
-    Message.objects.create_message(sender=player, text=message, round=player.game.current_round)
-    color = eval(player.color)#TODO mishe bedoone eval zadesh chon code python ejra mishe gand mizane
+    try:
+        player = Player.objects.get(member=user, isAlive=True)
+    except:
+        HttpResponse("You are not join to a Game")
+    game = player.game
+    if timezone.now() <= game.current_round.start_time + timedelta.seconds(game.time_of_each_round):
+        room = player.game.code
+        message = request.GET.get('message')
+        Message.objects.create_message(sender=player, text=message, round=player.game.current_round)
+        color = eval(player.color)#TODO mishe bedoone eval zadesh chon code python ejra mishe gand mizane
 
-    #TODO bayad methodesh post beshe!
-    params = urllib.urlencode({
-        "message": message,
-        "sender": color[1],
-        "room": room
-    })
-    url = 'http://localhost:3333/?%s' % params
-    urllib.urlopen(url)
-    return HttpResponse()
+        #TODO bayad methodesh post beshe!
+        params = urllib.urlencode({
+            "message": message,
+            "sender": color[1],
+            "room": room
+        })
+        url = 'http://localhost:3333/?%s' % params
+        urllib.urlopen(url)
+        return HttpResponse()
+    else:
+        HttpResponse("Chat is finished")
+
 
 
 @login_required

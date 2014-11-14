@@ -1,12 +1,13 @@
 # Create your models here
+from datetime import timedelta
 import random
 import string
 import urllib
 import sys
+from django.http.response import HttpResponse
 
 from UserManagement.models import *
-from WhoAmI.settings import SITE_URL
-
+from WhoAmI.settings import SITE_URL, NODE_URL
 
 
 COLOR_CHOICES = (('r', 'red'), ('w', 'white'), ('g', 'green'), ('b', 'blue'), ('o', 'orange'),
@@ -17,7 +18,8 @@ COLOR_CHOICES = (('r', 'red'), ('w', 'white'), ('g', 'green'), ('b', 'blue'), ('
 
 class PlayerManager(models.Manager):
     def create_player(self, member, game, color):
-        player = self.model(member=member, game=game, color=color, isAlive=True, score=0)
+        player = self.model(member=member, game=game, color=color, isAlive=True, score=0,
+                            isReady=False, loos_round=None)
         player.save()
         return player
 
@@ -28,9 +30,12 @@ class Player(models.Model):
     isAlive = models.BooleanField()
     score = models.IntegerField()
     color = models.CharField(max_length=1, choices=COLOR_CHOICES)
+    isReady = models.BooleanField(default=False)
+    loos_round = models.ForeignKey('Game.Round', null=True)
     # can_vote = models.BooleanField(default=1)
     # can_voted = models.BooleanField(default=1)
     objects = PlayerManager()
+
 
     def __unicode__(self):
         return self.member.__unicode__() + " " + str(self.isAlive)
@@ -47,6 +52,7 @@ class GameManager(models.Manager):
         game.is_active = True
         game.is_started = False
         game.number_of_players = 0
+        game.number_of_ready_players = 0
         game.code = game.create_code()
         game.save()
         round = Round.objects.create_round(game, 0, timezone.now())
@@ -65,6 +71,7 @@ class Game(models.Model):
     is_started = models.BooleanField()
     name = models.CharField(max_length=30)
     number_of_players = models.IntegerField(default=0)
+    number_of_ready_players = models.IntegerField(default=0)
     current_round = models.ForeignKey('Round', null=True, related_name='current_game')
     objects = GameManager()
 
@@ -80,7 +87,7 @@ class Game(models.Model):
         return SITE_URL + 'game/rooms/?' + params
 
     def get_next_color(self):
-        #TODO colar choises's size should be at lease max allowed player!!!!
+        #TODO color choises's size should be at lease max allowed player!!!!
         array = range(0, len(COLOR_CHOICES))
         random.shuffle(array)
         for x in array:
@@ -121,6 +128,28 @@ class Game(models.Model):
         messages = Message.objects.filter(round=self.current_round)
         return messages
 
+
+    def goto_next_round(self):
+        turn = self.current_round.turn
+        round = Round.objects.create_round(self, turn + 1, timezone.now())
+
+        self.current_round = round
+        self.save()
+
+        #TODO bayad methodesh post beshe!
+        params = urllib.urlencode({
+            "round_duration": self.time_of_each_round,
+            "election_duration": 60,
+            "turn": turn,
+            "room": self.code
+        })
+        url = NODE_URL + '/set_times/?%s' % params
+        urllib.urlopen(url)
+        return HttpResponse()
+
+
+
+
     def __unicode__(self):
         return self.name
 
@@ -158,6 +187,12 @@ class Round(models.Model):
     turn = models.IntegerField()
     start_time = models.DateTimeField()
     objects = RoundManager()
+
+    def get_end_of_round(self):
+        return self.start_time + timedelta.seconds(self.game.time_of_each_round)
+
+    def calculate_result_of_election(self): #TODO do the work S)
+        pass
 
     def __unicode__(self):
         return self.game.__unicode__() + " -> " + str(self.turn)

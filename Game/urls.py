@@ -1,3 +1,6 @@
+from kombu.utils import url
+from Game.models import Game
+
 __author__ = 'Iman'
 from django.conf.urls import patterns, url
 from django.contrib import admin
@@ -5,7 +8,6 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-
 
                        url(r'^$', 'Game.views.game.game', name='game'),
 
@@ -21,6 +23,8 @@ urlpatterns = patterns('',
 
                        url(r'^endgame/$', 'Game.views.endgame.end', name='end_game'),
 
-                       url(r'^chat/$', 'Game.views.chat.chat')
+                       url(r'^chat/$', 'Game.views.chat.chat'),
+                       url(r'^end_round/$', 'Game.views.round.end_round'),
+                       url(r'^ready_for_game/$', 'Game.views.rooms.ready_for_game')
 
 )
