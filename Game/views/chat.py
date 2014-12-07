@@ -42,7 +42,7 @@ def send_message(request):
         else:
             return HttpResponse("Chat is finished")
     except:
-        HttpResponse("You are not join to a Game")
+        return HttpResponse("You are not join to a Game")
 
 
 @login_required
