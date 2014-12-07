@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponse
 from django.shortcuts import render
 from django.utils import timezone
+from gi.overrides.keysyms import seconds
 
 from Game.models import Player, Message, Game
 from WhoAmI.settings import NODE_URL
@@ -24,12 +25,11 @@ def send_message(request):
     try:
         player = Player.objects.get(member=user, isAlive=True)
         game = player.game
-        if timezone.now() <= game.current_round.start_time + timedelta.seconds(game.time_of_each_round):
+        if timezone.now() <= game.current_round.start_time + timedelta(seconds=game.time_of_each_round):
             room = player.game.code
             message = request.GET.get('message')
             Message.objects.create_message(sender=player, text=message, round=player.game.current_round)
             color = eval(player.color)#TODO mishe bedoone eval zadesh chon code python ejra mishe gand mizane
-
             #TODO bayad methodesh post beshe!
             params = urllib.urlencode({
                 "message": message,
