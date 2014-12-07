@@ -130,7 +130,7 @@ class Game(models.Model):
 
 
     def goto_next_round(self):
-        print "inja avale"
+        print "goto next round"
         turn = self.current_round.turn
         round = Round.objects.create_round(self, turn + 1, timezone.now())
 
