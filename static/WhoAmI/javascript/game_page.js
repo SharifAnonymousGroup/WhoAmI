@@ -79,7 +79,8 @@ $(document).ready(function () {
                     },
                     success: function(data) {
                         $('#message_input').val("");
-                        console.log("ajax resid");
+                        if (data == "Chat is finished")
+                            changeState('You cannot send message NOW, if you know... :)')
                     }
                 });
             }
