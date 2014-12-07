@@ -79,7 +79,7 @@ $(document).ready(function () {
                     },
                     success: function(data) {
                         $('#message_input').val("");
-                        if (data == "Chat is finished")
+                        if (data != "")
                             changeState('You cannot send message NOW, if you know... :)')
                     }
                 });
