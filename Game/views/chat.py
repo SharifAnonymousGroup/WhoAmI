@@ -36,7 +36,7 @@ def send_message(request):
                 "sender": color[1],
                 "room": room
             })
-            url = NODE_URL + '/message/?%s' % params
+            url = NODE_URL + 'message/?%s' % params
             urllib.urlopen(url)
             return HttpResponse()
         else:

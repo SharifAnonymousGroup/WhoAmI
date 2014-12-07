@@ -1,5 +1,5 @@
-from kombu.utils import url
-from Game.models import Game
+
+
 
 __author__ = 'Iman'
 from django.conf.urls import patterns, url
