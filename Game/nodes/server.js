@@ -41,7 +41,11 @@ function validation(socket) {
 
 app.get('/set_times', function (request, response) {
     console.log('set time umad');
+
     var params = url.parse(request.url, true).query;
+    var end_round_time  =  parseInt(params.round_duration) + parseInt(params.election_duration)
+    console.log(end_round_time);
+    console.log("salam be to chaghal");
     if(params.turn ==0){
         io.to(params.room).emit('game_start',params);
         console.log("game start");
@@ -49,7 +53,7 @@ app.get('/set_times', function (request, response) {
         setTimeout(function () {
             io.to(params.room).emit('election_start', params);
             console.log("election start");
-        }, params.round_duration);
+        }, params.round_duration *1000);
     setTimeout(function () {
         io.to(params.room).emit('round_start',params);
         console.log("round start");
@@ -61,13 +65,7 @@ app.get('/set_times', function (request, response) {
 //                room : params.room
 //            }
 //        });
-        var post_options = {
-            host: "http://localhost",
-            port : '8000',
-            path: '/game/end_round',
-            method:'POST'
-        };
-        var post_req = http.request(post_options,function(response){
+        var post_req = http.get('http://localhost:8000/game/end_round', function(response){
             var str = '';
             response.on('data', function (chunk) {
                 str += chunk;
@@ -80,7 +78,7 @@ app.get('/set_times', function (request, response) {
         post_req.write("hello zakhar");
         post_req.end();
 
-    }, params.round_duration + params.election_duration);
+    }, end_round_time * 1000);
 
 
     response.end();
