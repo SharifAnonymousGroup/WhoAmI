@@ -45,7 +45,6 @@ app.get('/set_times', function (request, response) {
     var params = url.parse(request.url, true).query;
     var end_round_time  =  parseInt(params.round_duration) + parseInt(params.election_duration)
     console.log(end_round_time);
-    console.log("salam be to chaghal");
     if(params.turn ==0){
         io.to(params.room).emit('game_start',params);
         console.log("game start");

@@ -43,6 +43,7 @@ $(document).ready(function () {
     socket.emit('room', room);
 
     socket.on('election_start', function(params) {
+        console.log("election started");
         changeState('Election of round ' + params.round + 'start');
     });
 
