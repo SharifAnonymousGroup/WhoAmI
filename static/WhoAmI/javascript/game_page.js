@@ -42,6 +42,7 @@ $(document).ready(function () {
     socket.emit('room', room);
 
     socket.on('election_start', function(params) {
+        console.log("election started");
         changeState('Election of round ' + params.round + 'start');
     });
 
@@ -78,7 +79,7 @@ $(document).ready(function () {
                     },
                     success: function(data) {
                         $('#message_input').val("");
-                        if (data == "Chat is finished")
+                        if (data != "")
                             changeState('You cannot send message NOW, if you know... :)')
                     }
                 });

@@ -140,7 +140,7 @@ class Game(models.Model):
         #TODO bayad methodesh post beshe!
         params = urllib.urlencode({
             "round_duration": self.time_of_each_round,
-            "election_duration": 60,
+            "election_duration": 20,
             "turn": turn,
             "room": self.code
         })
