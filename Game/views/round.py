@@ -10,4 +10,4 @@ def end_round(request):
     game = Game.objects.get(code=room_code)
     game.current_round.calculate_result_of_election()
     game.goto_next_round()
-    return HttpResponse()
+    return HttpResponse("javabe endgame django be node")

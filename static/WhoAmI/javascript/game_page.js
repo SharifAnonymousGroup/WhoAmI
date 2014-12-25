@@ -9,7 +9,6 @@ $(document).ready(function() {
 });
 
 
-
 $(document).ready(function() {
     $("#player1").click(function() {
         $(this).toggleClass("active, visible");

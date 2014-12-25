@@ -194,6 +194,7 @@ class Round(models.Model):
         return self.start_time + timedelta.seconds(self.game.time_of_each_round)
 
     def calculate_result_of_election(self): #TODO do the work S)
+
         pass
 
     def __unicode__(self):

@@ -43,11 +43,12 @@ def election_request(request):
             try:
                 election_form[color]
             except:
-                response = {'is_success': False,
-                            'message': "You cheat because you change the color.your score is minez " + unicode(
-                                len(players))}
-                player.score -= len(players)
-                return HttpResponse(json.dumps(response), content_type="application/json")
+                pass
+                # response = {'is_success': False,
+                #             'message': "You cheat because you change the color.your score is minez " + unicode(
+                #                 len(players))}
+                # player.score -= len(players)
+                # return HttpResponse(json.dumps(response), content_type="application/json")
         target_list = []
         for color in colors:
             try:
@@ -65,7 +66,6 @@ def election_request(request):
                 except:
                     Vote.objects.create_vote(round=game.current_round, voter=player, color=color, target=target_player)
                     print "nistesh"
-
 
                 # TODO bayad to model ha vote (voter,round) ro yekta konim ke felan balad nistam :))))))))
                 if eval(player.color)[1] == color:
