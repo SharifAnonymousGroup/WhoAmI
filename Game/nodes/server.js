@@ -95,9 +95,8 @@ app.get('/set_times', function (request, response) {
         });
 //        post_req.write("hello zakhar");
         post_req.end();
-        setTimeout( function(){
-                console.log("before this must be connected");
-            }, 1000);
+        
+        console.log("before this must be connected");
     }, end_round_time * 1000);
 
     console.log("fuck your");
