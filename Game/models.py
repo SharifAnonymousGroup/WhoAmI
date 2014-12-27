@@ -2,8 +2,10 @@
 from datetime import timedelta
 import random
 import string
+from twisted.test.test_sslverify import counter
 import urllib
 import sys
+
 from django.http.response import HttpResponse
 
 from UserManagement.models import *
@@ -11,9 +13,9 @@ from WhoAmI.settings import SITE_URL, NODE_URL
 
 
 COLOR_CHOICES = (('r', 'red'), ('w', 'white'), ('g', 'green'), ('b', 'blue'), ('o', 'orange'),
-                ('y', 'yellow'), ('p', 'purple'), ('x', 'pink'), ('q', 'grey'), ('k', 'black'),
-                ('l', 'lightskyblue'), ('a', 'antiquewhite'), ('t', 'teal'), ('c', 'chocolate'),
-                ('d','darkgoldenrod'))
+                 ('y', 'yellow'), ('p', 'purple'), ('x', 'pink'), ('q', 'grey'), ('k', 'black'),
+                 ('l', 'lightskyblue'), ('a', 'antiquewhite'), ('t', 'teal'), ('c', 'chocolate'),
+                 ('d', 'darkgoldenrod'))
 
 
 class PlayerManager(models.Manager):
@@ -48,7 +50,7 @@ class GameManager(models.Manager):
     def create_game(self, name, time_of_each_round, max_number_of_players, creator):
         game = self.model(name=name, time_of_each_round=time_of_each_round,
                           max_number_of_players=max_number_of_players, creator=creator,
-                          )
+        )
         game.is_active = True
         game.is_started = False
         game.number_of_players = 0
@@ -87,7 +89,7 @@ class Game(models.Model):
         return SITE_URL + 'game/rooms/?' + params
 
     def get_next_color(self):
-        #TODO color choises's size should be at lease max allowed player!!!!
+        # TODO color choises's size should be at lease max allowed player!!!!
         array = range(0, len(COLOR_CHOICES))
         random.shuffle(array)
         for x in array:
@@ -115,9 +117,9 @@ class Game(models.Model):
         self.number_of_players += 1
         player = Player.objects.create_player(member=member, game=self, color=self.get_next_color())
         self.save()
-        print >>sys.stderr, "player for " + member.username + \
-                            " created and jont the game " + self.name + \
-                            " by color " + player.color[1]
+        print >> sys.stderr, "player for " + member.username + \
+                             " created and jont the game " + self.name + \
+                             " by color " + player.color[1]
 
     def remove_member(self, member):
         self.players.get(member=member).delete()
@@ -137,7 +139,7 @@ class Game(models.Model):
         self.current_round = round
         self.save()
 
-        #TODO bayad methodesh post beshe!
+        # TODO bayad methodesh post beshe!
         params = urllib.urlencode({
             "round_duration": self.time_of_each_round,
             "election_duration": 20,
@@ -150,8 +152,6 @@ class Game(models.Model):
         return HttpResponse()
 
 
-
-
     def __unicode__(self):
         return self.name
 
@@ -159,9 +159,9 @@ class Game(models.Model):
 class MessageManager(models.Manager):
     def create_message(self, sender, round, text):
         message = self.model(sender=sender, round=round, text=text)
-#        print text
+        # print text
         message.save()
-#        print message
+        # print message
         return message
 
 
@@ -193,10 +193,19 @@ class Round(models.Model):
     def get_end_of_round(self):
         return self.start_time + timedelta.seconds(self.game.time_of_each_round)
 
-    def calculate_result_of_election(self): #TODO do the work S)
-
-        pass
-
+    def calculate_result_of_election(self):  # TODO do the work S)
+        try:
+            votes = Vote.objects.filter(round=self)
+            for vote in votes:
+                if vote.color == eval(vote.target.color)[1]:
+                    vote.voter.score += 1
+                    vote.target.score -= 1
+                    vote.vote.save()
+                    vote.target.save()
+            print "in goh nakhorde"
+        except:
+            print "in goh khorde"
+            pass
     def __unicode__(self):
         return self.game.__unicode__() + " -> " + str(self.turn)
 

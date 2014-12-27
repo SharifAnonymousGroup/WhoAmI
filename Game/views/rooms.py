@@ -4,10 +4,10 @@ from django.shortcuts import render
 
 from Game.models import Game, Player
 from Game.views.election import election
-from UserManagement.models import Member
 
 
 __author__ = 'Iman'
+
 
 @login_required
 def ready_for_game(request):
@@ -17,12 +17,13 @@ def ready_for_game(request):
         print player
         print player.game.max_number_of_players
         print player.game.number_of_ready_players
+        player_is_ready = player.isReady
         if not player.isReady:
             player.isReady = True
             player.game.number_of_ready_players += 1
             player.game.save()
             player.save()
-        if player.game.number_of_ready_players == player.game.max_number_of_players:
+        if player.game.number_of_ready_players == player.game.max_number_of_players and not player_is_ready:
             player.game.goto_next_round()
         return HttpResponse("it's ok")
 
@@ -46,7 +47,7 @@ def room(request):
                                'round': game.current_round}
                         election_dic = election(request)
                         z = dict(dic.items() + election_dic.items())
-                        return render(request, 'WhoAmI/game_page.html',  z)
+                        return render(request, 'WhoAmI/game_page.html', z)
                     else:
                         return HttpResponse('room is full!')
                 else:

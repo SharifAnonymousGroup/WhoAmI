@@ -34,25 +34,35 @@ $(document).ready(function () {
     //$(document).scrollTop($(document).height());
     var chat_box = $('#message-box');
     chat_box.scrollTop(chat_box.prop('scrollHeight'));
-    var room = $("#room").val();
+    room = $("#room").val();
     console.log("jeddan chera?");
     console.log(room);
     var socket = io.connect('http://localhost:8080');
+    //socket.emit('room', room);
 
-    socket.emit('room', room);
-
+    socket.on("send_your_room",function(params){
+        socket.emit('room',room);
+    });
     socket.on('election_start', function(params) {
-        console.log("election started");
-        changeState('Election of round ' + params.round + 'start');
+        console.log("election started from now");
+        changeState('Election of round ' + params.turn + 'start');
+    });
+
+    socket.on('disconnect', function(params){
+        console.log('some one disconnected');
     });
 
     socket.on('game_start', function(params) {
         startGame();
     });
-
+    socket.on('clean_chat_box',function(params){
+        console.log("clean_chat_box");
+        chat_box.html("");
+    });
     socket.on('round_start', function(params) {
-        var prevRound = parseInt(params.round) - 1;
-        changeState('Election of round' + prevRound + 'end' + "<br>" + 'Round' + params.round + start);
+        console.log("round started");
+        var prevRound = parseInt(params.turn) - 1;
+        changeState('Election of round' + prevRound + 'end' + ";" + 'Round' + params.turn+ start);
     });
 
     socket.on('message', function (params) {
@@ -79,8 +89,8 @@ $(document).ready(function () {
                     },
                     success: function(data) {
                         $('#message_input').val("");
-                        if (data != "")
-                            changeState('You cannot send message NOW, if you know... :)')
+//                        if (data != "")
+//                            changeState('You cannot send message NOW, if you know... :)')
                     }
                 });
             }
