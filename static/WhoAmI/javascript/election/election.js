@@ -4,6 +4,10 @@
 //http://stackoverflow.com/questions/23805121/how-to-receive-a-list-in-jquery-from-djangopython
 
 $(document).ready(function () {
+    $('#election_form').submit(function () {
+        console.log('injaa miaaad Dgee!');
+        send_election_form();
+    });
     var players = JSON.parse($('#json_players').html());
 
 
@@ -48,7 +52,4 @@ function send_election_form() {
 
 }
 $(document).ready(function () {
-    $('#election_form').submit(function () {
-        send_election_form();
-    });
 });

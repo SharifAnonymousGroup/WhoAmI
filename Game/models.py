@@ -2,8 +2,10 @@
 from datetime import timedelta
 import random
 import string
+from sys import maxsize
 import urllib
 import sys
+from django.core.validators import MaxValueValidator
 
 from django.http.response import HttpResponse
 
@@ -64,7 +66,11 @@ class GameManager(models.Manager):
 class Game(models.Model):
     time_of_each_round = models.IntegerField()  # in second
     current_players = models.IntegerField(default=0)
-    max_number_of_players = models.IntegerField()
+    #TODO:: age exeption khord havasemun besh bashe
+    max_number_of_players = models.IntegerField(validators=[
+        MaxValueValidator(15)
+    ])
+    #TODO:: What is this creator? :D
     creator = models.ForeignKey('UserManagement.Member')
     code = models.CharField(max_length=40)
     create_time = models.DateTimeField(auto_now=True)
@@ -76,7 +82,8 @@ class Game(models.Model):
     current_round = models.ForeignKey('Round', null=True, related_name='current_game')
     objects = GameManager()
 
-    def create_code(self):
+    @staticmethod
+    def create_code():
         chars = string.ascii_letters + string.digits
         size = 40
         return ''.join(random.choice(chars) for _ in range(size))
@@ -88,7 +95,6 @@ class Game(models.Model):
         return SITE_URL + 'game/rooms/?' + params
 
     def get_next_color(self):
-        # TODO color choises's size should be at lease max allowed player!!!!
         array = range(0, len(COLOR_CHOICES))
         random.shuffle(array)
         for x in array:
