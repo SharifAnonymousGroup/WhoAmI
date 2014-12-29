@@ -10,24 +10,6 @@ from UserManagement.models import Member
 __author__ = 'garfild'
 
 
-@login_required
-def election(request):
-    user = request.user
-
-    # player = user.current_player
-    player = Player.objects.get(member=user, isAlive=True)
-    if player is None:
-        return HttpResponse("you was not in this room")
-    game = player.game
-
-    players = Player.objects.filter(game=game, isAlive=True)
-    colors = [eval(player.color)[1] for player in players]
-    players = [player.member.username for player in players]
-    json_players = json.dumps(players)
-    dic = {'colors': colors, 'json_players': json_players, 'players': players}
-    # print players
-    return dic
-
 
 @login_required()
 def election_request(request):
@@ -60,20 +42,18 @@ def election_request(request):
                     return HttpResponse(json.dumps(response), content_type="application/json")
                 try:
                     vote = Vote.objects.get(round=game.current_round, voter=player, color=color)
-                    print "hastesh"
                     vote.target = target_player
                     vote.save()
                 except:
                     Vote.objects.create_vote(round=game.current_round, voter=player, color=color, target=target_player)
-                    print "nistesh"
 
                 # TODO bayad to model ha vote (voter,round) ro yekta konim ke felan balad nistam :))))))))
-                if eval(player.color)[1] == color:
-                    print "zakhar"
-                    target_player.score -= 1
-                    player.score += 1
-                    target_player.save()
-                    player.save()
+                # if eval(player.color)[1] == color:
+                #     print "zakhar"
+                #     target_player.score -= 1
+                #     player.score += 1
+                #     target_player.save()
+                #     player.save()
             except:
                 continue
 

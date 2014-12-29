@@ -62,7 +62,7 @@ $(document).ready(function () {
     socket.on('round_start', function(params) {
         console.log("round started");
         var prevRound = parseInt(params.turn) - 1;
-        changeState('Election of round' + prevRound + 'end' + ";" + 'Round' + params.turn+ start);
+        changeState('round ' + prevRound +'end' + ";" + (prevRound+1) +     'Round' + "start");
     });
 
     socket.on('message', function (params) {

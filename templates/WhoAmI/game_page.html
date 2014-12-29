@@ -24,14 +24,14 @@
         Game Start!
     </div>
     <div class="content">
-        <div class="left"> Others are a lot, if you KNOW... </div>
+        <div class="left"> Others are a lot, if you KNOW...</div>
     </div>
     <div class="actions">
         <div class="ui button">Ok :)</div>
     </div>
 </div>
 
-<div hidden id="json_players">{{ json_players }}</div>
+{#<div hidden id="json_players">{{ json_players }}</div>#}
 <input type="hidden" value="{{ room.code }}" id="room">
 
 <!-- ************************navigation bar************************** -->
@@ -104,8 +104,10 @@
 
                                                 <div class="menu    vote">
                                                     {% for player in players %}
-                                                        <div class="item active" data-value={{ player }}>
-                                                            <span>{{ player }} </span></div>
+                                                        {% if player.isAlive %}
+                                                            <div class="item active" data-value={{ player }}>
+                                                                <span>{{ player.member.username }} </span></div>
+                                                        {% endif %}
                                                     {% endfor %}
 
                                                 </div>
@@ -122,28 +124,26 @@
                     </div>
                     <div class="five wide column ">
                         <div class="ui vertical menu color-menu">
-                            <a class="item"><b>Colors</b></a>
+                            <a class="item"><b>Players</b></a>
 
                             <div class="item">
                                 <div class="menu">
 
-                                    <a class="item ui blue horizontal label custom">blue</a>
-                                    <br>
-                                    <a class="item ui red horizontal  label custom">red
-                                        <div class="ui right black corner label death-label"><i
-                                                class="large white block basic icon"></i></div>
-                                    </a>
-                                    <br>
-                                    <a class="item ui green horizontal label custom">green</a>
-                                    <br>
-                                    <a class="item ui yellow_ horizontal  label custom">yellow</a>
-                                    <br>
-                                    <a class="item ui grey horizontal  label custom">grey</a>
-                                    <br>
-                                    <a class="item ui pink horizontal  label custom">pink</a>
-                                    <br>
-                                    <a class="item ui darkred horizontal  label custom">dred</a>
-                                    <br>
+                                    {#                                    <a class="item ui red horizontal  label custom">red#}
+                                    {#                                        <div class="ui right black corner label death-label"><i#}
+                                    {#                                                class="large white block basic icon"></i></div>#}
+                                    {#                                    </a>#}
+                                    {% for player in players %}
+                                        {% if player.isAlive %}
+                                            <a class="item ui green horizontal label custom"> {{ player.member.username }} {{player.color  }}</a>
+                                            </br>
+                                        {% else %}
+                                            <a class="item ui gray horizontal label custom"> {{ player.member.username }} {{ player.color }}</a>
+                                            </br>
+                                        {% endif %}
+
+                                    {% endfor %}
+
                                 </div>
                             </div>
                         </div>
@@ -163,13 +163,15 @@
             </div>
             <div id="message-box">
                 {% for mess in message %}
-                    <p><span class="label {{ mess.sender.get_color }}">{{ mess.sender.get_color }}</span>: {{ mess }}</p>
+                    <p><span class="label {{ mess.sender.get_color }}">{{ mess.sender.get_color }}</span>: {{ mess }}
+                    </p>
                 {% endfor %}
             </div>
             <div style="position: relative; width: 98%; margin: auto; height: auto;top: 1%;  border: 1px solid #dcdcdc; background-color: #ffffff;">
                 <div class="ui fluid action input" style="height: 70%;">
                     <input placeholder="Message..."
-                           style="height: 140%; color: darkred; font-family: serif; border: none; " type="text" id="message_input">
+                           style="height: 140%; color: darkred; font-family: serif; border: none; " type="text"
+                           id="message_input">
 
                     <div class="ui button" style="clear: none; ">Submit</div>
                 </div>
@@ -192,7 +194,7 @@
                             <i class="user icon"></i>
                             Leave Game
                         </div>
-                         </div>
+                    </div>
                     <div class="sixteen wide column"
                          style=" height: 43px; border: 1px solid #dcdcdc; background-color: #ffffff;"></div>
                 </div>

@@ -55,7 +55,7 @@ app.get('/set_times', function (request, response) {
     console.log('set time umad');
 
     var params = url.parse(request.url, true).query;
-    var end_round_time = parseInt(params.round_duration) + parseInt(params.election_duration)
+    var end_round_time = parseInt(params.round_duration) + parseInt(params.election_duration);
     //console.log(end_round_time);
     io.to(params.room).emit('clean_chat_box', params);
     //console.log("kk " + params.room);

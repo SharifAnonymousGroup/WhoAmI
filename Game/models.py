@@ -2,7 +2,6 @@
 from datetime import timedelta
 import random
 import string
-from twisted.test.test_sslverify import counter
 import urllib
 import sys
 
@@ -193,19 +192,29 @@ class Round(models.Model):
     def get_end_of_round(self):
         return self.start_time + timedelta.seconds(self.game.time_of_each_round)
 
-    def calculate_result_of_election(self):  # TODO do the work S)
-        try:
-            votes = Vote.objects.filter(round=self)
-            for vote in votes:
-                if vote.color == eval(vote.target.color)[1]:
-                    vote.voter.score += 1
-                    vote.target.score -= 1
-                    vote.vote.save()
-                    vote.target.save()
-            print "in goh nakhorde"
-        except:
-            print "in goh khorde"
-            pass
+    def calculate_result_of_election(self):  # TODO do the work
+        votes = Vote.objects.filter(round=self)
+        players = self.game.players
+        for player in players:
+            player.score = 0
+        for vote in votes:
+            if vote.color == eval(vote.target.color)[1]:
+                vote.voter.score += 1
+                vote.target.score -= 1
+        mini = 1000
+        looser = players[0]
+        for player in players:
+            if player.isAlive:
+                if player.score < mini:
+                    mini = player.score
+        for player in players:
+            if player.score == mini:
+                player.isAlive = False
+                player.save()
+        print "scores"
+        for player in players:
+            print player.score
+
     def __unicode__(self):
         return self.game.__unicode__() + " -> " + str(self.turn)
 

@@ -1,6 +1,7 @@
 from django.http.response import HttpResponse
-from Game.models import Player
+
 from UserManagement.models import Member
+
 
 __author__ = 'po0ya'
 

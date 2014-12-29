@@ -3,7 +3,6 @@ from django.http.response import HttpResponse
 from django.shortcuts import render
 
 from Game.models import Game, Player
-from Game.views.election import election
 
 
 __author__ = 'Iman'
@@ -33,6 +32,7 @@ def ready_for_game(request):
 
 @login_required
 def room(request):
+    user = request.user
     if request.method == 'GET':
         code = request.GET.get('code', '')
         if code != '':
@@ -40,12 +40,12 @@ def room(request):
                 game = Game.objects.get(code=code)
                 if not game.is_active:
                     return HttpResponse('your link is expired')
-                if not game.have_member(request.user):
+                if not game.have_member(user):
                     if game.number_of_players < game.max_number_of_players and not game.is_started:
-                        game.add_member(request.user)
+                        game.add_member(user)
                         dic = {'room': game, 'message': game.get_round_messages(),
                                'round': game.current_round}
-                        election_dic = election(request)
+                        election_dic = get_election_information(user)
                         z = dict(dic.items() + election_dic.items())
                         return render(request, 'WhoAmI/game_page.html', z)
                     else:
@@ -53,7 +53,9 @@ def room(request):
                 else:
                     dic = {'room': game, 'message': game.get_round_messages(),
                            'round': game.current_round}
-                    election_dic = election(request)
+                    print "zakhare asli iman "
+                    election_dic = get_election_information(user)
+                    print "zakhare badi"
                     z = dict(dic.items() + election_dic.items())
                     return render(request, 'WhoAmI/game_page.html', z)
 
@@ -65,3 +67,22 @@ def room(request):
         return HttpResponse('Your request was not get')
 
 
+
+def get_election_information(user):
+
+    # player = user.current_player
+    print "ghabl"
+    player = Player.objects.get(member=user, isAlive=True)
+    print "ba'd"
+    if player is None:
+        return HttpResponse("you was not in this room")
+    game = player.game
+
+    players = Player.objects.filter(game=game, isAlive=True)
+    colors = [eval(player.color)[1] for player in players]
+    players = [player for player in players]
+    # json_players = json.dumps(players)
+    # dic = {'colors': colors, 'json_players': json_players, 'players': players}
+    dic = {'colors': colors, 'players': players}
+    # print players
+    return dic
